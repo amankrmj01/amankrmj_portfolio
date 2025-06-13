@@ -3,13 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../config.dart';
+import '../../presentation/home/home.screen.dart';
 import '../../presentation/screens.dart';
 import 'bindings/controllers/controllers_bindings.dart';
 import 'routes.dart';
 
 class EnvironmentsBadge extends StatelessWidget {
   final Widget child;
-  EnvironmentsBadge({required this.child});
+
+  const EnvironmentsBadge({super.key, required this.child});
+
   @override
   Widget build(BuildContext context) {
     var env = ConfigEnvironments.getEnvironments()['env'];
@@ -32,34 +35,14 @@ class Nav {
       binding: HomeControllerBinding(),
     ),
     GetPage(
-      name: Routes.PROJECT_DETAILS,
-      page: () => const ProjectDetailsScreen(),
-      binding: ProjectDetailsControllerBinding(),
-    ),
-    GetPage(
-      name: Routes.EXPERIENCE,
-      page: () => const ExperienceScreen(),
-      binding: ExperienceControllerBinding(),
-    ),
-    GetPage(
-      name: Routes.CONTACT_ME,
-      page: () => const ContactMeScreen(),
-      binding: ContactMeControllerBinding(),
-    ),
-    GetPage(
       name: Routes.CERTIFICATE,
       page: () => const CertificateScreen(),
       binding: CertificateControllerBinding(),
     ),
     GetPage(
-      name: Routes.ABOUT,
-      page: () => const AboutScreen(),
-      binding: AboutControllerBinding(),
-    ),
-    GetPage(
-      name: Routes.PROJECTS,
-      page: () => const ProjectsScreen(),
-      binding: ProjectsControllerBinding(),
+      name: Routes.WORKS,
+      page: () => const WorksScreen(),
+      binding: WorksControllerBinding(),
     ),
   ];
 }

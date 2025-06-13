@@ -6,11 +6,7 @@ class Routes {
     return HOME;
   }
 
-  static const ABOUT = '/about';
   static const CERTIFICATE = '/certificate';
-  static const CONTACT_ME = '/contact-me';
-  static const EXPERIENCE = '/experience';
   static const HOME = '/home';
-  static const PROJECT_DETAILS = '/project-details';
-  static const PROJECTS = '/projects';
+  static const WORKS = '/works';
 }

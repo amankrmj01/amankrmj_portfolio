@@ -19,31 +19,30 @@ class HoverAnimatedButton extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => AnimatedContainer(
-        transformAlignment: Alignment.center,
-        duration: Duration(milliseconds: 400),
-        decoration: BoxDecoration(
-          color:
-              controller.hoverStates[index]
-                  ? KColor.secondaryColor
-                  : Colors.white,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        curve: Curves.easeInOut,
-        transform:
-            controller.hoverStates[index]
-                ? (Matrix4.identity()..scale(1.2))
-                : Matrix4.identity(),
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: Text(
-          label,
-          style: TextStyle(
-            color:
-                controller.hoverStates[index]
-                    ? KColor.primarySecondColor
-                    : Colors.black,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
+      () => IntrinsicWidth(
+        child: AnimatedContainer(
+          transformAlignment: Alignment.center,
+          duration: Duration(milliseconds: 400),
+          decoration: BoxDecoration(
+            color: controller.hoverStates[index]
+                ? KColor.secondaryColor.withAlpha((255 * 0.9).toInt())
+                : Colors.white,
+            borderRadius: BorderRadius.circular(50),
+          ),
+          curve: Curves.easeInOut,
+          transform: controller.hoverStates[index]
+              ? (Matrix4.identity()..scale(1.05))
+              : Matrix4.identity(),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: Text(
+            label,
+            style: TextStyle(
+              color: controller.hoverStates[index]
+                  ? KColor.primaryColor
+                  : Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
