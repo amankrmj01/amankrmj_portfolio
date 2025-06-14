@@ -27,20 +27,6 @@ class HomeDesktopScreen extends GetView<HomeController> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // Positioned(
-            //   left: 0,
-            //   right: 0,
-            //   bottom: 10, // 10 pixels from the bottom
-            //   child: Material(
-            //     color: Colors.transparent,
-            //     child: SizedBox(
-            //       width: 600, // match your Rive container width
-            //       // height: 300, // match your Rive container height
-            //       height: 500,
-            //       child: RiveHoverAnimation(),
-            //     ),
-            //   ),
-            // ),
             Theme(
               data: Theme.of(context).copyWith(
                 scrollbarTheme: ScrollbarThemeData(
@@ -59,7 +45,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                 child: CustomScrollView(
                   controller: controller.scrollController,
                   slivers: [
-                    topFloatingBar(),
+                    SliverToBoxAdapter(child: SizedBox(height: 120)),
                     SliverToBoxAdapter(
                       child: Center(
                         child: AnimatedContainer(
@@ -96,6 +82,15 @@ class HomeDesktopScreen extends GetView<HomeController> {
                 ),
               ),
             ),
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: topFloatingBar(),
+              ),
+            ), // Move this to be the first child in the Stack
           ],
         ),
       ),
@@ -301,22 +296,25 @@ class HomeDesktopScreen extends GetView<HomeController> {
     );
   }
 
-  SliverAppBar topFloatingBar() {
-    return SliverAppBar(
-      pinned: true,
-      backgroundColor: Colors.transparent,
-      elevation: 4,
-      floating: true,
-      flexibleSpace: Obx(
+  // Remove SliverAppBar and use a fixed header at the top of the Stack
+  Widget topFloatingBar() {
+    return Container(
+      height: 90,
+      width: 600,
+      alignment: Alignment.bottomCenter,
+      // No width property, so it will size to its child
+      margin: EdgeInsets.only(bottom: 0),
+      padding: EdgeInsets.zero,
+      color: Colors.transparent,
+      child: Obx(
         () => AnimatedAlign(
           duration: Duration(milliseconds: 400),
           alignment: controller.isScrolling.value
-              ? Alignment(0, -14.5)
-              : Alignment.topCenter,
+              ? Alignment(0, -4.0)
+              : Alignment.bottomCenter,
           child: HomeBarView(),
         ),
       ),
-      toolbarHeight: 120,
     );
   }
 }

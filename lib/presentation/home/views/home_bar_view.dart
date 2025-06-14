@@ -14,9 +14,9 @@ class HomeBarView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return AnimatedContainer(
       alignment: Alignment.center,
-      margin: EdgeInsets.symmetric(horizontal: 40, vertical: 30),
+
       duration: Duration(milliseconds: 300),
-      height: 50,
+      height: 60,
       // width: MediaQuery.of(context).size.width * 0.8,
       // constraints: BoxConstraints(
       //   maxWidth: MediaQuery.of(context).size.width * 0.4,
@@ -36,6 +36,7 @@ class HomeBarView extends GetView<HomeController> {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.max,
         children: List.generate(labels.length, (index) {
           return MouseRegion(
             onEnter: (event) {

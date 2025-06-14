@@ -26,7 +26,7 @@ class WorksScreen extends StatelessWidget {
         final cert = projects[index];
         return KCard(info: cert);
       },
-      childCount: projects.length <= 3 ? projects.length : 3,
+      childCount: projects.length <= 4 ? projects.length : 4,
     );
   }
 }
