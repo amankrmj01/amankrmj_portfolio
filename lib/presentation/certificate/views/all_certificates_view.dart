@@ -46,17 +46,36 @@ class AllCertificatesView extends GetView {
               crossAxisSpacing: 20,
               itemBuilder: (context, index) {
                 final cert = certificateList[index];
-                return OpenContainer(
-                  closedElevation: 0,
-                  openElevation: 0,
-                  closedColor: Colors.transparent,
-                  openColor: Colors.transparent,
-                  transitionType: ContainerTransitionType.fadeThrough,
-                  transitionDuration: const Duration(milliseconds: 500),
-                  closedBuilder: (context, openContainer) =>
-                      KCard(info: cert, onTap: openContainer),
-                  openBuilder: (context, _) =>
-                      CertificateView(certificate: cert),
+                return Builder(
+                  builder: (context) => KCard(
+                    info: cert,
+                    onTap: () {
+                      showGeneralDialog(
+                        context: context,
+                        barrierDismissible: true,
+                        barrierLabel: 'Certificate',
+                        barrierColor: Colors.black.withOpacity(0.4),
+                        pageBuilder: (context, anim1, anim2) {
+                          return BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+                            child: CertificateView(
+                              certificate: cert,
+                              onClose: () => Navigator.of(context).maybePop(),
+                            ),
+                          );
+                        },
+                        transitionBuilder: (context, anim1, anim2, child) {
+                          return FadeTransition(
+                            opacity: CurvedAnimation(
+                              parent: anim1,
+                              curve: Curves.easeInOut,
+                            ),
+                            child: child,
+                          );
+                        },
+                      );
+                    },
+                  ),
                 );
               },
               childCount: certificateList.length,
