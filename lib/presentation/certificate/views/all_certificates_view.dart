@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:ui';
 
 import 'package:amankrmj_portfolio/configs/certificate_list.dart';
@@ -56,7 +58,9 @@ class AllCertificatesView extends GetView {
                         context: context,
                         barrierDismissible: true,
                         barrierLabel: 'Certificate',
-                        barrierColor: Colors.black.withOpacity(0.4),
+                        barrierColor: Colors.black.withAlpha(
+                          (0.4 * 255).toInt(),
+                        ),
                         pageBuilder: (context, anim1, anim2) {
                           return BackdropFilter(
                             filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),

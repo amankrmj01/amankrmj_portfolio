@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -65,10 +67,8 @@ class CertificateView extends StatelessWidget {
                                 () => Navigator.of(context).maybePop(),
                             tooltip: 'Close',
                             style: ButtonStyle(
-                              iconColor: MaterialStateProperty.all(
-                                Colors.black,
-                              ),
-                              overlayColor: MaterialStateProperty.all(
+                              iconColor: WidgetStateProperty.all(Colors.black),
+                              overlayColor: WidgetStateProperty.all(
                                 Colors.black12,
                               ),
                             ),

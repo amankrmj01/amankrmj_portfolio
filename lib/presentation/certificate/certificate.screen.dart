@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'package:amankrmj_portfolio/configs/certificate_list.dart';
 import 'package:amankrmj_portfolio/presentation/certificate/views/all_certificates_view.dart';
 import 'package:amankrmj_portfolio/widgets/animated.navigate.button.dart';
