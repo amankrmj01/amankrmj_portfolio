@@ -10,6 +10,7 @@ class AnimatedNavigateButton extends StatefulWidget {
   final double? width;
   final double? height;
   final bool? isHovered;
+  final double? borderRadius;
 
   const AnimatedNavigateButton({
     super.key,
@@ -21,6 +22,7 @@ class AnimatedNavigateButton extends StatefulWidget {
     this.width,
     this.height,
     this.isHovered,
+    this.borderRadius,
   });
 
   @override
@@ -57,7 +59,7 @@ class _AnimatedNavigateButtonState extends State<AnimatedNavigateButton> {
         height: widget.height ?? 48,
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(24),
+          borderRadius: BorderRadius.circular(widget.borderRadius ?? 24),
           border: Border.all(color: borderColor, width: 1),
           boxShadow: [
             BoxShadow(

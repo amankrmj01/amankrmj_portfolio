@@ -1,5 +1,5 @@
 import 'package:amankrmj_portfolio/presentation/home/views/home_bar_view.dart';
-import 'package:amankrmj_portfolio/presentation/home/widgets/animated.navigate.button.dart';
+import 'package:amankrmj_portfolio/widgets/animated.navigate.button.dart';
 import 'package:amankrmj_portfolio/presentation/home/widgets/animated.rotate.icon.dart';
 import 'package:amankrmj_portfolio/presentation/home/widgets/code.block.dart';
 import 'package:amankrmj_portfolio/presentation/home/widgets/flicker.once.text.dart';
