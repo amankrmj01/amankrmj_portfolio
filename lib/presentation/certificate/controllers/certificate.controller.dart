@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
 
+import '../../../domain/models/certificate_info.dart';
+import '../../../infrastructure/dal/services/certificate_service.dart';
+
 class CertificateController extends GetxController {
-  //TODO: Implement CertificateController
-
-  final count = 0.obs;
-
-
-
-  void increment() => count.value++;
+  Future<List<CertificateInfo>> fetchCertificates() async {
+    final service = Get.find<CertificateService>();
+    return await service.fetchAll();
+  }
 }

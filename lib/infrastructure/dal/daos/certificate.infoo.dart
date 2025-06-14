@@ -1,6 +1,6 @@
 import '../../../domain/models/info.model.dart';
 
-class ProjectInfo implements InfoModel {
+class CertificateInfoo implements InfoModel {
   @override
   final String name;
   @override
@@ -12,11 +12,15 @@ class ProjectInfo implements InfoModel {
   @override
   final String largeDescription;
 
-  const ProjectInfo({
+  @override
+  final String type;
+
+  const CertificateInfoo({
     required this.name,
     required this.description,
     required this.url,
     required this.images,
     required this.largeDescription,
+    required this.type,
   });
 }

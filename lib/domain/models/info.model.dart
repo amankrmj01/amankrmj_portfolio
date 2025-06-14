@@ -8,4 +8,6 @@ abstract class InfoModel {
   List<String> get images;
 
   String get largeDescription;
+
+  String get type;
 }

@@ -11,6 +11,7 @@ class CertificateInfo implements InfoModel {
   final List<String> images;
   @override
   final String largeDescription;
+  @override
   final String type;
 
   CertificateInfo({

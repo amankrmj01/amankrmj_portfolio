@@ -1,11 +1,11 @@
 import 'dart:convert';
+import 'package:amankrmj_portfolio/configs/constant_strings.dart';
 import 'package:http/http.dart' as http;
 import 'package:amankrmj_portfolio/domain/models/projects_info.dart';
 import 'abstract.service.dart';
 
 class ProjectService extends AbstractService<ProjectInfo> {
-  static const String projectsUrl =
-      'https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/projects.json';
+  static const String projectsUrl = '${assetGithubUrl}projects.json';
 
   @override
   Future<List<ProjectInfo>> fetchAll() async {

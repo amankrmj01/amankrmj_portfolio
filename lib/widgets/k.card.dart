@@ -62,6 +62,8 @@ class _KCardState extends State<KCard> {
                         color: Colors.black,
                         decoration: TextDecoration.none,
                       ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 8),
                     Text(
@@ -80,7 +82,7 @@ class _KCardState extends State<KCard> {
                         color: Colors.black54,
                         decoration: TextDecoration.none,
                       ),
-                      maxLines: 6,
+                      maxLines: 4,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],

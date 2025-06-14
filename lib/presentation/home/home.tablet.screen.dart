@@ -1,26 +1,71 @@
-// import 'dart:io';
-//
-// import 'package:amankrmj_portfolio/presentation/home/views/home_bar_view.dart';
-// import 'package:flutter/material.dart';
-//
-// import 'package:get/get.dart';
-// import 'package:http/http.dart' as http;
-// import 'package:path_provider/path_provider.dart';
-// import 'package:pdf_image_renderer/pdf_image_renderer.dart';
-//
-// import 'controllers/home.controller.dart';
-// import 'package:amankrmj_portfolio/utils/pdf.render.image.dart';
-// import 'package:amankrmj_portfolio/infrastructure/dal/services/certificate_service.dart';
-//
-// class HomeTabletScreen extends GetView<HomeController> {
-//   const HomeTabletScreen({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(body: SafeArea(child: PdfImageTestWidget()));
-//   }
-// }
-//
+import 'dart:io';
+
+import 'package:amankrmj_portfolio/presentation/home/views/home_bar_view.dart';
+import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf_image_renderer/pdf_image_renderer.dart';
+
+import 'controllers/home.controller.dart';
+import 'package:amankrmj_portfolio/utils/pdf.render.image.dart';
+import 'package:amankrmj_portfolio/infrastructure/dal/services/certificate_service.dart';
+import 'package:amankrmj_portfolio/domain/models/certificate_info.dart';
+import 'package:amankrmj_portfolio/widgets/k.temp.image.dart';
+
+
+class HomeTabletScreen extends GetView<HomeController> {
+  const HomeTabletScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: SafeArea(
+        child: FutureBuilder<List<CertificateInfo>>(
+          future: controller.fetchCertificates(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text('Error: ${snapshot.error}',
+                  style: const TextStyle(color: Colors.black, fontSize: 24)));
+            } else if (snapshot.hasData) {
+              final certs = snapshot.data!;
+              return SingleChildScrollView(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: certs.map((e) {
+                    if (e.type == 'jpg' && e.images.isNotEmpty) {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 24),
+                        child: KTempImage(imageUrl: e.images.first),
+                      );
+                    } else {
+                      return const SizedBox.shrink();
+                    }
+                  }).toList(),
+                ),
+              );
+            } else {
+              return const Center(child: Text('No data found.',
+                  style: TextStyle(color: Colors.black, fontSize: 24)));
+            }
+          },
+        ),
+      ),
+    );
+  }
+}
+
+extension on HomeController {
+  Future<List<CertificateInfo>> fetchCertificates() async {
+    final service = Get.find<CertificateService>();
+    return await service.fetchAll();
+  }
+}
+
 // class PdfImageTestWidget extends StatefulWidget {
 //   const PdfImageTestWidget({super.key});
 //
@@ -74,37 +119,34 @@
 //     if (loading) return Center(child: CircularProgressIndicator());
 //     if (error != null) return Center(child: Text('Error: $error'));
 //     if (pdfUrl == null) return Center(child: Text('No PDF URL'));
-//     return PdfImageLoader(pdfUrl: pdfUrl!);
+//     // return PdfImageLoader(pdfUrl: pdfUrl!);
+//     return SizedBox(); // Placeholder for now
 //   }
 // }
-//
-// class PdfImageLoader extends StatefulWidget {
+
+// class PdfImageLoader extends StatelessWidget {
 //   final String pdfUrl;
 //
 //   const PdfImageLoader({required this.pdfUrl, super.key});
 //
 //   @override
-//   State<PdfImageLoader> createState() => _PdfImageLoaderState();
-// }
-//
-// class _PdfImageLoaderState extends State<PdfImageLoader> {
-//   final GlobalKey<PdfImageState> _pdfImageKey = GlobalKey<PdfImageState>();
-//   bool _called = false;
-//
-//   @override
-//   void didChangeDependencies() {
-//     super.didChangeDependencies();
-//     if (!_called) {
-//       WidgetsBinding.instance.addPostFrameCallback((_) {
-//         _pdfImageKey.currentState?.renderPdfFromUrl(widget.pdfUrl);
-//       });
-//       _called = true;
-//     }
-//   }
-//
-//   @override
 //   Widget build(BuildContext context) {
-//     return PdfImage(key: _pdfImageKey);
-//
+//     return FutureBuilder<String>(
+//       future: DefaultAssetBundle.of(context).loadString('assets/certificates/certificates.json'),
+//       builder: (context, snapshot) {
+//         if (snapshot.connectionState == ConnectionState.waiting) {
+//           return const Center(child: CircularProgressIndicator());
+//         } else if (snapshot.hasError) {
+//           return Center(child: Text('Error: \\${snapshot.error}'));
+//         } else if (snapshot.hasData) {
+//           return SingleChildScrollView(
+//             padding: const EdgeInsets.all(16),
+//             child: Text(snapshot.data ?? '', style: const TextStyle(fontFamily: 'monospace')),
+//           );
+//         } else {
+//           return const Center(child: Text('No data found.'));
+//         }
+//       },
+//     );
 //   }
 // }

@@ -2,6 +2,7 @@
 
 import 'dart:ui';
 
+import 'package:amankrmj_portfolio/presentation/works/controllers/works.controller.dart';
 import 'package:amankrmj_portfolio/presentation/works/views/work_view.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:amankrmj_portfolio/widgets/k.card.dart';
@@ -12,12 +13,13 @@ import 'package:get/get.dart';
 import 'package:animations/animations.dart';
 
 import '../../../configs/projects_list.dart';
-import '../../../infrastructure/dal/daos/project.info.dart';
+import '../../../infrastructure/dal/daos/project.infoo.dart';
 import '../../../utils/axis.count.dart';
 import '../../../utils/k.showGeneralDialog.dart';
 import '../../../utils/k.transition.container.transform.dart';
+import '../../certificate/views/all_certificates_view.dart';
 
-class AllWorksView extends GetView {
+class AllWorksView extends GetView<WorksController> {
   const AllWorksView({super.key});
 
   @override
@@ -41,7 +43,7 @@ class AllWorksView extends GetView {
                     ),
                     const SizedBox(width: 8),
                     const Text(
-                      "ALL PROJECTS",
+                      "ALL Projects",
                       style: TextStyle(
                         color: Colors.black,
                         fontFamily: "ShantellSans",
@@ -55,29 +57,17 @@ class AllWorksView extends GetView {
                 ),
               ),
             ),
-            SliverMasonryGrid.count(
-              crossAxisCount: getCrossAxisCount(context),
-              mainAxisSpacing: 20,
-              crossAxisSpacing: 20,
-              itemBuilder: (context, index) {
-                final project = projects[index];
-                return Builder(
-                  builder: (context) => KCard(
-                    info: project,
-                    onTap: () {
-                      showBlurredGeneralDialog(
-                        context: context,
-                        builder: (context) => WorkView(
-                          project: project,
-                          onClose: () => Navigator.of(context).maybePop(),
-                        ),
-                        barrierLabel: 'Project',
-                      );
-                    },
+            KSliverGrid(
+              fetchData: controller.fetchProjects,
+              onCardTap: (project, context) {
+                showBlurredGeneralDialog(
+                  context: context,
+                  builder: (context) => WorkView(
+                    project: project,
+                    onClose: () => Navigator.of(context).maybePop(),
                   ),
                 );
               },
-              childCount: projects.length,
             ),
           ],
         ),

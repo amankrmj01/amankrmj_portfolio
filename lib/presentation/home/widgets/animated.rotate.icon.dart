@@ -3,19 +3,20 @@
 import 'package:amankrmj_portfolio/infrastructure/theme/colors.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AnimatedRotateIcon extends StatefulWidget {
   final Widget firstIcon;
   final Widget secondIcon;
   final String label;
-  final VoidCallback onTap;
+  final String url;
 
   const AnimatedRotateIcon({
     super.key,
     required this.firstIcon,
     required this.secondIcon,
     required this.label,
-    required this.onTap,
+    required this.url,
   });
 
   @override
@@ -30,8 +31,17 @@ class _AnimatedRotateIconState extends State<AnimatedRotateIcon> {
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
+      cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: widget.onTap,
+        onTap: () async {
+          if (await canLaunchUrl(Uri.parse(widget.url))) {
+            await launchUrl(
+              Uri.parse(widget.url),
+              mode: LaunchMode.externalApplication,
+              webOnlyWindowName: '_blank',
+            );
+          }
+        },
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [

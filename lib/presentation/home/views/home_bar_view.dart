@@ -8,7 +8,7 @@ import '../controllers/home.controller.dart';
 class HomeBarView extends GetView<HomeController> {
   HomeBarView({super.key});
 
-  final List<String> labels = ['About', 'Works', 'Certificates', 'Contact'];
+  final List<String> labels = ['About', 'Works', 'Certificates', 'Journey'];
 
   @override
   Widget build(BuildContext context) {

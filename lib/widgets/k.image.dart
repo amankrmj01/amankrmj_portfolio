@@ -14,11 +14,12 @@ class KImage extends StatelessWidget {
         ? info.images[0]
         : 'https://placehold.co/600x400/000000/FFFFFF/png';
     return Padding(
-      padding: const EdgeInsets.all(5.0),
+      padding: const EdgeInsets.all(10.0),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Image.network(
           imageUrl,
+          // height: 700,
           fit: BoxFit.fitHeight,
           errorBuilder: (context, error, stackTrace) => Container(
             color: Colors.grey[300],

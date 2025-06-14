@@ -56,7 +56,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              displayLinesWithCodeBloack(),
+                              displayLinesWithCodeBlock(),
                               aboutMeLines(),
                               navigateButtonAndSocialLinks(),
                             ],
@@ -153,6 +153,18 @@ class HomeDesktopScreen extends GetView<HomeController> {
               icon: Icons.arrow_forward,
               onTap: () {
                 final ctx = HomeDesktopScreen._recentWorksKey.currentContext;
+
+                // Cancel any ongoing scroll animations if a ScrollController is attached
+                final scrollableState = Scrollable.of(ctx!);
+                final position = scrollableState.position;
+                if (position is ScrollPositionWithSingleContext &&
+                    position.isScrollingNotifier.value) {
+                  position.animateTo(
+                    position.pixels,
+                    duration: Duration.zero,
+                    curve: Curves.linear,
+                  );
+                }
                 if (ctx != null) {
                   Scrollable.ensureVisible(
                     ctx,
@@ -184,7 +196,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     height: 32,
                   ),
                   label: "Github",
-                  onTap: () {},
+                  url: githubUrl,
                 ),
                 VerticalDivider(width: 16, thickness: 2, color: Colors.black),
                 AnimatedRotateIcon(
@@ -199,7 +211,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     height: 32,
                   ),
                   label: "LinkedIn",
-                  onTap: () {},
+                  url: linkedInUrl,
                 ),
                 VerticalDivider(width: 16, thickness: 2, color: Colors.black),
                 AnimatedRotateIcon(
@@ -214,7 +226,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     height: 32,
                   ),
                   label: "Instagram",
-                  onTap: () {},
+                  url: instagramUrl,
                 ),
                 VerticalDivider(width: 16, thickness: 2, color: Colors.black),
                 AnimatedRotateIcon(
@@ -229,7 +241,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     height: 32,
                   ),
                   label: "Discord",
-                  onTap: () {},
+                  url: discordUrl,
                 ),
               ],
             ),
@@ -274,7 +286,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
     );
   }
 
-  Row displayLinesWithCodeBloack() {
+  Row displayLinesWithCodeBlock() {
     return Row(
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[

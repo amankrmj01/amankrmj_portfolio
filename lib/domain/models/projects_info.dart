@@ -12,12 +12,16 @@ class ProjectInfo implements InfoModel {
   @override
   final String largeDescription;
 
+  @override
+  final String type;
+
   ProjectInfo({
     required this.name,
     required this.description,
     required this.url,
     required this.images,
     required this.largeDescription,
+    required this.type,
   });
 
   factory ProjectInfo.fromJson(Map<String, dynamic> json) {
@@ -27,6 +31,7 @@ class ProjectInfo implements InfoModel {
       url: json['url'] as String,
       images: List<String>.from(json['images'] as List),
       largeDescription: json['largeDescription'] as String,
+      type: json['type'] as String,
     );
   }
 
@@ -37,6 +42,7 @@ class ProjectInfo implements InfoModel {
       'url': url,
       'images': images,
       'largeDescription': largeDescription,
+      'type': type,
     };
   }
 }

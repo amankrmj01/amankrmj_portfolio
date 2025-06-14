@@ -2,14 +2,17 @@
 
 import 'dart:ui';
 
+import 'package:amankrmj_portfolio/domain/models/info.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import 'package:amankrmj_portfolio/infrastructure/dal/daos/project.info.dart';
 import 'package:amankrmj_portfolio/widgets/k.image.dart';
 
+import '../../../domain/models/certificate_info.dart';
+
 class WorkView extends StatelessWidget {
-  final ProjectInfo project;
+  final InfoModel project;
   final VoidCallback? onClose;
 
   const WorkView({super.key, required this.project, this.onClose});
@@ -21,7 +24,9 @@ class WorkView extends StatelessWidget {
         Positioned.fill(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-            child: Container(color: Colors.black.withAlpha(102)),
+            child: Container(
+              color: Colors.black.withAlpha(102), // 102/255 ≈ 0.4 opacity
+            ),
           ),
         ),
         Center(
@@ -81,7 +86,12 @@ class WorkView extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(child: KImage(info: project)),
+                            Center(
+                              child: SizedBox(
+                                height: 400,
+                                child: KImage(info: project),
+                              ),
+                            ),
                             const SizedBox(height: 24),
                             Text(
                               project.name,
@@ -110,25 +120,45 @@ class WorkView extends StatelessWidget {
                             ),
                             const SizedBox(height: 24),
                             if (project.url.isNotEmpty)
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.link,
-                                    size: 20,
-                                    color: Colors.blue,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Flexible(
-                                    child: SelectableText(
-                                      project.url,
-                                      style: const TextStyle(
-                                        color: Colors.blue,
-                                        decoration: TextDecoration.underline,
-                                        fontSize: 16,
+                              SizedBox(
+                                height: 60,
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.link,
+                                      size: 20,
+                                      color: Colors.blue,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          if (await canLaunchUrl(
+                                            Uri.parse(project.url),
+                                          )) {
+                                            await launchUrl(
+                                              Uri.parse(project.url),
+                                              mode: LaunchMode
+                                                  .externalApplication,
+                                              webOnlyWindowName: '_blank',
+                                            );
+                                          }
+                                        },
+                                        child: Text(
+                                          project.url,
+                                          style: const TextStyle(
+                                            color: Colors.blue,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            decorationColor: Colors.blue,
+                                            fontSize: 16,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                           ],
                         ),
@@ -144,21 +174,3 @@ class WorkView extends StatelessWidget {
     );
   }
 }
-
-// Update any project-specific references to work/project-specific ones as needed.
-// For example, if you have variables like 'project', change them to 'work' or 'certificate'.
-// If you have project-specific widgets, update them to their work/certificate equivalents.
-// If you want to change the displayed fields, update them here as well.
-// Example:
-// Text(
-//   work.name,
-//   style: ...
-// ),
-// ...
-// Text(
-//   work.description,
-//   style: ...
-// ),
-// ...
-// And so on for other fields.
-// If you have a list of works, make sure the data source and widgets match the work/project model.

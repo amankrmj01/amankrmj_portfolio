@@ -2,14 +2,17 @@
 
 import 'dart:ui';
 
+import 'package:amankrmj_portfolio/domain/models/info.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import 'package:amankrmj_portfolio/infrastructure/dal/daos/certificate.info.dart';
 import 'package:amankrmj_portfolio/widgets/k.image.dart';
 
+import '../../../domain/models/certificate_info.dart';
+
 class CertificateView extends StatelessWidget {
-  final CertificateInfo certificate;
+  final InfoModel certificate;
   final VoidCallback? onClose;
 
   const CertificateView({super.key, required this.certificate, this.onClose});
@@ -83,7 +86,12 @@ class CertificateView extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(child: KImage(info: certificate)),
+                            Center(
+                              child: SizedBox(
+                                height: 400,
+                                child: KImage(info: certificate),
+                              ),
+                            ),
                             const SizedBox(height: 24),
                             Text(
                               certificate.name,
@@ -112,25 +120,45 @@ class CertificateView extends StatelessWidget {
                             ),
                             const SizedBox(height: 24),
                             if (certificate.url.isNotEmpty)
-                              Row(
-                                children: [
-                                  const Icon(
-                                    Icons.link,
-                                    size: 20,
-                                    color: Colors.blue,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Flexible(
-                                    child: SelectableText(
-                                      certificate.url,
-                                      style: const TextStyle(
-                                        color: Colors.blue,
-                                        decoration: TextDecoration.underline,
-                                        fontSize: 16,
+                              SizedBox(
+                                height: 60,
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.link,
+                                      size: 20,
+                                      color: Colors.blue,
+                                    ),
+                                    const SizedBox(width: 8),
+                                    MouseRegion(
+                                      cursor: SystemMouseCursors.click,
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          if (await canLaunchUrl(
+                                            Uri.parse(certificate.url),
+                                          )) {
+                                            await launchUrl(
+                                              Uri.parse(certificate.url),
+                                              mode: LaunchMode
+                                                  .externalApplication,
+                                              webOnlyWindowName: '_blank',
+                                            );
+                                          }
+                                        },
+                                        child: Text(
+                                          certificate.url,
+                                          style: const TextStyle(
+                                            color: Colors.blue,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            decorationColor: Colors.blue,
+                                            fontSize: 16,
+                                          ),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                           ],
                         ),
