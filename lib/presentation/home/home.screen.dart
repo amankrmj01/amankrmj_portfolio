@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
             DeviceScreenType.tablet) {
           return const HomeTabletScreen();
         } else {
-          return const HomeTabletScreen();
+          return const HomeDesktopScreen();
         }
       },
     );

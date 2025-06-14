@@ -1,6 +1,6 @@
 # amankrmj_portfolio
 
-A new Flutter project.
+my portfolio
 
 ## Getting Started
 

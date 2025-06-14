@@ -8,9 +8,9 @@ import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
 
 void main() async {
-  ServiceC.setupServiceLocator();
+  // ServiceC.setupServiceLocator();
   var initialRoute = await Routes.initialRoute;
-  
+
   runApp(Main(initialRoute));
 }
 
