@@ -11,14 +11,14 @@ class KContainerTransform extends StatefulWidget {
   final VoidCallback? onClosed;
 
   const KContainerTransform({
-    Key? key,
+    super.key,
     required this.closedBuilder,
     required this.openBuilder,
     required this.isOpen,
     this.duration = const Duration(milliseconds: 500),
     this.curve = Curves.easeInOut,
     this.onClosed,
-  }) : super(key: key);
+  });
 
   @override
   State<KContainerTransform> createState() => _KContainerTransformState();

@@ -1,4 +1,5 @@
 import 'package:amankrmj_portfolio/presentation/home/views/home_bar_view.dart';
+import 'package:amankrmj_portfolio/presentation/screens.dart';
 import 'package:amankrmj_portfolio/widgets/animated.navigate.button.dart';
 import 'package:amankrmj_portfolio/presentation/home/widgets/animated.rotate.icon.dart';
 import 'package:amankrmj_portfolio/presentation/home/widgets/code.block.dart';
@@ -8,10 +9,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../configs/constant_strings.dart';
+import '../../utils/k.navigate.dart';
+import '../certificate/views/all_certificates_view.dart';
+import '../works/views/all_wroks_view.dart';
 import 'controllers/home.controller.dart';
 
 class HomeDesktopScreen extends GetView<HomeController> {
   const HomeDesktopScreen({super.key});
+
+  static final GlobalKey _recentWorksKey = GlobalKey();
+  static final GlobalKey _recentCertificatesKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -52,21 +59,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                 child: CustomScrollView(
                   controller: controller.scrollController,
                   slivers: [
-                    SliverAppBar(
-                      pinned: true,
-                      backgroundColor: Colors.transparent,
-                      elevation: 0,
-                      flexibleSpace: Obx(
-                        () => AnimatedAlign(
-                          duration: Duration(milliseconds: 400),
-                          alignment: controller.isScrolling.value
-                              ? Alignment(0, -2.5)
-                              : Alignment.topCenter,
-                          child: HomeBarView(),
-                        ),
-                      ),
-                      toolbarHeight: 120,
-                    ),
+                    topFloatingBar(),
                     SliverToBoxAdapter(
                       child: Center(
                         child: AnimatedContainer(
@@ -77,169 +70,28 @@ class HomeDesktopScreen extends GetView<HomeController> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      FlickerOnceText(text: kHomeDisplayLine01),
-                                      FlickerOnceText(
-                                        text: kHomeDisplayLine02,
-                                        delay: Duration(milliseconds: 1600),
-                                      ),
-                                    ],
-                                  ),
-                                  Spacer(),
-                                  CodeBlock(),
-                                ],
-                              ),
-                              SizedBox(
-                                height: 200,
-                                width: 500,
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text.rich(
-                                      TextSpan(
-                                        text: "$kHomeDisplayLineAboutMe01\n",
-                                        style: TextStyle(
-                                          fontSize: 24,
-                                          fontWeight: FontWeight.w800,
-                                          color: Colors.black,
-                                          fontFamily: "ShantellSans",
-                                        ),
-                                        children: [
-                                          TextSpan(
-                                            text:
-                                                "$kHomeDisplayLineAboutMe02\n",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text:
-                                                "$kHomeDisplayLineAboutMe03\n",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-
-                              SizedBox(
-                                height: 100,
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
-                                  children: [
-                                    SizedBox(
-                                      width: 210,
-                                      child: AnimatedNavigateButton(
-                                        label: 'See My Works',
-                                        icon: Icons.arrow_forward,
-                                        onTap: () {},
-                                      ),
-                                    ),
-                                    // Spacer(),
-                                    SizedBox(
-                                      height: 40,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          AnimatedRotateIcon(
-                                            firstIcon: Image.asset(
-                                              'assets/icons/github_outline.png',
-                                              width: 32,
-                                              height: 32,
-                                            ),
-                                            secondIcon: Image.asset(
-                                              'assets/icons/github_color.png',
-                                              width: 32,
-                                              height: 32,
-                                            ),
-                                            label: "Github",
-                                            onTap: () {},
-                                          ),
-                                          VerticalDivider(
-                                            width: 16,
-                                            thickness: 2,
-                                            color: Colors.black,
-                                          ),
-                                          AnimatedRotateIcon(
-                                            firstIcon: Image.asset(
-                                              'assets/icons/linkedin_outline.png',
-                                              width: 32,
-                                              height: 32,
-                                            ),
-                                            secondIcon: Image.asset(
-                                              'assets/icons/linkedin_color.png',
-                                              width: 32,
-                                              height: 32,
-                                            ),
-                                            label: "LinkedIn",
-                                            onTap: () {},
-                                          ),
-                                          VerticalDivider(
-                                            width: 16,
-                                            thickness: 2,
-                                            color: Colors.black,
-                                          ),
-                                          AnimatedRotateIcon(
-                                            firstIcon: Image.asset(
-                                              'assets/icons/instagram_outline.png',
-                                              width: 32,
-                                              height: 32,
-                                            ),
-                                            secondIcon: Image.asset(
-                                              'assets/icons/instagram_color.png',
-                                              width: 32,
-                                              height: 32,
-                                            ),
-                                            label: "Instagram",
-                                            onTap: () {},
-                                          ),
-                                          VerticalDivider(
-                                            width: 16,
-                                            thickness: 2,
-                                            color: Colors.black,
-                                          ),
-                                          AnimatedRotateIcon(
-                                            firstIcon: Image.asset(
-                                              'assets/icons/discord_outline.png',
-                                              width: 32,
-                                              height: 32,
-                                            ),
-                                            secondIcon: Image.asset(
-                                              'assets/icons/discord_color.png',
-                                              width: 32,
-                                              height: 32,
-                                            ),
-                                            label: "Discord",
-                                            onTap: () {},
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
+                              displayLinesWithCodeBloack(),
+                              aboutMeLines(),
+                              navigateButtonAndSocialLinks(),
                             ],
                           ),
                         ),
                       ),
                     ),
+                    sliverHeaderDisplay(
+                      context,
+                      title: 'Recent Works',
+                      view: const AllWorksView(),
+                      sectionKey: _recentWorksKey,
+                    ),
+                    WorksScreen(),
+                    sliverHeaderDisplay(
+                      context,
+                      title: 'Recent Certificates',
+                      view: const AllCertificatesView(),
+                      sectionKey: _recentCertificatesKey,
+                    ),
+                    CertificateScreen(),
                   ],
                 ),
               ),
@@ -247,6 +99,224 @@ class HomeDesktopScreen extends GetView<HomeController> {
           ],
         ),
       ),
+    );
+  }
+
+  SliverToBoxAdapter sliverHeaderDisplay(
+    BuildContext context, {
+    required String title,
+    required Widget view,
+    required GlobalKey sectionKey,
+  }) {
+    return SliverToBoxAdapter(
+      child: Padding(
+        key: sectionKey,
+        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.black,
+                fontFamily: "ShantellSans",
+                fontWeight: FontWeight.bold,
+                fontSize: 36,
+                letterSpacing: 1.2,
+                decoration: TextDecoration.none,
+              ),
+            ),
+            Spacer(),
+            SizedBox(
+              width: 190,
+              child: AnimatedNavigateButton(
+                label: "Browse All",
+                icon: Icons.arrow_forward,
+                borderRadius: 12,
+                onTap: () {
+                  navigateWithSlideTransition(context, view);
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SizedBox navigateButtonAndSocialLinks() {
+    return SizedBox(
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          SizedBox(
+            width: 210,
+            child: AnimatedNavigateButton(
+              label: 'See My Works',
+              icon: Icons.arrow_forward,
+              onTap: () {
+                final ctx = HomeDesktopScreen._recentWorksKey.currentContext;
+                if (ctx != null) {
+                  Scrollable.ensureVisible(
+                    ctx,
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut,
+                  );
+                } else {
+                  debugPrint('Current context is null');
+                }
+              },
+            ),
+          ),
+          // Spacer(),
+          SizedBox(
+            height: 40,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                AnimatedRotateIcon(
+                  firstIcon: Image.asset(
+                    'assets/icons/github_outline.png',
+                    width: 32,
+                    height: 32,
+                  ),
+                  secondIcon: Image.asset(
+                    'assets/icons/github_color.png',
+                    width: 32,
+                    height: 32,
+                  ),
+                  label: "Github",
+                  onTap: () {},
+                ),
+                VerticalDivider(width: 16, thickness: 2, color: Colors.black),
+                AnimatedRotateIcon(
+                  firstIcon: Image.asset(
+                    'assets/icons/linkedin_outline.png',
+                    width: 32,
+                    height: 32,
+                  ),
+                  secondIcon: Image.asset(
+                    'assets/icons/linkedin_color.png',
+                    width: 32,
+                    height: 32,
+                  ),
+                  label: "LinkedIn",
+                  onTap: () {},
+                ),
+                VerticalDivider(width: 16, thickness: 2, color: Colors.black),
+                AnimatedRotateIcon(
+                  firstIcon: Image.asset(
+                    'assets/icons/instagram_outline.png',
+                    width: 32,
+                    height: 32,
+                  ),
+                  secondIcon: Image.asset(
+                    'assets/icons/instagram_color.png',
+                    width: 32,
+                    height: 32,
+                  ),
+                  label: "Instagram",
+                  onTap: () {},
+                ),
+                VerticalDivider(width: 16, thickness: 2, color: Colors.black),
+                AnimatedRotateIcon(
+                  firstIcon: Image.asset(
+                    'assets/icons/discord_outline.png',
+                    width: 32,
+                    height: 32,
+                  ),
+                  secondIcon: Image.asset(
+                    'assets/icons/discord_color.png',
+                    width: 32,
+                    height: 32,
+                  ),
+                  label: "Discord",
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  SizedBox aboutMeLines() {
+    return SizedBox(
+      height: 200,
+      width: 500,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text.rich(
+            TextSpan(
+              text: "$kHomeDisplayLineAboutMe01\n",
+              style: TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w800,
+                color: Colors.black,
+                fontFamily: "ShantellSans",
+              ),
+              children: [
+                TextSpan(
+                  text: "$kHomeDisplayLineAboutMe02\n",
+                  style: TextStyle(fontWeight: FontWeight.w400),
+                ),
+                TextSpan(
+                  text: "$kHomeDisplayLineAboutMe03\n",
+                  style: TextStyle(fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Row displayLinesWithCodeBloack() {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      children: <Widget>[
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            FlickerOnceText(text: kHomeDisplayLine01),
+            FlickerOnceText(
+              text: kHomeDisplayLine02,
+              delay: Duration(milliseconds: 1600),
+            ),
+          ],
+        ),
+        Spacer(),
+        CodeBlock(),
+      ],
+    );
+  }
+
+  SliverAppBar topFloatingBar() {
+    return SliverAppBar(
+      pinned: true,
+      backgroundColor: Colors.transparent,
+      elevation: 4,
+      floating: true,
+      flexibleSpace: Obx(
+        () => AnimatedAlign(
+          duration: Duration(milliseconds: 400),
+          alignment: controller.isScrolling.value
+              ? Alignment(0, -14.5)
+              : Alignment.topCenter,
+          child: HomeBarView(),
+        ),
+      ),
+      toolbarHeight: 120,
     );
   }
 }

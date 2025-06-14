@@ -2,7 +2,7 @@
 
 class Routes {
   static Future<String> get initialRoute async {
-    return CERTIFICATE;
+    return HOME;
   }
 
   static const CERTIFICATE = '/certificate';

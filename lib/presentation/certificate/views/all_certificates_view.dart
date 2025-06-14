@@ -9,7 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:animations/animations.dart';
 
+import '../../../infrastructure/dal/daos/certificate.info.dart';
 import '../../../utils/axis.count.dart';
+import '../../../utils/k.transition.container.transform.dart';
 import 'certificate_view.dart';
 
 class AllCertificatesView extends GetView {

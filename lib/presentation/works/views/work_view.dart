@@ -3,14 +3,14 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import 'package:amankrmj_portfolio/infrastructure/dal/daos/certificate.info.dart';
+import 'package:amankrmj_portfolio/infrastructure/dal/daos/project.info.dart';
 import 'package:amankrmj_portfolio/widgets/k.image.dart';
 
-class CertificateView extends StatelessWidget {
-  final CertificateInfo certificate;
+class WorkView extends StatelessWidget {
+  final ProjectInfo project;
   final VoidCallback? onClose;
 
-  const CertificateView({super.key, required this.certificate, this.onClose});
+  const WorkView({super.key, required this.project, this.onClose});
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +19,7 @@ class CertificateView extends StatelessWidget {
         Positioned.fill(
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
-            child: Container(
-              color: Colors.black.withAlpha(102), // 102/255 ≈ 0.4 opacity
-            ),
+            child: Container(color: Colors.black.withAlpha(102)),
           ),
         ),
         Center(
@@ -44,7 +42,7 @@ class CertificateView extends StatelessWidget {
                         children: [
                           Expanded(
                             child: Text(
-                              certificate.name,
+                              project.name,
                               style: const TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
@@ -83,10 +81,10 @@ class CertificateView extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Center(child: KImage(info: certificate)),
+                            Center(child: KImage(info: project)),
                             const SizedBox(height: 24),
                             Text(
-                              certificate.name,
+                              project.name,
                               style: const TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
@@ -96,7 +94,7 @@ class CertificateView extends StatelessWidget {
                             ),
                             const SizedBox(height: 12),
                             Text(
-                              certificate.description,
+                              project.description,
                               style: const TextStyle(
                                 fontSize: 18,
                                 color: Colors.black87,
@@ -104,14 +102,14 @@ class CertificateView extends StatelessWidget {
                             ),
                             const SizedBox(height: 16),
                             Text(
-                              certificate.largeDescription,
+                              project.largeDescription,
                               style: const TextStyle(
                                 fontSize: 16,
                                 color: Colors.black54,
                               ),
                             ),
                             const SizedBox(height: 24),
-                            if (certificate.url.isNotEmpty)
+                            if (project.url.isNotEmpty)
                               Row(
                                 children: [
                                   const Icon(
@@ -122,7 +120,7 @@ class CertificateView extends StatelessWidget {
                                   const SizedBox(width: 8),
                                   Flexible(
                                     child: SelectableText(
-                                      certificate.url,
+                                      project.url,
                                       style: const TextStyle(
                                         color: Colors.blue,
                                         decoration: TextDecoration.underline,
@@ -146,3 +144,21 @@ class CertificateView extends StatelessWidget {
     );
   }
 }
+
+// Update any project-specific references to work/project-specific ones as needed.
+// For example, if you have variables like 'project', change them to 'work' or 'certificate'.
+// If you have project-specific widgets, update them to their work/certificate equivalents.
+// If you want to change the displayed fields, update them here as well.
+// Example:
+// Text(
+//   work.name,
+//   style: ...
+// ),
+// ...
+// Text(
+//   work.description,
+//   style: ...
+// ),
+// ...
+// And so on for other fields.
+// If you have a list of works, make sure the data source and widgets match the work/project model.

@@ -20,7 +20,7 @@ class AnimatedNavigateButton extends StatefulWidget {
     this.color,
     this.hoverColor,
     this.width,
-    this.height,
+    this.height = 48,
     this.isHovered,
     this.borderRadius,
   });
@@ -56,10 +56,12 @@ class _AnimatedNavigateButtonState extends State<AnimatedNavigateButton> {
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,
         width: (widget.width ?? 190) + (isHovered ? 10 : 0),
-        height: widget.height ?? 48,
+        height: widget.height,
         decoration: BoxDecoration(
           color: backgroundColor,
-          borderRadius: BorderRadius.circular(widget.borderRadius ?? 24),
+          borderRadius: BorderRadius.circular(
+            widget.borderRadius ?? widget.height! / 2,
+          ),
           border: Border.all(color: borderColor, width: 1),
           boxShadow: [
             BoxShadow(
