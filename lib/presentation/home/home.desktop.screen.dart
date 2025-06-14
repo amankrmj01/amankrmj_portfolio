@@ -1,15 +1,11 @@
-import 'dart:developer';
-
-import 'package:amankrmj_portfolio/infrastructure/theme/colors.dart';
 import 'package:amankrmj_portfolio/presentation/home/views/home_bar_view.dart';
+import 'package:amankrmj_portfolio/presentation/home/widgets/animated.navigate.button.dart';
+import 'package:amankrmj_portfolio/presentation/home/widgets/animated.rotate.icon.dart';
 import 'package:amankrmj_portfolio/presentation/home/widgets/code.block.dart';
 import 'package:amankrmj_portfolio/presentation/home/widgets/flicker.once.text.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
 import 'package:get/get.dart';
-import 'package:rive/rive.dart';
 
 import '../../configs/constant_strings.dart';
 import 'controllers/home.controller.dart';
@@ -24,6 +20,20 @@ class HomeDesktopScreen extends GetView<HomeController> {
         child: Stack(
           alignment: Alignment.center,
           children: [
+            // Positioned(
+            //   left: 0,
+            //   right: 0,
+            //   bottom: 10, // 10 pixels from the bottom
+            //   child: Material(
+            //     color: Colors.transparent,
+            //     child: SizedBox(
+            //       width: 600, // match your Rive container width
+            //       // height: 300, // match your Rive container height
+            //       height: 500,
+            //       child: RiveHoverAnimation(),
+            //     ),
+            //   ),
+            // ),
             Theme(
               data: Theme.of(context).copyWith(
                 scrollbarTheme: ScrollbarThemeData(
@@ -60,7 +70,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     SliverToBoxAdapter(
                       child: Center(
                         child: AnimatedContainer(
-                          duration: Duration(milliseconds: 200),
+                          duration: Duration(milliseconds: 100),
                           height: Get.height * 0.8,
                           width: Get.width * 0.9,
                           child: Column(
@@ -68,7 +78,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Row(
-                                mainAxisSize: MainAxisSize.min,
+                                mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Column(
                                     mainAxisSize: MainAxisSize.min,
@@ -125,6 +135,106 @@ class HomeDesktopScreen extends GetView<HomeController> {
                                   ],
                                 ),
                               ),
+
+                              SizedBox(
+                                height: 100,
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    SizedBox(
+                                      width: 210,
+                                      child: AnimatedNavigateButton(
+                                        label: 'See My Works',
+                                        icon: Icons.arrow_forward,
+                                        onTap: () {},
+                                      ),
+                                    ),
+                                    // Spacer(),
+                                    SizedBox(
+                                      height: 40,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          AnimatedRotateIcon(
+                                            firstIcon: Image.asset(
+                                              'assets/icons/github_outline.png',
+                                              width: 32,
+                                              height: 32,
+                                            ),
+                                            secondIcon: Image.asset(
+                                              'assets/icons/github_color.png',
+                                              width: 32,
+                                              height: 32,
+                                            ),
+                                            label: "Github",
+                                            onTap: () {},
+                                          ),
+                                          VerticalDivider(
+                                            width: 16,
+                                            thickness: 2,
+                                            color: Colors.black,
+                                          ),
+                                          AnimatedRotateIcon(
+                                            firstIcon: Image.asset(
+                                              'assets/icons/linkedin_outline.png',
+                                              width: 32,
+                                              height: 32,
+                                            ),
+                                            secondIcon: Image.asset(
+                                              'assets/icons/linkedin_color.png',
+                                              width: 32,
+                                              height: 32,
+                                            ),
+                                            label: "LinkedIn",
+                                            onTap: () {},
+                                          ),
+                                          VerticalDivider(
+                                            width: 16,
+                                            thickness: 2,
+                                            color: Colors.black,
+                                          ),
+                                          AnimatedRotateIcon(
+                                            firstIcon: Image.asset(
+                                              'assets/icons/instagram_outline.png',
+                                              width: 32,
+                                              height: 32,
+                                            ),
+                                            secondIcon: Image.asset(
+                                              'assets/icons/instagram_color.png',
+                                              width: 32,
+                                              height: 32,
+                                            ),
+                                            label: "Instagram",
+                                            onTap: () {},
+                                          ),
+                                          VerticalDivider(
+                                            width: 16,
+                                            thickness: 2,
+                                            color: Colors.black,
+                                          ),
+                                          AnimatedRotateIcon(
+                                            firstIcon: Image.asset(
+                                              'assets/icons/discord_outline.png',
+                                              width: 32,
+                                              height: 32,
+                                            ),
+                                            secondIcon: Image.asset(
+                                              'assets/icons/discord_color.png',
+                                              width: 32,
+                                              height: 32,
+                                            ),
+                                            label: "Discord",
+                                            onTap: () {},
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -134,69 +244,8 @@ class HomeDesktopScreen extends GetView<HomeController> {
                 ),
               ),
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: _RiveHoverAnimation(),
-            ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class _RiveHoverAnimation extends StatefulWidget {
-  @override
-  State<_RiveHoverAnimation> createState() => _RiveHoverAnimationState();
-}
-
-class _RiveHoverAnimationState extends State<_RiveHoverAnimation> {
-  Artboard? _artboard;
-  StateMachineController? _controller;
-  SMIInput<bool>? _hoverInput;
-
-  @override
-  void initState() {
-    super.initState();
-    RiveFile.initialize().then((_) {
-      rootBundle.load('assets/rive/responsive_core.riv').then((data) {
-        final file = RiveFile.import(data);
-        final artboard = file.mainArtboard;
-        final controller = StateMachineController.fromArtboard(
-          artboard,
-          'State Machine 1',
-        );
-        if (controller != null) {
-          artboard.addController(controller);
-          _hoverInput =
-              controller.findInput<bool>('isHover') ??
-              (controller.inputs.whereType<SMIBool>().isNotEmpty
-                  ? controller.inputs.whereType<SMIBool>().first
-                  : null);
-          debugPrint('Rive: Found input: \\${_hoverInput?.name}');
-        } else {
-          debugPrint('Rive: State machine not found');
-        }
-        setState(() => _artboard = artboard);
-      });
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    if (_artboard == null) return const SizedBox();
-    return MouseRegion(
-      behavior: HitTestBehavior.translucent,
-      onEnter: (_) {
-        debugPrint('Rive: Mouse entered');
-        if (_hoverInput != null) _hoverInput!.value = true;
-      },
-      onExit: (_) {
-        debugPrint('Rive: Mouse exited');
-        if (_hoverInput != null) _hoverInput!.value = false;
-      },
-      child: SizedBox.expand(
-        child: Rive(artboard: _artboard!, fit: BoxFit.cover),
       ),
     );
   }

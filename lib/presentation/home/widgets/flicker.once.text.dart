@@ -42,13 +42,14 @@ class _FlickerOnceTextState extends State<FlickerOnceText> {
     }
 
     return SizedBox(
-      width: 500.0,
+      width: 650.0,
       height: 60.0,
       child: DefaultTextStyle(
         style: TextStyle(
-          fontSize: 40,
-          color: KColor.secondaryColor,
+          fontSize: 50,
+          color: KColor.secondarySecondColor,
           fontFamily: 'ShantellSans',
+          // fontWeight: FontWeight.w500,
           shadows: [
             Shadow(
               blurRadius: 4.0,

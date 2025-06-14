@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+
+import '../infrastructure/dal/daos/info.model.dart';
+import '../infrastructure/theme/colors.dart';
+import 'k.image.dart';
+
+class KCard extends StatefulWidget {
+  final InfoModel info;
+
+  const KCard({super.key, required this.info});
+
+  @override
+  State<KCard> createState() => _KCardState();
+}
+
+class _KCardState extends State<KCard> {
+  bool isHover = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return MouseRegion(
+      cursor: isHover ? SystemMouseCursors.click : SystemMouseCursors.basic,
+      onEnter: (_) => setState(() => isHover = true),
+      onExit: (_) => setState(() => isHover = false),
+      child: AnimatedContainer(
+        margin: const EdgeInsets.all(8),
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.black, width: 1),
+          color: Colors.transparent,
+          borderRadius: BorderRadius.circular(18),
+          boxShadow: [
+            BoxShadow(
+              color: Color.lerp(KColor.secondarySecondColor, Colors.pink, 0.7)!,
+              blurRadius: 0,
+              offset: isHover ? Offset(0, 0) : Offset(-5, 5),
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            KImage(info: widget.info),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.info.name,
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    widget.info.description,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      color: Colors.black87,
+                      decoration: TextDecoration.none,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    widget.info.largeDescription,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      color: Colors.black54,
+                      decoration: TextDecoration.none,
+                    ),
+                    maxLines: 6,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

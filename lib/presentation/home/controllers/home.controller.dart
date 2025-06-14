@@ -45,10 +45,7 @@ class HomeController extends GetxController {
 
   final count = 0.obs;
 
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
   void increment() => count.value++;
+
+  final isHoverOnNavigateButton = false.obs;
 }

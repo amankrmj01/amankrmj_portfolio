@@ -1,4 +1,3 @@
-import 'package:amankrmj_portfolio/presentation/home/views/home_bar_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

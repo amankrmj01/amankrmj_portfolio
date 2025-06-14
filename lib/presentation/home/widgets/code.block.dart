@@ -1,7 +1,5 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'animated_typer_text.dart';
-import 'terminal_typer_text.dart';
 
 class CodeBlock extends StatefulWidget {
   const CodeBlock({super.key});

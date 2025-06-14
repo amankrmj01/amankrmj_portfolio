@@ -1,23 +1,16 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+// ignore: unused_import
+import '../widgets/infinte.tilted.strip.dart';
+
 class WorksController extends GetxController {
-  //TODO: Implement WorksController
-
-  final count = 0.obs;
-  @override
-  void onInit() {
-    super.onInit();
-  }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
+  final ScrollController scrollController = ScrollController();
 
   @override
   void onClose() {
-    super.onClose();
+    // TODO: implement onClose
+    scrollController.dispose();
   }
-
-  void increment() => count.value++;
 }
