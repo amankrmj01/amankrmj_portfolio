@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../infrastructure/dal/daos/info.model.dart';
+import '../domain/models/info.model.dart';
 
 // Helper widget for displaying an image from any InfoModel
 class KImage extends StatelessWidget {
@@ -10,8 +10,8 @@ class KImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final imageUrl = (info.screenshots.isNotEmpty)
-        ? info.screenshots[0]
+    final imageUrl = (info.images.isNotEmpty)
+        ? info.images[0]
         : 'https://placehold.co/600x400/000000/FFFFFF/png';
     return Padding(
       padding: const EdgeInsets.all(5.0),

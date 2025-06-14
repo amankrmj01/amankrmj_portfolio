@@ -5,7 +5,7 @@ abstract class InfoModel {
 
   String get url;
 
-  List<String> get screenshots;
+  List<String> get images;
 
   String get largeDescription;
 }

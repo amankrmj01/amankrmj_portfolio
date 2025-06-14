@@ -1,4 +1,4 @@
-import 'info.model.dart';
+import '../../../domain/models/info.model.dart';
 
 class CertificateInfo implements InfoModel {
   @override
@@ -8,7 +8,7 @@ class CertificateInfo implements InfoModel {
   @override
   final String url;
   @override
-  final List<String> screenshots;
+  final List<String> images;
   @override
   final String largeDescription;
 
@@ -16,7 +16,7 @@ class CertificateInfo implements InfoModel {
     required this.name,
     required this.description,
     required this.url,
-    required this.screenshots,
+    required this.images,
     required this.largeDescription,
   });
 }

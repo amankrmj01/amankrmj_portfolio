@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../infrastructure/dal/daos/info.model.dart';
+import '../domain/models/info.model.dart';
 import '../infrastructure/theme/colors.dart';
 import 'k.image.dart';
 

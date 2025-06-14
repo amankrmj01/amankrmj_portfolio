@@ -10,7 +10,7 @@ List<ProjectInfo> projects = [
         '• Integrated with Firebase for real-time messaging and authentication.\n'
         '• Features include group chats, media sharing, and push notifications.',
     url: 'lol',
-    screenshots: [
+    images: [
       'https://placehold.co/600x400/000000/FFFFFF/png',
       'https://example.com/screenshot2.png',
       'https://example.com/screenshot3.png',
@@ -25,7 +25,7 @@ List<ProjectInfo> projects = [
         '• Displays weather forecasts, current conditions, and alerts.\n'
         '• Features a responsive design and interactive UI.',
     url: 'lol2',
-    screenshots: [
+    images: [
       'https://placehold.co/800x700/000000/FFFFFF/png',
       'https://example.com/screenshot2.png',
       'https://example.com/screenshot3.png',
@@ -39,7 +39,7 @@ List<ProjectInfo> projects = [
         '• Features task categorization, prioritization, and reminders.\n'
         '• Syncs tasks across devices using cloud storage.',
     url: 'lol3',
-    screenshots: [
+    images: [
       'https://example.com/screenshot1.png',
       'https://example.com/screenshot2.png',
       'https://example.com/screenshot3.png',
@@ -53,7 +53,7 @@ List<ProjectInfo> projects = [
         '• Features responsive design, animated transitions, and interactive UI.\n'
         '• Includes sections for projects, certificates, and contact information.',
     url: 'https://github.com/yourusername/portfolio',
-    screenshots: [
+    images: [
       'https://placehold.co/600x300/000000/FFFFFF/png', // shorter image
     ],
   ),
@@ -65,7 +65,7 @@ List<ProjectInfo> projects = [
         '• Provides charts and analytics for better financial management.\n'
         '• Data persistence using local storage and cloud sync.',
     url: 'https://github.com/yourusername/expense-tracker',
-    screenshots: [
+    images: [
       'https://placehold.co/600x500/000000/FFFFFF/png', // taller image
     ],
   ),
@@ -78,7 +78,7 @@ List<ProjectInfo> projects = [
         '• Save favorite recipes and create shopping lists.\n'
         '• Clean, modern UI with step-by-step cooking instructions.',
     url: 'https://github.com/yourusername/recipe-finder',
-    screenshots: [
+    images: [
       'https://placehold.co/600x700/000000/FFFFFF/png', // even taller image
     ],
   ),
