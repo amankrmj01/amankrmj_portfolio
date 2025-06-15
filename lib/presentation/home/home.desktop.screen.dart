@@ -78,6 +78,37 @@ class HomeDesktopScreen extends GetView<HomeController> {
                       sectionKey: _recentCertificatesKey,
                     ),
                     CertificateScreen(),
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Container(
+                        height: Get.height * 0.5,
+                        width: double.infinity,
+                        color: Colors.blueGrey.shade900,
+                        alignment: Alignment.center,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Thank you for visiting!',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 32,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(height: 16),
+                            Text(
+                              'Contact: your.email@example.com',
+                              style: TextStyle(
+                                color: Colors.white70,
+                                fontSize: 20,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
