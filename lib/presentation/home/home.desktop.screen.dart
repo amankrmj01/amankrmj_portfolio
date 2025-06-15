@@ -45,17 +45,16 @@ class HomeDesktopScreen extends GetView<HomeController> {
                 child: CustomScrollView(
                   controller: controller.scrollController,
                   slivers: [
-                    SliverToBoxAdapter(child: SizedBox(height: 120)),
                     SliverToBoxAdapter(
                       child: Center(
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 100),
-                          height: Get.height * 0.8,
-                          width: Get.width * 0.9,
+                        child: SizedBox(
+                          height: Get.height,
+                          width: Get.width * 0.95,
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              SizedBox(height: 120),
                               displayLinesWithCodeBlock(),
                               aboutMeLines(),
                               navigateButtonAndSocialLinks(),
@@ -115,8 +114,6 @@ class HomeDesktopScreen extends GetView<HomeController> {
             ),
             Positioned(
               top: 0,
-              left: 0,
-              right: 0,
               child: Align(
                 alignment: Alignment.topCenter,
                 child: topFloatingBar(),
@@ -135,9 +132,11 @@ class HomeDesktopScreen extends GetView<HomeController> {
     required GlobalKey sectionKey,
   }) {
     return SliverToBoxAdapter(
-      child: Padding(
+      child: Container(
         key: sectionKey,
-        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 16.0),
+        height: 120,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 32.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -183,28 +182,15 @@ class HomeDesktopScreen extends GetView<HomeController> {
               label: 'See My Works',
               icon: Icons.arrow_forward,
               onTap: () {
-                final ctx = HomeDesktopScreen._recentWorksKey.currentContext;
-
-                // Cancel any ongoing scroll animations if a ScrollController is attached
-                final scrollableState = Scrollable.of(ctx!);
-                final position = scrollableState.position;
-                if (position is ScrollPositionWithSingleContext &&
-                    position.isScrollingNotifier.value) {
-                  position.animateTo(
-                    position.pixels,
-                    duration: Duration.zero,
-                    curve: Curves.linear,
-                  );
-                }
-                if (ctx != null) {
-                  Scrollable.ensureVisible(
-                    ctx,
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeInOut,
-                  );
-                } else {
-                  debugPrint('Current context is null');
-                }
+                // final ctx = HomeDesktopScreen._recentWorksKey.currentContext;
+                // if (ctx != null) {
+                //   Scrollable.ensureVisible(
+                //     ctx,
+                //     duration: const Duration(milliseconds: 400),
+                //     curve: Curves.easeInOut,
+                //     alignment: 0.1, // Adjust as needed
+                //   );
+                // }
               },
             ),
           ),
@@ -342,7 +328,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
   // Remove SliverAppBar and use a fixed header at the top of the Stack
   Widget topFloatingBar() {
     return Container(
-      height: 90,
+      height: 80,
       width: 600,
       alignment: Alignment.bottomCenter,
       // No width property, so it will size to its child
@@ -353,7 +339,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
         () => AnimatedAlign(
           duration: Duration(milliseconds: 400),
           alignment: controller.isScrolling.value
-              ? Alignment(0, -4.0)
+              ? Alignment(0, -2.5)
               : Alignment.bottomCenter,
           child: HomeBarView(),
         ),
