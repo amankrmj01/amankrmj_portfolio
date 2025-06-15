@@ -12,12 +12,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: subosito/flutter-action@v2
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
         with:
           channel: stable
 
       - name: Install dependencies
         run: flutter pub get
+
+      - name: Clean old build (optional)
+        run: rm -rf ./build/web
 
       - name: Build web
         run: flutter build web --web-renderer=wasm
@@ -27,3 +31,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
+          force_orphan: true
