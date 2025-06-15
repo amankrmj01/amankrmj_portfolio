@@ -1,15 +1,9 @@
-import 'dart:io';
 
-import 'package:amankrmj_portfolio/presentation/home/views/home_bar_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
-import 'package:pdf_image_renderer/pdf_image_renderer.dart';
 
 import 'controllers/home.controller.dart';
-import 'package:amankrmj_portfolio/utils/pdf.render.image.dart';
 import 'package:amankrmj_portfolio/infrastructure/dal/services/certificate_service.dart';
 import 'package:amankrmj_portfolio/domain/models/certificate_info.dart';
 import 'package:amankrmj_portfolio/widgets/k.temp.image.dart';
