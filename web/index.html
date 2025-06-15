@@ -1,38 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+    <!--
+      If you are serving your web app in a path other than the root, change the
+      href value below to reflect the base path you are serving from.
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+      The path provided below has to start and end with a slash "/" in order for
+      it to work correctly.
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+      For more details:
+      * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="$FLUTTER_BASE_HREF">
+      This is a placeholder for base href that will be replaced by the value of
+      the `--base-href` argument provided to `flutter build`.
+    -->
+    <base href="$FLUTTER_BASE_HREF">
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="my portfolio">
+    <meta charset="UTF-8">
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+    <meta content="my portfolio" name="description">
 
-  <!-- iOS meta tags & icons -->
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="amankrmj_portfolio">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta content="yes" name="mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="amankrmj_portfolio" name="apple-mobile-web-app-title">
+    <link href="icons/Icon-192.png" rel="apple-touch-icon">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+    <!-- Favicon -->
+    <link href="favicon.png" rel="icon" type="image/png"/>
 
-  <title>amankrmj_portfolio</title>
-  <link rel="manifest" href="manifest.json">
+    <title>amankrmj_portfolio</title>
+    <link href="manifest.json" rel="manifest">
+    <style>
+        html, body {
+          width: 100%;
+          min-width: 0;
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          overflow-x: hidden;
+        }
+        #flt-glass-pane, #app-container {
+          width: 100vw !important;
+          min-width: 0;
+        }
+    </style>
 </head>
 <body>
-  <script src="flutter_bootstrap.js" async></script>
+<!--
+<script>
+    // Try to open the site in a new window at full width/height automatically
+    (function() {
+      if (window.name !== 'fullscreened') {
+        var newWin = window.open(
+          window.location.href,
+          '_blank',
+          'toolbar=0,location=0,menubar=0,width=' + screen.availWidth + ',height=' + screen.availHeight
+        );
+        if (newWin) {
+          newWin.name = 'fullscreened';
+          window.close();
+        }
+      }
+    })();
+</script>
+-->
+<script async src="flutter_bootstrap.js"></script>
 </body>
 </html>

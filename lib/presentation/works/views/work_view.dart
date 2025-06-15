@@ -9,7 +9,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:amankrmj_portfolio/widgets/k.image.dart';
 
-import '../../../domain/models/certificate_info.dart';
+import '../../../domain/models/certificate.model.dart';
 
 class WorkView extends StatelessWidget {
   final InfoModel project;

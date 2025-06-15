@@ -1,13 +1,11 @@
-
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
 import 'controllers/home.controller.dart';
 import 'package:amankrmj_portfolio/infrastructure/dal/services/certificate_service.dart';
-import 'package:amankrmj_portfolio/domain/models/certificate_info.dart';
+import 'package:amankrmj_portfolio/domain/models/certificate.model.dart';
 import 'package:amankrmj_portfolio/widgets/k.temp.image.dart';
-
 
 class HomeTabletScreen extends GetView<HomeController> {
   const HomeTabletScreen({super.key});
@@ -16,14 +14,18 @@ class HomeTabletScreen extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: FutureBuilder<List<CertificateInfo>>(
+        child: FutureBuilder<List<CertificateModel>>(
           future: controller.fetchCertificates(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Center(child: Text('Error: ${snapshot.error}',
-                  style: const TextStyle(color: Colors.black, fontSize: 24)));
+              return Center(
+                child: Text(
+                  'Error: ${snapshot.error}',
+                  style: const TextStyle(color: Colors.black, fontSize: 24),
+                ),
+              );
             } else if (snapshot.hasData) {
               final certs = snapshot.data!;
               return SingleChildScrollView(
@@ -43,8 +45,12 @@ class HomeTabletScreen extends GetView<HomeController> {
                 ),
               );
             } else {
-              return const Center(child: Text('No data found.',
-                  style: TextStyle(color: Colors.black, fontSize: 24)));
+              return const Center(
+                child: Text(
+                  'No data found.',
+                  style: TextStyle(color: Colors.black, fontSize: 24),
+                ),
+              );
             }
           },
         ),
@@ -54,7 +60,7 @@ class HomeTabletScreen extends GetView<HomeController> {
 }
 
 extension on HomeController {
-  Future<List<CertificateInfo>> fetchCertificates() async {
+  Future<List<CertificateModel>> fetchCertificates() async {
     final service = Get.find<CertificateService>();
     return await service.fetchAll();
   }

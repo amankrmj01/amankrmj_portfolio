@@ -1,3 +1,4 @@
+import 'package:amankrmj_portfolio/infrastructure/dal/services/quote_service.dart';
 import 'package:get/get.dart';
 
 import 'certificate_service.dart';
@@ -7,5 +8,6 @@ class ServiceC {
   static void setupServiceLocator() {
     Get.put<CertificateService>(CertificateService(), permanent: true);
     Get.put<ProjectService>(ProjectService(), permanent: true);
+    Get.put<QuoteService>(QuoteService(), permanent: true);
   }
 }

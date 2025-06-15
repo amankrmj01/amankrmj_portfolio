@@ -3,16 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
-  final hoverStates = List<bool>.filled(4, false).obs;
-
-  void setHover(int index, bool value) {
-    if (index >= 0 && index < hoverStates.length) {
-      hoverStates[index] = value;
-    } else {
-      throw RangeError('Index $index is out of range for hoverStates');
-    }
-  }
-
   // Add ScrollController
   final ScrollController scrollController = ScrollController();
   final isScrolling = false.obs;

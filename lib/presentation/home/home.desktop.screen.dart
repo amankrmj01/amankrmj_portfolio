@@ -19,6 +19,8 @@ class HomeDesktopScreen extends GetView<HomeController> {
 
   static final GlobalKey _recentWorksKey = GlobalKey();
   static final GlobalKey _recentCertificatesKey = GlobalKey();
+  static final GlobalKey _footerKey = GlobalKey();
+  static final GlobalKey _homeBarKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +44,13 @@ class HomeDesktopScreen extends GetView<HomeController> {
                 thickness: 8,
                 radius: const Radius.circular(8),
                 interactive: true,
-                child: CustomScrollView(
+                child: SingleChildScrollView(
                   controller: controller.scrollController,
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: Center(
+                  child: Column(
+                    children: [
+                      Center(
                         child: SizedBox(
-                          height: Get.height,
+                          height: Get.height > 776 ? Get.height : 776,
                           width: Get.width * 0.95,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -62,53 +64,54 @@ class HomeDesktopScreen extends GetView<HomeController> {
                           ),
                         ),
                       ),
-                    ),
-                    sliverHeaderDisplay(
-                      context,
-                      title: 'Recent Works',
-                      view: const AllWorksView(),
-                      sectionKey: _recentWorksKey,
-                    ),
-                    WorksScreen(),
-                    sliverHeaderDisplay(
-                      context,
-                      title: 'Recent Certificates',
-                      view: const AllCertificatesView(),
-                      sectionKey: _recentCertificatesKey,
-                    ),
-                    CertificateScreen(),
-                    SliverFillRemaining(
-                      hasScrollBody: false,
-                      child: Container(
-                        height: Get.height * 0.5,
-                        width: double.infinity,
-                        color: Colors.blueGrey.shade900,
-                        alignment: Alignment.center,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              'Thank you for visiting!',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 32,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 16),
-                            Text(
-                              'Contact: your.email@example.com',
-                              style: TextStyle(
-                                color: Colors.white70,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
+                      sliverHeaderDisplay(
+                        context,
+                        title: 'Recent Works',
+                        view: const AllWorksView(),
+                        sectionKey: _recentWorksKey,
                       ),
-                    ),
-                  ],
+                      WorksScreen(),
+                      sliverHeaderDisplay(
+                        context,
+                        title: 'Recent Certificates',
+                        view: const AllCertificatesView(),
+                        sectionKey: _recentCertificatesKey,
+                      ),
+                      CertificateScreen(),
+                      SizedBox(
+                        height: Get.height, // Adjust as needed for your footer
+                        child: FooterScreen(),
+                      ),
+                      // Container(
+                      //   height: Get.height * 0.5,
+                      //   width: double.infinity,
+                      //   color: Colors.blueGrey.shade900,
+                      //   alignment: Alignment.center,
+                      //   child: Column(
+                      //     mainAxisAlignment: MainAxisAlignment.center,
+                      //     mainAxisSize: MainAxisSize.max,
+                      //     children: [
+                      //       Text(
+                      //         'Thank you for visiting!',
+                      //         style: TextStyle(
+                      //           color: Colors.white,
+                      //           fontSize: 32,
+                      //           fontWeight: FontWeight.bold,
+                      //         ),
+                      //       ),
+                      //       SizedBox(height: 16),
+                      //       Text(
+                      //         'Contact: your.email@example.com',
+                      //         style: TextStyle(
+                      //           color: Colors.white70,
+                      //           fontSize: 20,
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -125,47 +128,45 @@ class HomeDesktopScreen extends GetView<HomeController> {
     );
   }
 
-  SliverToBoxAdapter sliverHeaderDisplay(
+  Widget sliverHeaderDisplay(
     BuildContext context, {
     required String title,
     required Widget view,
     required GlobalKey sectionKey,
   }) {
-    return SliverToBoxAdapter(
-      child: Container(
-        key: sectionKey,
-        height: 120,
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 32.0),
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title,
-              style: const TextStyle(
-                color: Colors.black,
-                fontFamily: "ShantellSans",
-                fontWeight: FontWeight.bold,
-                fontSize: 36,
-                letterSpacing: 1.2,
-                decoration: TextDecoration.none,
-              ),
+    return Container(
+      key: sectionKey,
+      height: 120,
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 32.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: const TextStyle(
+              color: Colors.black,
+              fontFamily: "ShantellSans",
+              fontWeight: FontWeight.bold,
+              fontSize: 36,
+              letterSpacing: 1.2,
+              decoration: TextDecoration.none,
             ),
-            Spacer(),
-            SizedBox(
-              width: 190,
-              child: AnimatedNavigateButton(
-                label: "Browse All",
-                icon: Icons.arrow_forward,
-                borderRadius: 12,
-                onTap: () {
-                  navigateWithSlideTransition(context, view);
-                },
-              ),
+          ),
+          Spacer(),
+          SizedBox(
+            width: 190,
+            child: AnimatedNavigateButton(
+              label: "Browse All",
+              icon: Icons.arrow_forward,
+              borderRadius: 12,
+              onTap: () {
+                navigateWithSlideTransition(context, view);
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -182,15 +183,16 @@ class HomeDesktopScreen extends GetView<HomeController> {
               label: 'See My Works',
               icon: Icons.arrow_forward,
               onTap: () {
-                // final ctx = HomeDesktopScreen._recentWorksKey.currentContext;
-                // if (ctx != null) {
-                //   Scrollable.ensureVisible(
-                //     ctx,
-                //     duration: const Duration(milliseconds: 400),
-                //     curve: Curves.easeInOut,
-                //     alignment: 0.1, // Adjust as needed
-                //   );
-                // }
+                final ctx = HomeDesktopScreen._recentWorksKey.currentContext;
+                if (ctx != null) {
+                  // controller.scrollController.cancel?,
+                  Scrollable.ensureVisible(
+                    ctx,
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut,
+                    alignment: 0.1, // Adjust as needed
+                  );
+                }
               },
             ),
           ),

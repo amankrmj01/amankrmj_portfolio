@@ -8,4 +8,5 @@ class Routes {
   static const CERTIFICATE = '/certificate';
   static const HOME = '/home';
   static const WORKS = '/works';
+  static const FOOTER = '/footer';
 }

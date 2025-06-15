@@ -8,7 +8,16 @@ class KCard extends StatefulWidget {
   final InfoModel info;
   final VoidCallback? onTap;
 
-  const KCard({super.key, required this.info, this.onTap});
+  final double? width;
+  final double? height;
+
+  const KCard({
+    super.key,
+    required this.info,
+    this.onTap,
+    this.width = 500,
+    this.height,
+  });
 
   @override
   State<KCard> createState() => _KCardState();
@@ -29,6 +38,7 @@ class _KCardState extends State<KCard> {
           margin: const EdgeInsets.all(8),
           duration: const Duration(milliseconds: 400),
           curve: Curves.easeInOut,
+          width: widget.width,
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black, width: 1),
             color: Colors.transparent,
@@ -46,9 +56,12 @@ class _KCardState extends State<KCard> {
             ],
           ),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              KImage(info: widget.info),
+              SizedBox(
+                height: widget.height,
+                child: KImage(info: widget.info),
+              ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(

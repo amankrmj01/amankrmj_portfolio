@@ -38,15 +38,7 @@ class HomeBarView extends GetView<HomeController> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         children: List.generate(labels.length, (index) {
-          return MouseRegion(
-            onEnter: (event) {
-              controller.setHover(index, true);
-            },
-            onExit: (event) {
-              controller.setHover(index, false);
-            },
-            child: HoverAnimatedButton(index: index, label: labels[index]),
-          );
+          return HoverAnimatedButton(index: index, label: labels[index]);
         }),
       ),
     );

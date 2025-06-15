@@ -44,5 +44,10 @@ class Nav {
       page: () => const WorksScreen(),
       binding: WorksControllerBinding(),
     ),
+    GetPage(
+      name: Routes.FOOTER,
+      page: () => const FooterScreen(),
+      binding: FooterControllerBinding(),
+    ),
   ];
 }

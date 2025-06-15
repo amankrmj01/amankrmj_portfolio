@@ -1,4 +1,4 @@
-import 'package:amankrmj_portfolio/domain/models/projects_info.dart';
+import 'package:amankrmj_portfolio/domain/models/project.model.dart';
 import 'package:amankrmj_portfolio/infrastructure/dal/services/project_service.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +10,7 @@ import '../widgets/infinte.tilted.strip.dart';
 class WorksController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
-  Future<List<ProjectInfo>> fetchProjects() async {
+  Future<List<ProjectModel>> fetchProjects() async {
     final service = Get.find<ProjectService>();
     return await service.fetchAll();
   }

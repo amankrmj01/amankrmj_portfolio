@@ -1,6 +1,6 @@
 import 'info.model.dart';
 
-class CertificateInfo implements InfoModel {
+class ProjectModel implements InfoModel {
   @override
   final String name;
   @override
@@ -11,10 +11,11 @@ class CertificateInfo implements InfoModel {
   final List<String> images;
   @override
   final String largeDescription;
+
   @override
   final String type;
 
-  CertificateInfo({
+  ProjectModel({
     required this.name,
     required this.description,
     required this.url,
@@ -23,8 +24,8 @@ class CertificateInfo implements InfoModel {
     required this.type,
   });
 
-  factory CertificateInfo.fromJson(Map<String, dynamic> json) {
-    return CertificateInfo(
+  factory ProjectModel.fromJson(Map<String, dynamic> json) {
+    return ProjectModel(
       name: json['name'] as String,
       description: json['description'] as String,
       url: json['url'] as String,

@@ -2,6 +2,7 @@ import 'package:amankrmj_portfolio/presentation/certificate/controllers/certific
 import 'package:amankrmj_portfolio/presentation/works/controllers/works.controller.dart';
 import 'package:get/get.dart';
 
+import '../../../../presentation/footer/controllers/footer.controller.dart';
 import '../../../../presentation/home/controllers/home.controller.dart';
 
 class HomeControllerBinding extends Bindings {
@@ -10,5 +11,6 @@ class HomeControllerBinding extends Bindings {
     Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<CertificateController>(() => CertificateController());
     Get.lazyPut<WorksController>(() => WorksController());
+    Get.lazyPut<FooterController>(() => FooterController());
   }
 }

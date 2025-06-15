@@ -42,6 +42,8 @@ dependencies:
   pdf_image_renderer: ^1.0.1
   path_provider: ^2.1.5
   cached_network_image: ^3.4.1
+  window_manager: ^0.5.0
+  atlas_icons: ^0.0.12
 
 
 dev_dependencies:
