@@ -19,7 +19,6 @@ dependencies:
 
 
   #*Architecture
-  responsive_builder: ^0.7.1
   flutter_hooks: ^0.21.2
   url_strategy: ^0.3.0
 

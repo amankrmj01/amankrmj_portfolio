@@ -1,13 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 int getCrossAxisCount(BuildContext context) {
-  final deviceType = getDeviceType(MediaQuery.of(context).size);
-  if (deviceType == DeviceScreenType.desktop) {
-    return 3;
-  } else if (deviceType == DeviceScreenType.tablet) {
-    return 2;
+  final width = MediaQuery.of(context).size.width;
+  if (width >= 1100) {
+    return 3; // Desktop
+  } else if (width >= 600) {
+    return 2; // Tablet
   } else {
-    return 1;
+    return 1; // Mobile
   }
 }

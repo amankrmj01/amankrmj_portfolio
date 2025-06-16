@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:responsive_builder/responsive_builder.dart';
 
 import 'home.desktop.screen.dart';
 import 'home.mobile.screen.dart';
@@ -10,17 +9,13 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ResponsiveBuilder(
-      builder: (context, sizingInformation) {
-        if (sizingInformation.deviceScreenType == DeviceScreenType.mobile) {
-          return const HomeMobileScreen();
-        } else if (sizingInformation.deviceScreenType ==
-            DeviceScreenType.tablet) {
-          return const HomeTabletScreen();
-        } else {
-          return const HomeDesktopScreen();
-        }
-      },
-    );
+    final width = MediaQuery.of(context).size.width;
+    if (width < 600) {
+      return const HomeMobileScreen();
+    } else if (width < 1100) {
+      return const HomeTabletScreen();
+    } else {
+      return const HomeDesktopScreen();
+    }
   }
 }
