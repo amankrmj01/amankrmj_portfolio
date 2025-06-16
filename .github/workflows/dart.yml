@@ -2,8 +2,10 @@ name: Deploy Flutter Web to GitHub Pages
 
 on:
   push:
+    branches:
+      - gh-pages
     tags:
-      - '*'        # Trigger deployment when pushing a tag
+      - '*'
 
 jobs:
   build-and-deploy:
@@ -23,12 +25,17 @@ jobs:
       - name: Clean old build (optional)
         run: rm -rf ./build/web
 
-      - name: Build web
-        run: flutter build web --web-renderer=wasm
+      - name: Build Flutter Web using Wasm
+        run: flutter build web --wasm
+
+      - name: Move files to root for GitHub Pages
+        run: |
+          mkdir gh-pages-deploy
+          cp -r build/web/* gh-pages-deploy/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build/web
+          publish_dir: ./gh-pages-deploy
           force_orphan: true
