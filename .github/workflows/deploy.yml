@@ -22,9 +22,6 @@ jobs:
       - name: Show Flutter version
         run: flutter --version
 
-      - name: Precache WASM artifacts
-        run: flutter precache --wasm
-
       - name: Clean old builds
         run: flutter clean
 
