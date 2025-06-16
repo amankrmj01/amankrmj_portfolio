@@ -5,6 +5,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../utils/launch.url.dart';
+
 class AnimatedRotateIcon extends StatefulWidget {
   final Widget firstIcon;
   final Widget secondIcon;
@@ -33,15 +35,7 @@ class _AnimatedRotateIconState extends State<AnimatedRotateIcon> {
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () async {
-          if (await canLaunchUrl(Uri.parse(widget.url))) {
-            await launchUrl(
-              Uri.parse(widget.url),
-              mode: LaunchMode.externalApplication,
-              webOnlyWindowName: '_blank',
-            );
-          }
-        },
+        onTap: () => launchUrlExternal(widget.url),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
