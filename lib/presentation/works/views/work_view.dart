@@ -30,31 +30,38 @@ class _WorkViewState extends State<WorkView> {
           color: Colors.transparent,
           child: Container(
             height: (Get.height > 776 ? Get.height : 776) - 80,
-            // Set a fixed height for better layout control
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(24),
             ),
             child: isMobile
-                ? Row(
+                ? Column(
                     children: [
+                      _buildAppBar(context),
+                      const Divider(height: 1),
                       Expanded(
-                        flex: 2,
-                        child: Padding(
-                          padding: const EdgeInsets.all(24.0),
-                          child: _buildContent(),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 1,
-                        child: SizedBox(
-                          height: double.infinity,
-                          child: KInfiniteScrollImage(
-                            images: widget.project.images,
-                            height: 600,
-                            imageWidth: 400,
-                            direction: "vertical",
-                          ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              flex: 2,
+                              child: Padding(
+                                padding: const EdgeInsets.all(24.0),
+                                child: _buildContent(),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: SizedBox(
+                                height: double.infinity,
+                                child: KInfiniteScrollImage(
+                                  images: widget.project.images ?? [],
+                                  height: 600,
+                                  imageWidth: 400,
+                                  direction: "vertical",
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -89,7 +96,7 @@ class _WorkViewState extends State<WorkView> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _buildTitle(),
+        // _buildTitle(),
         const SizedBox(height: 12),
         Text(
           widget.project.description,
