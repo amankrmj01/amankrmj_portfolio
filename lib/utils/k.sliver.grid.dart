@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:get/get.dart';
-
 import '../domain/models/info.model.dart';
 import '../widgets/k.card.dart';
 import 'axis.count.dart';

@@ -1,22 +1,21 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import '../domain/models/info.model.dart';
 
 class KInfiniteScrollImage extends StatefulWidget {
-  final List<InfoModel> items;
+  final List<String> images;
   final double height;
   final double imageWidth;
   final Duration scrollDuration;
-  final Axis direction;
+  final String direction; // Accepts 'horizontal' or 'vertical'
 
   const KInfiniteScrollImage({
     super.key,
-    required this.items,
+    required this.images,
     this.height = 120,
     this.imageWidth = 180,
     this.scrollDuration = const Duration(seconds: 30),
-    this.direction = Axis.horizontal,
+    this.direction = 'horizontal',
   });
 
   @override
@@ -29,7 +28,10 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
   Timer? _timer;
   bool _isHovering = false;
 
-  List<String> get _allImages => widget.items.expand((e) => e.images).toList();
+  List<String> get _allImages => widget.images;
+
+  Axis get _axis =>
+      widget.direction == 'vertical' ? Axis.vertical : Axis.horizontal;
 
   @override
   void initState() {
@@ -83,7 +85,7 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
       if (current >
           maxScroll -
               2 *
-                  (widget.direction == Axis.horizontal
+                  (_axis == Axis.horizontal
                       ? widget.imageWidth
                       : widget.height) *
                   images.length) {
@@ -94,7 +96,7 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
       if (current <
           minScroll +
               2 *
-                  (widget.direction == Axis.horizontal
+                  (_axis == Axis.horizontal
                       ? widget.imageWidth
                       : widget.height) *
                   images.length) {
@@ -112,33 +114,31 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
         _startScrolling();
       },
       child: SizedBox(
-        height: widget.direction == Axis.horizontal
-            ? widget.height
-            : double.infinity,
-        width: widget.direction == Axis.horizontal
-            ? double.infinity
-            : widget.imageWidth,
+        height: _axis == Axis.horizontal ? widget.height : double.infinity,
+        width: _axis == Axis.horizontal ? double.infinity : widget.imageWidth,
         child: ListView(
           controller: _scrollController,
-          scrollDirection: widget.direction,
+          scrollDirection: _axis,
           physics: const NeverScrollableScrollPhysics(),
           children: [
-            widget.direction == Axis.horizontal
+            _axis == Axis.horizontal
                 ? Row(
                     children: displayImages
                         .map(
-                          (img) => CachedNetworkImage(
-                            imageUrl: img,
-                            height: widget.height,
-                            width: widget.imageWidth,
-                            fit: BoxFit.fitHeight,
-                            errorWidget: (c, e, s) => const SizedBox(),
-                            placeholder: (context, url) => SizedBox(
-                              width: widget.imageWidth,
+                          (img) => Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 8),
+                            child: CachedNetworkImage(
+                              imageUrl: img,
                               height: widget.height,
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
+                              fit: BoxFit.fitHeight,
+                              errorWidget: (c, e, s) => const SizedBox(),
+                              placeholder: (context, url) => SizedBox(
+                                width: widget.imageWidth,
+                                height: widget.height,
+                                child: const Center(
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
                                 ),
                               ),
                             ),
@@ -149,18 +149,20 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
                 : Column(
                     children: displayImages
                         .map(
-                          (img) => CachedNetworkImage(
-                            imageUrl: img,
-                            height: widget.height,
-                            width: widget.imageWidth,
-                            fit: BoxFit.fitWidth,
-                            errorWidget: (c, e, s) => const SizedBox(),
-                            placeholder: (context, url) => SizedBox(
-                              width: widget.imageWidth,
+                          (img) => Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16),
+                            child: CachedNetworkImage(
+                              imageUrl: img,
                               height: widget.height,
-                              child: const Center(
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
+                              fit: BoxFit.fitHeight,
+                              errorWidget: (c, e, s) => const SizedBox(),
+                              placeholder: (context, url) => SizedBox(
+                                width: widget.imageWidth,
+                                height: widget.height,
+                                child: const Center(
+                                  child: CircularProgressIndicator(
+                                    strokeWidth: 2,
+                                  ),
                                 ),
                               ),
                             ),

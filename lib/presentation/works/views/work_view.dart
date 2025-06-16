@@ -1,20 +1,14 @@
-// ignore_for_file: unused_import
-
-import 'dart:ui';
-
 import 'package:amankrmj_portfolio/domain/models/info.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:amankrmj_portfolio/widgets/k.image.dart';
-
-import '../../../domain/models/certificate.model.dart';
 import '../../../widgets/k.infinite.scroll.image.dart';
 import '../controllers/works.controller.dart';
 
 class WorkView extends StatefulWidget {
   final InfoModel project;
+
   final VoidCallback? onClose;
 
   const WorkView({super.key, required this.project, this.onClose});
@@ -111,11 +105,12 @@ class _WorkViewState extends State<WorkView> {
                       Expanded(
                         flex: 1,
                         child: SizedBox(
-                          height: 400,
+                          height: double.infinity,
                           child: KInfiniteScrollImage(
-                            items: [widget.project],
-                            height: 400,
+                            images: widget.project.images,
+                            height: 600,
                             imageWidth: 400,
+                            direction: "vertical",
                           ),
                         ),
                       ),
@@ -178,7 +173,7 @@ class _WorkViewState extends State<WorkView> {
                                 child: SizedBox(
                                   height: 400,
                                   child: KInfiniteScrollImage(
-                                    items: [widget.project],
+                                    images: widget.project.images,
                                     height: 400,
                                     imageWidth: 400, // Adjust as needed
                                   ),
