@@ -18,17 +18,26 @@ jobs:
           flutter-version: '3.32.4'
           channel: stable
 
-      - name: Show Flutter version
-        run: flutter --version
+      - name: Show Flutter version and location
+        run: |
+          which flutter
+          flutter --version
+          echo $PATH
+
+      - name: Remove system Flutter (if present)
+        run: |
+          sudo rm -rf /opt/hostedtoolcache/flutter
+          sudo rm -rf /usr/local/bin/flutter
+        continue-on-error: true
 
       - name: Clean old build
-        run: flutter clean
+        run: $FLUTTER_HOME/bin/flutter clean
 
       - name: Install dependencies
-        run: flutter pub get
+        run: $FLUTTER_HOME/bin/flutter pub get
 
       - name: Build Flutter Web using CanvasKit
-        run: flutter build web --release --web-renderer canvaskit --base-href=/amankrmj_portfolio/
+        run: $FLUTTER_HOME/bin/flutter build web --release --web-renderer canvaskit --base-href=/amankrmj_portfolio/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
