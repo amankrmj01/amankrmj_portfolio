@@ -15,7 +15,11 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.32.4'
           channel: stable
+
+      - name: Show Flutter version
+        run: flutter --version
 
       - name: Clean old build
         run: flutter clean
@@ -24,11 +28,11 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter Web using CanvasKit
-        run: flutter build web --web-renderer canvaskit --base-href=/amankrmj_portfolio/
+        run: flutter build web --release --web-renderer canvaskit --base-href=/amankrmj_portfolio/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
-          github_token: ${{ secrets.GH_PAT }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build/web
           force_orphan: true
