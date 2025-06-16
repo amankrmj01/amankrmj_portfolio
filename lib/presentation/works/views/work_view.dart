@@ -8,7 +8,6 @@ import '../controllers/works.controller.dart';
 
 class WorkView extends StatefulWidget {
   final InfoModel project;
-
   final VoidCallback? onClose;
 
   const WorkView({super.key, required this.project, this.onClose});
@@ -23,61 +22,6 @@ class _WorkViewState extends State<WorkView> {
   @override
   Widget build(BuildContext context) {
     final isMobile = widget.project.type == 'mobile';
-    final content = <Widget>[
-      Text(
-        widget.project.name,
-        style: const TextStyle(
-          fontSize: 28,
-          fontWeight: FontWeight.bold,
-          color: Colors.black,
-          fontFamily: 'ShantellSans',
-        ),
-      ),
-      const SizedBox(height: 12),
-      Text(
-        widget.project.description,
-        style: const TextStyle(fontSize: 18, color: Colors.black87),
-      ),
-      const SizedBox(height: 16),
-      Text(
-        widget.project.largeDescription,
-        style: const TextStyle(fontSize: 16, color: Colors.black54),
-      ),
-      const SizedBox(height: 24),
-      if (widget.project.url.isNotEmpty)
-        SizedBox(
-          height: 60,
-          child: Row(
-            children: [
-              const Icon(Icons.link, size: 20, color: Colors.blue),
-              const SizedBox(width: 8),
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: () async {
-                    if (await canLaunchUrl(Uri.parse(widget.project.url))) {
-                      await launchUrl(
-                        Uri.parse(widget.project.url),
-                        mode: LaunchMode.externalApplication,
-                        webOnlyWindowName: '_blank',
-                      );
-                    }
-                  },
-                  child: Text(
-                    widget.project.url,
-                    style: const TextStyle(
-                      color: Colors.blue,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.blue,
-                      fontSize: 16,
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-    ];
 
     return Center(
       child: Padding(
@@ -85,6 +29,8 @@ class _WorkViewState extends State<WorkView> {
         child: Material(
           color: Colors.transparent,
           child: Container(
+            height: (Get.height > 776 ? Get.height : 776) - 80,
+            // Set a fixed height for better layout control
             decoration: BoxDecoration(
               color: Theme.of(context).scaffoldBackgroundColor,
               borderRadius: BorderRadius.circular(24),
@@ -96,10 +42,7 @@ class _WorkViewState extends State<WorkView> {
                         flex: 2,
                         child: Padding(
                           padding: const EdgeInsets.all(24.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: content,
-                          ),
+                          child: _buildContent(),
                         ),
                       ),
                       Expanded(
@@ -119,49 +62,7 @@ class _WorkViewState extends State<WorkView> {
                 : Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // Custom AppBar
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          top: 8,
-                          left: 8,
-                          right: 8,
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Text(
-                                widget.project.name,
-                                style: const TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
-                                  fontFamily: 'ShantellSans',
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                              icon: const Icon(
-                                Icons.close,
-                                color: Colors.black,
-                                size: 28,
-                                weight: 900,
-                              ),
-                              onPressed:
-                                  widget.onClose ??
-                                  () => Navigator.of(context).maybePop(),
-                              tooltip: 'Close',
-                              style: ButtonStyle(
-                                iconColor: WidgetStateProperty.all(
-                                  Colors.black,
-                                ),
-                                overlayColor: WidgetStateProperty.all(
-                                  Colors.black12,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      _buildAppBar(context),
                       const Divider(height: 1),
                       Flexible(
                         child: SingleChildScrollView(
@@ -169,18 +70,9 @@ class _WorkViewState extends State<WorkView> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Center(
-                                child: SizedBox(
-                                  height: 400,
-                                  child: KInfiniteScrollImage(
-                                    images: widget.project.images,
-                                    height: 400,
-                                    imageWidth: 400, // Adjust as needed
-                                  ),
-                                ),
-                              ),
+                              _buildImageSection(),
                               const SizedBox(height: 24),
-                              ...content,
+                              _buildContent(),
                             ],
                           ),
                         ),
@@ -189,6 +81,109 @@ class _WorkViewState extends State<WorkView> {
                   ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildContent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        _buildTitle(),
+        const SizedBox(height: 12),
+        Text(
+          widget.project.description,
+          style: const TextStyle(fontSize: 18, color: Colors.black87),
+        ),
+        const SizedBox(height: 16),
+        Text(
+          widget.project.largeDescription,
+          style: const TextStyle(fontSize: 16, color: Colors.black54),
+        ),
+        const SizedBox(height: 24),
+        if (widget.project.url.isNotEmpty) _buildLinkRow(),
+      ],
+    );
+  }
+
+  Widget _buildTitle() {
+    return Text(
+      widget.project.name,
+      style: const TextStyle(
+        fontSize: 28,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+        fontFamily: 'ShantellSans',
+      ),
+    );
+  }
+
+  Widget _buildLinkRow() {
+    return SizedBox(
+      height: 60,
+      child: Row(
+        children: [
+          const Icon(Icons.link, size: 20, color: Colors.blue),
+          const SizedBox(width: 8),
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            child: GestureDetector(
+              onTap: () async {
+                final url = Uri.parse(widget.project.url);
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(
+                    url,
+                    mode: LaunchMode.externalApplication,
+                    webOnlyWindowName: '_blank',
+                  );
+                }
+              },
+              child: Text(
+                widget.project.url,
+                style: const TextStyle(
+                  color: Colors.blue,
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.blue,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAppBar(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8, left: 8, right: 8),
+      child: Row(
+        children: [
+          Expanded(child: _buildTitle()),
+          IconButton(
+            icon: const Icon(
+              Icons.close,
+              color: Colors.black,
+              size: 28,
+              weight: 900,
+            ),
+            onPressed: widget.onClose ?? () => Navigator.of(context).maybePop(),
+            tooltip: 'Close',
+            style: ButtonStyle(
+              iconColor: WidgetStateProperty.all(Colors.black),
+              overlayColor: WidgetStateProperty.all(Colors.black12),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildImageSection() {
+    return Center(
+      child: SizedBox(
+        height: 400,
+        child: KInfiniteScrollImage(images: widget.project.images),
       ),
     );
   }
