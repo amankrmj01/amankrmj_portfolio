@@ -23,8 +23,8 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Build Flutter Web using Wasm
-        run: flutter build web --wasm --base-href=/amankrmj_portfolio/
+      - name: Build Flutter Web using CanvasKit
+        run: flutter build web --web-renderer canvaskit --base-href=/amankrmj_portfolio/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
