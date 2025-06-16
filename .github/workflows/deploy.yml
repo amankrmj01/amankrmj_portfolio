@@ -24,20 +24,14 @@ jobs:
           flutter --version
           echo $PATH
 
-      - name: Remove system Flutter (if present)
-        run: |
-          sudo rm -rf /opt/hostedtoolcache/flutter
-          sudo rm -rf /usr/local/bin/flutter
-        continue-on-error: true
-
       - name: Clean old build
-        run: $FLUTTER_HOME/bin/flutter clean
+        run: flutter clean
 
       - name: Install dependencies
-        run: $FLUTTER_HOME/bin/flutter pub get
+        run: flutter pub get
 
       - name: Build Flutter Web using CanvasKit
-        run: $FLUTTER_HOME/bin/flutter build web --release --web-renderer canvaskit --base-href=/amankrmj_portfolio/
+        run: flutter build web --release --web-renderer canvaskit --base-href=/amankrmj_portfolio/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
