@@ -2,8 +2,10 @@ name: Deploy Flutter Web to GitHub Pages
 
 on:
   push:
+    branches:
+      - gh-pages  # Trigger only when pushing to gh-pages
     tags:
-      - '*'
+      - '*'        # Trigger deployment when pushing a tag
 
 jobs:
   build-and-deploy:
