@@ -37,7 +37,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter Web using CanvasKit
-        run: flutter build web --release --base-href=/amankrmj_portfolio/
+        run: flutter build web --release --web-renderer canvaskit --base-href=/amankrmj_portfolio/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
