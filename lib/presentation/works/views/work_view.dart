@@ -54,7 +54,7 @@ class _WorkViewState extends State<WorkView> {
                               child: SizedBox(
                                 height: double.infinity,
                                 child: KInfiniteScrollImage(
-                                  images: widget.project.images ?? [],
+                                  images: widget.project.images,
                                   height: 600,
                                   imageWidth: 400,
                                   direction: "vertical",
