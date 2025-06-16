@@ -8,10 +8,35 @@ import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
 
 void main() async {
-  ServiceC.setupServiceLocator();
-  var initialRoute = await Routes.initialRoute;
+  WidgetsFlutterBinding.ensureInitialized();
+  try {
+    ServiceC.setupServiceLocator();
+    var initialRoute = await Routes.initialRoute;
+    debugPrint('Initial route: $initialRoute'); // Debug print
+    runApp(Main(initialRoute));
+  } catch (e, stack) {
+    runApp(ErrorApp(error: e.toString(), stack: stack.toString()));
+  }
+}
 
-  runApp(Main(initialRoute));
+class ErrorApp extends StatelessWidget {
+  final String error;
+  final String stack;
+
+  const ErrorApp({required this.error, required this.stack, super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Center(
+          child: SingleChildScrollView(
+            child: Text('Startup error: $error\n$stack'),
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class Main extends StatelessWidget {
