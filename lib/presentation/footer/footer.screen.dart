@@ -107,7 +107,7 @@ class FooterScreen extends GetView<FooterController> {
   Widget _footerSocial() {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         SizedBox(
@@ -119,45 +119,56 @@ class FooterScreen extends GetView<FooterController> {
           ),
         ),
         const SizedBox(height: 40),
-        Text(
-          "- Contact Info",
-          style: TextStyle(
-            color: _footerForegroundColor,
-            fontSize: 16,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        Row(
+        Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Atlas.inbox_mailbox,
-              color: _footerForegroundColor,
-              size: 18.0,
-            ),
-            const SizedBox(width: 14),
             Text(
-              'amankrmj@outlook.com',
+              "- Contact Info",
               style: TextStyle(
                 color: _footerForegroundColor,
                 fontSize: 16,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w600,
               ),
             ),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Atlas.phonebook, color: _footerForegroundColor, size: 18.0),
-            const SizedBox(width: 14),
-            Text(
-              'xxxxxxxxxxx',
-              style: TextStyle(
-                color: Colors.deepPurple,
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Atlas.inbox_mailbox,
+                  color: _footerForegroundColor,
+                  size: 18.0,
+                ),
+                const SizedBox(width: 14),
+                Text(
+                  'amankrmj@outlook.com',
+                  style: TextStyle(
+                    color: _footerForegroundColor,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(
+                  Atlas.phonebook,
+                  color: _footerForegroundColor,
+                  size: 18.0,
+                ),
+                const SizedBox(width: 14),
+                Text(
+                  'xxxxxxxxxxx',
+                  style: TextStyle(
+                    color: Colors.deepPurple,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -207,7 +218,7 @@ class FooterScreen extends GetView<FooterController> {
   Widget build(BuildContext context) {
     return SizedBox(
       height: Get.height > 776 ? Get.height : 776,
-      width: Get.width,
+      width: double.infinity,
       child: Column(
         children: [
           Expanded(flex: 6, child: _quoteSection()),
@@ -219,14 +230,16 @@ class FooterScreen extends GetView<FooterController> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  _footerWelcomePart(),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [_madeWithFlutterLabel(), _ccLabel()],
+                  Expanded(child: _footerWelcomePart()),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [_madeWithFlutterLabel(), _ccLabel()],
+                    ),
                   ),
-                  _footerSocial(),
+                  Expanded(child: _footerSocial()),
                 ],
               ),
             ),

@@ -45,18 +45,35 @@ class AllCertificatesView extends GetView<CertificateController> {
                 ),
               ),
             ),
-            KSliverGrid(
-              fetchData: controller.fetchCertificates,
-              onCardTap: (cert, context) {
-                showBlurredGeneralDialog(
-                  context: context,
-                  builder: (context) => CertificateView(
-                    certificate: cert,
-                    onClose: () => Navigator.of(context).maybePop(),
+            Obx(() {
+              if (controller.isLoading.value) {
+                return const SliverToBoxAdapter(
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
+              if (controller.certificates.isEmpty) {
+                return const SliverToBoxAdapter(
+                  child: Center(
+                    child: Text(
+                      'No certificates found.',
+                      style: TextStyle(color: Colors.black, fontSize: 24),
+                    ),
                   ),
                 );
-              },
-            ),
+              }
+              return KSliverGrid(
+                items: controller.certificates,
+                onCardTap: (cert, context) {
+                  showBlurredGeneralDialog(
+                    context: context,
+                    builder: (context) => CertificateView(
+                      certificate: cert,
+                      onClose: () => Navigator.of(context).maybePop(),
+                    ),
+                  );
+                },
+              );
+            }),
           ],
         ),
       ),

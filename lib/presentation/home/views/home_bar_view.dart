@@ -15,14 +15,9 @@ class HomeBarView extends GetView<HomeController> {
     return AnimatedContainer(
       alignment: Alignment.center,
 
-      duration: Duration(milliseconds: 300),
+      duration: Duration(milliseconds: 400),
       height: 60,
-      // width: MediaQuery.of(context).size.width * 0.8,
-      // constraints: BoxConstraints(
-      //   maxWidth: MediaQuery.of(context).size.width * 0.4,
-      //   minWidth: 200,
-      // ),
-      constraints: BoxConstraints(maxWidth: 550),
+      constraints: BoxConstraints(maxWidth: 600),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(50),

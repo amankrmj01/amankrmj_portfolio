@@ -10,14 +10,36 @@ import '../widgets/infinte.tilted.strip.dart';
 class WorksController extends GetxController {
   final ScrollController scrollController = ScrollController();
 
-  Future<List<ProjectModel>> fetchProjects() async {
-    final service = Get.find<ProjectService>();
-    return await service.fetchAll();
+  final projects = <ProjectModel>[].obs;
+  final isLoading = false.obs;
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchProjects();
+  }
+
+  Future<void> fetchProjects() async {
+    isLoading.value = true;
+    try {
+      final data = await ProjectService().fetchAll();
+      projects.assignAll(data);
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to load projects: $e',
+        snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+      );
+      // print('Error fetching projects: $e');
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
     scrollController.dispose();
   }
 }

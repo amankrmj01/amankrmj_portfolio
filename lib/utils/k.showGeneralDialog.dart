@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
 
 typedef DialogBuilder = Widget Function(BuildContext context);
 
@@ -15,8 +14,8 @@ dynamic showBlurredGeneralDialog({
     barrierLabel: barrierLabel,
     barrierColor: barrierColor,
     pageBuilder: (context, anim1, anim2) {
-      return BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 4, sigmaY: 4),
+      return Container(
+        color: Colors.black.withAlpha((255 * 0.5).toInt()),
         child: builder(context),
       );
     },

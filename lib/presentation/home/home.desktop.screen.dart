@@ -51,7 +51,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                       Center(
                         child: SizedBox(
                           height: Get.height > 776 ? Get.height : 776,
-                          width: Get.width * 0.95,
+                          width: double.infinity,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -190,7 +190,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     ctx,
                     duration: const Duration(milliseconds: 400),
                     curve: Curves.easeInOut,
-                    alignment: 0.1, // Adjust as needed
+                    alignment: 0.0, // Adjust as needed
                   );
                 }
               },
@@ -333,15 +333,14 @@ class HomeDesktopScreen extends GetView<HomeController> {
       height: 80,
       width: 600,
       alignment: Alignment.bottomCenter,
-      // No width property, so it will size to its child
-      margin: EdgeInsets.only(bottom: 0),
+      // margin: EdgeInsets.only(bottom: 0),
       padding: EdgeInsets.zero,
       color: Colors.transparent,
       child: Obx(
         () => AnimatedAlign(
           duration: Duration(milliseconds: 400),
           alignment: controller.isScrolling.value
-              ? Alignment(0, -2.5)
+              ? Alignment(0, -4.5)
               : Alignment.bottomCenter,
           child: HomeBarView(),
         ),

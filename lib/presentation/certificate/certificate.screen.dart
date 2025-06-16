@@ -12,17 +12,22 @@ class CertificateScreen extends GetView<CertificateController> {
 
   @override
   Widget build(BuildContext context) {
-    return KSliverList(
-      fetchData: controller.fetchCertificates,
-      onCardTap: (cert, context) {
-        showBlurredGeneralDialog(
-          context: context,
-          builder: (context) => CertificateView(
-            certificate: cert,
-            onClose: () => Navigator.of(context).maybePop(),
-          ),
-        );
-      },
-    );
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return const Center(child: CircularProgressIndicator());
+      }
+      return KSliverList(
+        items: controller.certificates,
+        onCardTap: (cert, context) {
+          showBlurredGeneralDialog(
+            context: context,
+            builder: (context) => CertificateView(
+              certificate: cert,
+              onClose: () => Navigator.of(context).maybePop(),
+            ),
+          );
+        },
+      );
+    });
   }
 }

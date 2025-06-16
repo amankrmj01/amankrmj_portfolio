@@ -7,95 +7,41 @@ import '../widgets/k.card.dart';
 import 'axis.count.dart';
 
 class KSliverGrid extends StatelessWidget {
-  final Future<List<InfoModel>> Function() fetchData;
-  final void Function(InfoModel cert, BuildContext context) onCardTap;
+  final List<InfoModel> items;
   final bool home;
+  final void Function(InfoModel cert, BuildContext context) onCardTap;
 
   const KSliverGrid({
     super.key,
-    required this.fetchData,
-    required this.onCardTap,
+    required this.items,
     this.home = false,
+    required this.onCardTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<InfoModel>>(
-      future: fetchData(),
-      builder: (context, snapshot) {
-        try {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const SliverToBoxAdapter(
-              child: Center(child: CircularProgressIndicator()),
-            );
-          } else if (snapshot.hasError) {
-            return SliverToBoxAdapter(
-              child: Center(
-                child: Text(
-                  'Error: Something went wrong.',
-                  style: TextStyle(color: Colors.black, fontSize: 24),
-                ),
-              ),
-            );
-          } else if (snapshot.hasData) {
-            final list = snapshot.data ?? [];
-            if (list.isEmpty) {
-              return const SliverToBoxAdapter(
-                child: Center(
-                  child: Text(
-                    'No data found.',
-                    style: TextStyle(color: Colors.black, fontSize: 24),
-                  ),
-                ),
-              );
-            }
-            return SliverMasonryGrid.count(
-              crossAxisCount: getCrossAxisCount(context),
-              mainAxisSpacing: 20,
-              crossAxisSpacing: 20,
-              itemBuilder: (context, index) {
-                try {
-                  final item = list[index];
-                  return Container(
-                    height: Get.height - 120,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 24.0,
-                      horizontal: 32.0,
-                    ),
-                    child: KCard(
-                      info: item,
-                      onTap: () => onCardTap(item, context),
-                    ),
-                  );
-                } catch (e) {
-                  return const SizedBox.shrink();
-                }
-              },
-              childCount: home
-                  ? (list.length < 3 ? list.length : 3)
-                  : list.length,
-            );
-          } else {
-            return const SliverToBoxAdapter(
-              child: Center(
-                child: Text(
-                  'No data found.',
-                  style: TextStyle(color: Colors.black, fontSize: 24),
-                ),
-              ),
-            );
-          }
-        } catch (e) {
-          return const SliverToBoxAdapter(
-            child: Center(
-              child: Text(
-                'An unexpected error occurred.',
-                style: TextStyle(color: Colors.red, fontSize: 24),
-              ),
-            ),
-          );
-        }
-      },
+    if (items.isEmpty) {
+      return const SliverToBoxAdapter(
+        child: Center(
+          child: Text(
+            'No data found.',
+            style: TextStyle(color: Colors.black, fontSize: 24),
+          ),
+        ),
+      );
+    }
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+      sliver: SliverMasonryGrid.count(
+        crossAxisCount: getCrossAxisCount(context),
+        mainAxisSpacing: 24,
+        crossAxisSpacing: 24,
+        childCount: items.length,
+        itemBuilder: (context, index) {
+          final item = items[index];
+          return KCard(info: item, onTap: () => onCardTap(item, context));
+        },
+      ),
     );
   }
 }

@@ -57,18 +57,35 @@ class AllWorksView extends GetView<WorksController> {
                 ),
               ),
             ),
-            KSliverGrid(
-              fetchData: controller.fetchProjects,
-              onCardTap: (project, context) {
-                showBlurredGeneralDialog(
-                  context: context,
-                  builder: (context) => WorkView(
-                    project: project,
-                    onClose: () => Navigator.of(context).maybePop(),
+            Obx(() {
+              if (controller.isLoading.value) {
+                return const SliverToBoxAdapter(
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
+              if (controller.projects.isEmpty) {
+                return const SliverToBoxAdapter(
+                  child: Center(
+                    child: Text(
+                      'No projects found.',
+                      style: TextStyle(color: Colors.black, fontSize: 24),
+                    ),
                   ),
                 );
-              },
-            ),
+              }
+              return KSliverGrid(
+                items: controller.projects,
+                onCardTap: (project, context) {
+                  showBlurredGeneralDialog(
+                    context: context,
+                    builder: (context) => WorkView(
+                      project: project,
+                      onClose: () => Navigator.of(context).maybePop(),
+                    ),
+                  );
+                },
+              );
+            }),
           ],
         ),
       ),

@@ -24,17 +24,22 @@ class WorksScreen extends GetView<WorksController> {
 
   @override
   Widget build(BuildContext context) {
-    return KSliverList(
-      fetchData: controller.fetchProjects,
-      onCardTap: (project, context) {
-        showBlurredGeneralDialog(
-          context: context,
-          builder: (context) => WorkView(
-            project: project,
-            onClose: () => Navigator.of(context).maybePop(),
-          ),
-        );
-      },
-    );
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return const Center(child: CircularProgressIndicator());
+      }
+      return KSliverList(
+        items: controller.projects,
+        onCardTap: (project, context) {
+          showBlurredGeneralDialog(
+            context: context,
+            builder: (context) => WorkView(
+              project: project,
+              onClose: () => Navigator.of(context).maybePop(),
+            ),
+          );
+        },
+      );
+    });
   }
 }
