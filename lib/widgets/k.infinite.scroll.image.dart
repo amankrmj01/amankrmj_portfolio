@@ -1,4 +1,4 @@
-import 'package:flutter/gestures.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../domain/models/info.model.dart';
@@ -8,6 +8,7 @@ class KInfiniteScrollImage extends StatefulWidget {
   final double height;
   final double imageWidth;
   final Duration scrollDuration;
+  final Axis direction;
 
   const KInfiniteScrollImage({
     super.key,
@@ -15,6 +16,7 @@ class KInfiniteScrollImage extends StatefulWidget {
     this.height = 120,
     this.imageWidth = 180,
     this.scrollDuration = const Duration(seconds: 30),
+    this.direction = Axis.horizontal,
   });
 
   @override
@@ -23,8 +25,8 @@ class KInfiniteScrollImage extends StatefulWidget {
 
 class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
     with SingleTickerProviderStateMixin {
-  late final AnimationController _controller;
-  late final Animation<double> _animation;
+  late final ScrollController _scrollController;
+  Timer? _timer;
   bool _isHovering = false;
 
   List<String> get _allImages => widget.items.expand((e) => e.images).toList();
@@ -32,57 +34,103 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(
-      vsync: this,
-      duration: widget.scrollDuration,
-    )..repeat();
-    _animation = Tween<double>(begin: 0, end: 1).animate(_controller);
+    _scrollController = ScrollController();
+    _startScrolling();
+  }
+
+  void _startScrolling() {
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(milliseconds: 16), (_) {
+      if (!_isHovering && _scrollController.hasClients) {
+        final maxScroll = _scrollController.position.maxScrollExtent;
+        final current = _scrollController.offset;
+        double next = current + 1;
+        if (next >= maxScroll) {
+          next = 0;
+        }
+        _scrollController.jumpTo(next);
+      }
+    });
+  }
+
+  void _stopScrolling() {
+    _timer?.cancel();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _timer?.cancel();
+    _scrollController.dispose();
     super.dispose();
-  }
-
-  void _onEnter(PointerEnterEvent event) {
-    setState(() => _isHovering = true);
-    _controller.stop();
-  }
-
-  void _onExit(PointerExitEvent event) {
-    setState(() => _isHovering = false);
-    _controller.repeat();
   }
 
   @override
   Widget build(BuildContext context) {
     final images = _allImages;
     if (images.isEmpty) return const SizedBox();
-    // Duplicate images for seamless infinite scroll
-    final displayImages = [...images, ...images];
-    final totalWidth = displayImages.length * widget.imageWidth;
-
+    // Repeat images many times for infinite effect
+    const repeatCount = 10;
+    final displayImages = List.generate(
+      repeatCount,
+      (_) => images,
+    ).expand((e) => e).toList();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_scrollController.hasClients) return;
+      final maxScroll = _scrollController.position.maxScrollExtent;
+      final minScroll = _scrollController.position.minScrollExtent;
+      final current = _scrollController.offset;
+      // If near the end, jump to the middle
+      if (current >
+          maxScroll -
+              2 *
+                  (widget.direction == Axis.horizontal
+                      ? widget.imageWidth
+                      : widget.height) *
+                  images.length) {
+        final middle = maxScroll / 2;
+        _scrollController.jumpTo(middle);
+      }
+      // If near the start, jump to the middle
+      if (current <
+          minScroll +
+              2 *
+                  (widget.direction == Axis.horizontal
+                      ? widget.imageWidth
+                      : widget.height) *
+                  images.length) {
+        final middle = maxScroll / 2;
+        _scrollController.jumpTo(middle);
+      }
+    });
     return MouseRegion(
-      onEnter: _onEnter,
-      onExit: _onExit,
+      onEnter: (event) {
+        setState(() => _isHovering = true);
+        _stopScrolling();
+      },
+      onExit: (event) {
+        setState(() => _isHovering = false);
+        _startScrolling();
+      },
       child: SizedBox(
-        height: widget.height,
-        width: double.infinity,
-        child: AnimatedBuilder(
-          animation: _animation,
-          builder: (context, child) {
-            final offset = _animation.value * images.length * widget.imageWidth;
-            return Stack(
-              children: [
-                Transform.translate(
-                  offset: Offset(-offset, 0),
-                  child: Row(
+        height: widget.direction == Axis.horizontal
+            ? widget.height
+            : double.infinity,
+        width: widget.direction == Axis.horizontal
+            ? double.infinity
+            : widget.imageWidth,
+        child: ListView(
+          controller: _scrollController,
+          scrollDirection: widget.direction,
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            widget.direction == Axis.horizontal
+                ? Row(
                     children: displayImages
                         .map(
                           (img) => CachedNetworkImage(
                             imageUrl: img,
                             height: widget.height,
+                            width: widget.imageWidth,
                             fit: BoxFit.fitHeight,
                             errorWidget: (c, e, s) => const SizedBox(),
                             placeholder: (context, url) => SizedBox(
@@ -97,11 +145,30 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
                           ),
                         )
                         .toList(),
+                  )
+                : Column(
+                    children: displayImages
+                        .map(
+                          (img) => CachedNetworkImage(
+                            imageUrl: img,
+                            height: widget.height,
+                            width: widget.imageWidth,
+                            fit: BoxFit.fitWidth,
+                            errorWidget: (c, e, s) => const SizedBox(),
+                            placeholder: (context, url) => SizedBox(
+                              width: widget.imageWidth,
+                              height: widget.height,
+                              child: const Center(
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
+                              ),
+                            ),
+                          ),
+                        )
+                        .toList(),
                   ),
-                ),
-              ],
-            );
-          },
+          ],
         ),
       ),
     );
