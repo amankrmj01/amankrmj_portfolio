@@ -2,8 +2,6 @@ name: Deploy Flutter Web to GitHub Pages
 
 on:
   push:
-    branches:
-      - gh-pages
     tags:
       - '*'
 
