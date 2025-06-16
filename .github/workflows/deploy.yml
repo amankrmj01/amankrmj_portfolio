@@ -24,6 +24,12 @@ jobs:
           flutter --version
           echo $PATH
 
+      - name: Force Flutter tool upgrade & precache web
+        run: |
+          flutter upgrade --force
+          flutter doctor
+          flutter precache --web
+
       - name: Clean old build
         run: flutter clean
 
