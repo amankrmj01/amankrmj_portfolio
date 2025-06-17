@@ -8,7 +8,7 @@ const String kHomeDisplayLineAboutMe03 =
 
 const String githubUrl = 'https://github.com/amankrmj01';
 const String assetGithubUrl =
-    'https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/';
+    'https://raw.githubusercontent.com/amankrmj01/amankrmj_portfolio/main/.github/';
 const String linkedInUrl = 'https://www.linkedin.com/in/amankrmj01';
 const String twitterUrl = '';
 const String instagramUrl = 'https://www.instagram.com/amankrmj.01';
