@@ -49,5 +49,10 @@ class Nav {
       page: () => const FooterScreen(),
       binding: FooterControllerBinding(),
     ),
+    GetPage(
+      name: Routes.EXPERIENCE,
+      page: () => const ExperienceScreen(),
+      binding: ExperienceControllerBinding(),
+    ),
   ];
 }

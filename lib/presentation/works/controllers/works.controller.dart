@@ -1,6 +1,5 @@
 import 'package:amankrmj_portfolio/domain/models/project.model.dart';
 import 'package:amankrmj_portfolio/infrastructure/dal/services/project_service.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +21,7 @@ class WorksController extends GetxController {
   Future<void> fetchProjects() async {
     isLoading.value = true;
     try {
-      final data = await ProjectService().fetchAll();
+      final data = await Get.find<ProjectService>().fetchAll();
       projects.assignAll(data);
     } catch (e) {
       Get.snackbar(
@@ -32,7 +31,6 @@ class WorksController extends GetxController {
         backgroundColor: Colors.redAccent,
         colorText: Colors.white,
       );
-      // print('Error fetching projects: $e');
     } finally {
       isLoading.value = false;
     }

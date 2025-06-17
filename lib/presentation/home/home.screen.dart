@@ -15,7 +15,7 @@ class HomeScreen extends StatelessWidget {
     } else if (width < 1100) {
       return const HomeTabletScreen();
     } else {
-      return const HomeDesktopScreen();
+      return HomeDesktopScreen();
     }
   }
 }

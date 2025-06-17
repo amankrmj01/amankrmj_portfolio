@@ -17,11 +17,6 @@ import 'controllers/home.controller.dart';
 class HomeDesktopScreen extends GetView<HomeController> {
   const HomeDesktopScreen({super.key});
 
-  static final GlobalKey _recentWorksKey = GlobalKey();
-  static final GlobalKey _recentCertificatesKey = GlobalKey();
-  static final GlobalKey _footerKey = GlobalKey();
-  static final GlobalKey _homeBarKey = GlobalKey();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,17 +45,23 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     children: [
                       Center(
                         child: SizedBox(
+                          key: HomeController.homeBarKey,
                           height: Get.height > 776 ? Get.height : 776,
                           width: double.infinity,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 120),
-                              displayLinesWithCodeBlock(),
-                              aboutMeLines(),
-                              navigateButtonAndSocialLinks(),
-                            ],
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 32.0,
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SizedBox(height: 120),
+                                displayLinesWithCodeBlock(),
+                                aboutMeLines(),
+                                navigateButtonAndSocialLinks(),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -68,17 +69,18 @@ class HomeDesktopScreen extends GetView<HomeController> {
                         context,
                         title: 'Recent Works',
                         view: const AllWorksView(),
-                        sectionKey: _recentWorksKey,
+                        sectionKey: HomeController.recentWorksKey,
                       ),
                       WorksScreen(),
                       sliverHeaderDisplay(
                         context,
                         title: 'Recent Certificates',
                         view: const AllCertificatesView(),
-                        sectionKey: _recentCertificatesKey,
+                        sectionKey: HomeController.recentCertificatesKey,
                       ),
                       CertificateScreen(),
                       SizedBox(
+                        key: HomeController.footerKey,
                         height: Get.height, // Adjust as needed for your footer
                         child: FooterScreen(),
                       ),
@@ -183,9 +185,8 @@ class HomeDesktopScreen extends GetView<HomeController> {
               label: 'See My Works',
               icon: Icons.arrow_forward,
               onTap: () {
-                final ctx = HomeDesktopScreen._recentWorksKey.currentContext;
+                final ctx = HomeController.recentWorksKey.currentContext;
                 if (ctx != null) {
-                  // controller.scrollController.cancel?,
                   Scrollable.ensureVisible(
                     ctx,
                     duration: const Duration(milliseconds: 400),
@@ -197,74 +198,76 @@ class HomeDesktopScreen extends GetView<HomeController> {
             ),
           ),
           // Spacer(),
-          SizedBox(
-            height: 40,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AnimatedRotateIcon(
-                  firstIcon: Image.asset(
-                    'assets/icons/github_outline.png',
-                    width: 32,
-                    height: 32,
+          Obx(() {
+            return SizedBox(
+              height: 50,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AnimatedRotateIcon(
+                    firstIcon: Image.asset(
+                      'assets/icons/github_outline.png',
+                      width: 32,
+                      height: 32,
+                    ),
+                    secondIcon: Image.asset(
+                      'assets/icons/github_color.png',
+                      width: 32,
+                      height: 32,
+                    ),
+                    label: "Github",
+                    url: controller.socialLinks['github'] ?? '',
                   ),
-                  secondIcon: Image.asset(
-                    'assets/icons/github_color.png',
-                    width: 32,
-                    height: 32,
+                  VerticalDivider(width: 16, thickness: 2, color: Colors.black),
+                  AnimatedRotateIcon(
+                    firstIcon: Image.asset(
+                      'assets/icons/linkedin_outline.png',
+                      width: 32,
+                      height: 32,
+                    ),
+                    secondIcon: Image.asset(
+                      'assets/icons/linkedin_color.png',
+                      width: 32,
+                      height: 32,
+                    ),
+                    label: "LinkedIn",
+                    url: controller.socialLinks['linkedIn'] ?? '',
                   ),
-                  label: "Github",
-                  url: githubUrl,
-                ),
-                VerticalDivider(width: 16, thickness: 2, color: Colors.black),
-                AnimatedRotateIcon(
-                  firstIcon: Image.asset(
-                    'assets/icons/linkedin_outline.png',
-                    width: 32,
-                    height: 32,
+                  VerticalDivider(width: 16, thickness: 2, color: Colors.black),
+                  AnimatedRotateIcon(
+                    firstIcon: Image.asset(
+                      'assets/icons/instagram_outline.png',
+                      width: 32,
+                      height: 32,
+                    ),
+                    secondIcon: Image.asset(
+                      'assets/icons/instagram_color.png',
+                      width: 32,
+                      height: 32,
+                    ),
+                    label: "Instagram",
+                    url: controller.socialLinks['instagram'] ?? '',
                   ),
-                  secondIcon: Image.asset(
-                    'assets/icons/linkedin_color.png',
-                    width: 32,
-                    height: 32,
+                  VerticalDivider(width: 16, thickness: 2, color: Colors.black),
+                  AnimatedRotateIcon(
+                    firstIcon: Image.asset(
+                      'assets/icons/discord_outline.png',
+                      width: 32,
+                      height: 32,
+                    ),
+                    secondIcon: Image.asset(
+                      'assets/icons/discord_color.png',
+                      width: 32,
+                      height: 32,
+                    ),
+                    label: "Discord",
+                    url: controller.socialLinks['discord'] ?? '',
                   ),
-                  label: "LinkedIn",
-                  url: linkedInUrl,
-                ),
-                VerticalDivider(width: 16, thickness: 2, color: Colors.black),
-                AnimatedRotateIcon(
-                  firstIcon: Image.asset(
-                    'assets/icons/instagram_outline.png',
-                    width: 32,
-                    height: 32,
-                  ),
-                  secondIcon: Image.asset(
-                    'assets/icons/instagram_color.png',
-                    width: 32,
-                    height: 32,
-                  ),
-                  label: "Instagram",
-                  url: instagramUrl,
-                ),
-                VerticalDivider(width: 16, thickness: 2, color: Colors.black),
-                AnimatedRotateIcon(
-                  firstIcon: Image.asset(
-                    'assets/icons/discord_outline.png',
-                    width: 32,
-                    height: 32,
-                  ),
-                  secondIcon: Image.asset(
-                    'assets/icons/discord_color.png',
-                    width: 32,
-                    height: 32,
-                  ),
-                  label: "Discord",
-                  url: discordUrl,
-                ),
-              ],
-            ),
-          ),
+                ],
+              ),
+            );
+          }),
         ],
       ),
     );
@@ -340,7 +343,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
         () => AnimatedAlign(
           duration: Duration(milliseconds: 400),
           alignment: controller.isScrolling.value
-              ? Alignment(0, -4.5)
+              ? Alignment(0, -5.0)
               : Alignment.bottomCenter,
           child: HomeBarView(),
         ),

@@ -9,6 +9,7 @@ import '../../domain/models/quote.model.dart';
 import '../../infrastructure/theme/colors.dart';
 import '../../utils/launch.url.dart';
 import 'controllers/footer.controller.dart';
+import '../home/controllers/home.controller.dart';
 
 class FooterScreen extends GetView<FooterController> {
   const FooterScreen({super.key});
@@ -16,28 +17,19 @@ class FooterScreen extends GetView<FooterController> {
   final Color _footerForegroundColor = const Color(0xFFC7D3B6);
 
   Widget _quoteSection() {
-    return FutureBuilder<List<QuoteModel>>(
-      future: controller.fetchQuotes(),
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text(
-              'Failed to load quote',
-              style: TextStyle(color: _footerForegroundColor),
-            ),
-          );
-        } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-          return Center(
-            child: Text(
-              'No quotes available',
-              style: TextStyle(color: _footerForegroundColor),
-            ),
-          );
-        }
-        final quotes = snapshot.data!;
-        final quote = (quotes..shuffle()).first;
+    return Obx(() {
+      if (controller.isLoading.value) {
+        return const Center(child: CircularProgressIndicator());
+      } else if (controller.quotes.isEmpty) {
+        return Center(
+          child: Text(
+            'No quotes available',
+            style: TextStyle(color: _footerForegroundColor),
+          ),
+        );
+      } else {
+        final quotes = controller.quotes;
+        final quote = (quotes.toList()..shuffle()).first;
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -71,8 +63,8 @@ class FooterScreen extends GetView<FooterController> {
             ),
           ],
         );
-      },
-    );
+      }
+    });
   }
 
   Widget _footerWelcomePart() {
@@ -105,16 +97,18 @@ class FooterScreen extends GetView<FooterController> {
   }
 
   Widget _footerSocial() {
+    final homeController = Get.find<HomeController>();
     return Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         SizedBox(
           width: 120,
           child: AnimatedNavigateButton(
             label: "Resume",
-            onTap: () => launchUrlExternal(resumeUrl),
+            onTap: () =>
+                launchUrlExternal(homeController.socialLinks['resume'] ?? ''),
             icon: Icons.cloud_download,
           ),
         ),
@@ -141,12 +135,14 @@ class FooterScreen extends GetView<FooterController> {
                   size: 18.0,
                 ),
                 const SizedBox(width: 14),
-                Text(
-                  'amankrmj@outlook.com',
-                  style: TextStyle(
-                    color: _footerForegroundColor,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
+                Obx(
+                  () => Text(
+                    homeController.socialLinks['email'] ?? '',
+                    style: TextStyle(
+                      color: _footerForegroundColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
               ],
@@ -160,12 +156,15 @@ class FooterScreen extends GetView<FooterController> {
                   size: 18.0,
                 ),
                 const SizedBox(width: 14),
-                Text(
-                  'xxxxxxxxxxx',
-                  style: TextStyle(
-                    color: Colors.deepPurple,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
+                Obx(
+                  () => Text(
+                    homeController.socialLinks['phoneNumber'] ??
+                        '+91 1234567890',
+                    style: TextStyle(
+                      color: _footerForegroundColor,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                    ),
                   ),
                 ),
               ],
@@ -226,21 +225,25 @@ class FooterScreen extends GetView<FooterController> {
             flex: 4,
             child: ColoredBox(
               color: Colors.black,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Expanded(child: _footerWelcomePart()),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [_madeWithFlutterLabel(), _ccLabel()],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(child: _footerWelcomePart()),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [_madeWithFlutterLabel(), _ccLabel()],
+                      ),
                     ),
-                  ),
-                  Expanded(child: _footerSocial()),
-                ],
+                    Expanded(child: _footerSocial()),
+                    SizedBox(width: 40),
+                  ],
+                ),
               ),
             ),
           ),

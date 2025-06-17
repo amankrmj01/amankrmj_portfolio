@@ -17,7 +17,7 @@ class CertificateController extends GetxController {
   Future<void> fetchCertificates() async {
     isLoading.value = true;
     try {
-      final data = await CertificateService().fetchAll();
+      final data = await Get.find<CertificateService>().fetchAll();
       certificates.assignAll(data);
     } catch (e) {
       Get.snackbar(
@@ -27,7 +27,6 @@ class CertificateController extends GetxController {
         backgroundColor: Colors.redAccent,
         colorText: Colors.white,
       );
-      // print('Error fetching projects: $e');
     } finally {
       isLoading.value = false;
     }

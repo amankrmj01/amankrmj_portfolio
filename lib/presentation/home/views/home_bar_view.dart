@@ -4,17 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home.controller.dart';
+import '../home.desktop.screen.dart';
 
 class HomeBarView extends GetView<HomeController> {
   HomeBarView({super.key});
 
-  final List<String> labels = ['About', 'Works', 'Certificates', 'Journey'];
-  final List<VoidCallback> onTapActions = [
-    () => print('About tapped'),
-    () => print('Works tapped'),
-    () => print('Certificates tapped'),
-    () => print('Journey tapped'),
-  ];
+  final List<String> labels = ['Home', 'Works', 'Certificates', 'Experience'];
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +37,7 @@ class HomeBarView extends GetView<HomeController> {
           return HoverAnimatedButton(
             index: index,
             label: labels[index],
-            onTap: onTapActions[index],
+            onTap: controller.onTapActions[index],
           );
         }),
       ),

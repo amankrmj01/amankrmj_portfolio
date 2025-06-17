@@ -1,3 +1,4 @@
+import 'package:amankrmj_portfolio/configs/constant_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -107,7 +108,7 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
                           (img) => Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: CachedNetworkImage(
-                              imageUrl: img,
+                              imageUrl: assetGithubUrl + img,
                               // height: widget.height,
                               // width: widget.imageWidth,
                               fit: BoxFit.fitHeight,
@@ -135,7 +136,7 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
                           (img) => Padding(
                             padding: const EdgeInsets.symmetric(vertical: 16),
                             child: CachedNetworkImage(
-                              imageUrl: img,
+                              imageUrl: assetGithubUrl + img,
                               height: widget.height,
                               width: widget.imageWidth,
                               fit: BoxFit.fitHeight,

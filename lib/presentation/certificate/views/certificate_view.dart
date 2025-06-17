@@ -1,6 +1,5 @@
 // ignore_for_file: unused_import
 
-import 'dart:ui';
 
 import 'package:amankrmj_portfolio/domain/models/info.model.dart';
 import 'package:flutter/material.dart';
