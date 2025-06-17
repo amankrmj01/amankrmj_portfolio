@@ -1,0 +1,32 @@
+[
+	{
+  "name": "Mastering MYSQL: Database Creation, Management & SQL Queries",
+  "description": "Covers MySQL fundamentals including database design, management, and SQL queries.",
+  "url": "https://www.udemy.com/certificate/UC-c40c65d1-cccf-4ec3-9616-09c5d0e5a746/",
+  "images": [
+    "https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/certificates/udemy_mysql_certificate.jpg"
+  ],
+  "largeDescription": "This certificate confirms that Aman Kumar Maurya completed the course 'Mastering MYSQL: Database Creation, Management & SQL Queries' on 05/28/2025, instructed by Maria EduCare on Udemy. The course covered 35 lectures and 4.5 video hours focused on practical SQL usage for creating, managing, and querying MySQL databases.",
+  "type": "jpg"
+},
+  {
+    "name": "Java (Basic) Certificate",
+    "description": "Covers fundamental concepts of the Java programming language.",
+    "url": "https://www.hackerrank.com/certificates/eac8d632729b",
+    "images": [
+      "https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/certificates/hackerrank_java_basic_certificate.jpg"
+    ],
+    "largeDescription": "This certificate verifies core Java skills including classes, data structures, inheritance, exception handling, and more. Candidates are expected to be proficient in either Java 7 or Java 8.",
+    "type": "jpg"
+  },
+  {
+    "name": "Software Engineer Certificate",
+    "description": "Covers problem solving, SQL, and REST API concepts.",
+    "url": "https://www.hackerrank.com/certificates/3d700297d0f1",
+    "images": [
+      "https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/certificates/hackerrank_software_engineer_certificate.jpg"
+    ],
+    "largeDescription": "This certificate validates foundational knowledge required for a software engineer role, including analytical problem solving, basic SQL database operations, and understanding of RESTful APIs.",
+    "type": "jpg"
+  }
+]

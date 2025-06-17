@@ -1,0 +1,38 @@
+[
+{
+  "name": "SwiftCafe",
+  "description": "A project repository focused on Swift programming, featuring code, experiments, and examples related to Swift development.",
+  "url": "https://github.com/amankrmj01/swift_cafe",
+  "images": [
+  "https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/projects/swift_cafe/Screenshot_Auth_screen.png",
+  "https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/projects/swift_cafe/Screenshot_Details_Screen.png",
+  "https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/projects/swift_cafe/Screenshot_Home_screen.png"
+],
+  "largeDescription": "This repository, SwiftCafe, is dedicated to exploring the Swift programming language. It contains a variety of sample code, practical exercises, and demonstrations covering topics relevant to Swift development. The project aims to help learners and developers understand Swift syntax, core programming concepts, and best practices for building apps or scripts using Swift.",
+  "type": "mobile"
+},
+{
+  "name": "GreenHive",
+  "description": "A smart greenhouse system project utilizing Dart for core application logic, with supporting code in TypeScript and other technologies.",
+  "url": "https://github.com/GreenHive-Smart-Greenhouse-System/greenhive",
+  "images": [],
+  "largeDescription": "GreenHive is an advanced smart greenhouse system designed to automate and optimize greenhouse operations. The repository is primarily written in Dart, making up 97.5% of the codebase, with additional support from TypeScript (1.6%) and other languages (0.9%). The project aims to deliver intelligent monitoring, control systems, and user interfaces for greenhouse environments, supporting features like sensor integration, automation, and real-time data analytics.",
+  "type": "web"
+},
+{
+    "name": "restaurant_managemant_frontend",
+    "description": "A front-end application for restaurant management, primarily built using Dart.",
+    "url": "https://github.com/amankrmj01/restaurant_managemant_frontend",
+    "images": [],
+    "largeDescription": "This repository contains the front-end code for a restaurant management system, developed mainly in Dart (99.1%) with some HTML (0.9%). It provides user interfaces and client-side logic to support restaurant operations, such as order processing, menu management, and customer interaction.",
+    "type": "web"
+  },
+  {
+    "name": "restaurant_management_backend",
+    "description": "A Java-based backend for restaurant management systems, offering robust APIs and business logic.",
+    "url": "https://github.com/amankrmj01/restaurant_management_backend",
+    "images": [],
+    "largeDescription": "This repository features the backend services for the restaurant management system, written entirely in Java (100%). It implements RESTful APIs, database management, and business logic required to run core restaurant operations, supporting the corresponding frontend and ensuring secure, efficient data handling.",
+    "type": "web"
+  }
+]

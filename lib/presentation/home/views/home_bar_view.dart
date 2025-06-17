@@ -9,6 +9,12 @@ class HomeBarView extends GetView<HomeController> {
   HomeBarView({super.key});
 
   final List<String> labels = ['About', 'Works', 'Certificates', 'Journey'];
+  final List<VoidCallback> onTapActions = [
+    () => print('About tapped'),
+    () => print('Works tapped'),
+    () => print('Certificates tapped'),
+    () => print('Journey tapped'),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,11 @@ class HomeBarView extends GetView<HomeController> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         children: List.generate(labels.length, (index) {
-          return HoverAnimatedButton(index: index, label: labels[index]);
+          return HoverAnimatedButton(
+            index: index,
+            label: labels[index],
+            onTap: onTapActions[index],
+          );
         }),
       ),
     );
