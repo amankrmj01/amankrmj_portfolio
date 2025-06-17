@@ -4,9 +4,9 @@
   "description": "A project repository focused on Swift programming, featuring code, experiments, and examples related to Swift development.",
   "url": "https://github.com/amankrmj01/swift_cafe",
   "images": [
-  "https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/projects/swift_cafe/Screenshot_Auth_screen.png",
-  "https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/projects/swift_cafe/Screenshot_Details_Screen.png",
-  "https://raw.githubusercontent.com/amankrmj01/amankrmj01/main/.github/projects/swift_cafe/Screenshot_Home_screen.png"
+  "projects/swift_cafe/Screenshot_Auth_screen.png",
+  "projects/swift_cafe/Screenshot_Details_Screen.png",
+  "projects/swift_cafe/Screenshot_Home_screen.png"
 ],
   "largeDescription": "This repository, SwiftCafe, is dedicated to exploring the Swift programming language. It contains a variety of sample code, practical exercises, and demonstrations covering topics relevant to Swift development. The project aims to help learners and developers understand Swift syntax, core programming concepts, and best practices for building apps or scripts using Swift.",
   "type": "mobile"
