@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:amankrmj_portfolio/configs/constant_strings.dart';
+import 'package:portfolio/configs/constant_strings.dart';
 import 'package:http/http.dart' as http;
-import 'package:amankrmj_portfolio/domain/models/project.model.dart';
+import 'package:portfolio/domain/models/project.model.dart';
 import 'abstract.service.dart';
 
 class ProjectService extends AbstractService<ProjectModel> {

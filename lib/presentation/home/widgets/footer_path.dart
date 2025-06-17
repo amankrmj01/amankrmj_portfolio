@@ -1,4 +1,4 @@
-import 'package:amankrmj_portfolio/utils/path_ex.dart';
+import 'package:portfolio/utils/path_ex.dart';
 import 'package:flutter/material.dart';
 
 class FooterPath extends StatelessWidget {

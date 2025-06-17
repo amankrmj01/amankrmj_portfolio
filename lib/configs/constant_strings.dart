@@ -7,4 +7,4 @@ const String kHomeDisplayLineAboutMe03 =
     '    - Student from VIT University, Chennai';
 
 const String assetGithubUrl =
-    'https://raw.githubusercontent.com/amankrmj01/amankrmj_portfolio/main/.github/';
+    'https://raw.githubusercontent.com/amankrmj01/portfolio/main/.github/';

@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:amankrmj_portfolio/configs/constant_strings.dart';
-import 'package:amankrmj_portfolio/domain/models/social_links.model.dart';
+import 'package:portfolio/configs/constant_strings.dart';
+import 'package:portfolio/domain/models/social_links.model.dart';
 
 class SocialLinkService {
   static const String socialLinkUrl = '${assetGithubUrl}social_links.json';

@@ -2,10 +2,10 @@
 
 import 'dart:ui';
 
-import 'package:amankrmj_portfolio/presentation/works/controllers/works.controller.dart';
-import 'package:amankrmj_portfolio/presentation/works/views/work_view.dart';
+import 'package:portfolio/presentation/works/controllers/works.controller.dart';
+import 'package:portfolio/presentation/works/views/work_view.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:amankrmj_portfolio/widgets/k.card.dart';
+import 'package:portfolio/widgets/k.card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

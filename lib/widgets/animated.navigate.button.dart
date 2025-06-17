@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:amankrmj_portfolio/infrastructure/theme/colors.dart';
+import 'package:portfolio/infrastructure/theme/colors.dart';
 
 class AnimatedNavigateButton extends StatefulWidget {
   final String label;

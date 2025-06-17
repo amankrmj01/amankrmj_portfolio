@@ -1,4 +1,4 @@
-import 'package:amankrmj_portfolio/configs/constant_strings.dart';
+import 'package:portfolio/configs/constant_strings.dart';
 import 'package:flutter/material.dart';
 
 import '../domain/models/info.model.dart';

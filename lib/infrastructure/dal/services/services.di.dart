@@ -1,5 +1,5 @@
-import 'package:amankrmj_portfolio/infrastructure/dal/services/quote_service.dart';
-import 'package:amankrmj_portfolio/infrastructure/dal/services/social_link_service.dart';
+import 'package:portfolio/infrastructure/dal/services/quote_service.dart';
+import 'package:portfolio/infrastructure/dal/services/social_link_service.dart';
 import 'package:get/get.dart';
 
 import 'certificate_service.dart';

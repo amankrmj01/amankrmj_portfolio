@@ -1,4 +1,4 @@
-import 'package:amankrmj_portfolio/infrastructure/theme/dark_theme.dart';
+import 'package:portfolio/infrastructure/theme/dark_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

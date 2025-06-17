@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import 'controllers/home.controller.dart';
-import 'package:amankrmj_portfolio/infrastructure/dal/services/certificate_service.dart';
-import 'package:amankrmj_portfolio/domain/models/certificate.model.dart';
-import 'package:amankrmj_portfolio/widgets/k.temp.image.dart';
+import 'package:portfolio/infrastructure/dal/services/certificate_service.dart';
+import 'package:portfolio/domain/models/certificate.model.dart';
+import 'package:portfolio/widgets/k.temp.image.dart';
 
 class HomeTabletScreen extends GetView<HomeController> {
   const HomeTabletScreen({super.key});

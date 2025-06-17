@@ -1,4 +1,4 @@
-import 'package:amankrmj_portfolio/presentation/certificate/views/certificate_view.dart';
+import 'package:portfolio/presentation/certificate/views/certificate_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

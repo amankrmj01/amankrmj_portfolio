@@ -1,4 +1,4 @@
-import 'package:amankrmj_portfolio/infrastructure/theme/colors.dart';
+import 'package:portfolio/infrastructure/theme/colors.dart';
 import 'package:flutter/material.dart';
 
 class HoverAnimatedButton extends StatefulWidget {

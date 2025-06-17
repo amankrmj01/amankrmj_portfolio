@@ -1,4 +1,4 @@
-import 'package:amankrmj_portfolio/utils/extensions/string_ex.dart';
+import 'package:portfolio/utils/extensions/string_ex.dart';
 import 'package:flutter/material.dart';
 
 import 'animated_slide_box.dart';

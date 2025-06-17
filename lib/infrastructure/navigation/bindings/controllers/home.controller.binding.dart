@@ -1,5 +1,5 @@
-import 'package:amankrmj_portfolio/presentation/certificate/controllers/certificate.controller.dart';
-import 'package:amankrmj_portfolio/presentation/works/controllers/works.controller.dart';
+import 'package:portfolio/presentation/certificate/controllers/certificate.controller.dart';
+import 'package:portfolio/presentation/works/controllers/works.controller.dart';
 import 'package:get/get.dart';
 
 import '../../../../presentation/footer/controllers/footer.controller.dart';

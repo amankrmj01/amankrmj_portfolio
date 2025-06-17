@@ -1,4 +1,4 @@
-import 'package:amankrmj_portfolio/presentation/home/widgets/hover_animated_button.dart';
+import 'package:portfolio/presentation/home/widgets/hover_animated_button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

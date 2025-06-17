@@ -1,12 +1,11 @@
 // ignore_for_file: unused_import
 
-
-import 'package:amankrmj_portfolio/domain/models/info.model.dart';
+import 'package:portfolio/domain/models/info.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import 'package:amankrmj_portfolio/widgets/k.image.dart';
+import 'package:portfolio/widgets/k.image.dart';
 
 import '../../../domain/models/certificate.model.dart';
 

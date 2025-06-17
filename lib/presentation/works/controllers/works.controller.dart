@@ -1,5 +1,5 @@
-import 'package:amankrmj_portfolio/domain/models/project.model.dart';
-import 'package:amankrmj_portfolio/infrastructure/dal/services/project_service.dart';
+import 'package:portfolio/domain/models/project.model.dart';
+import 'package:portfolio/infrastructure/dal/services/project_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,4 +1,4 @@
-import 'package:amankrmj_portfolio/domain/models/quote.dart';
+import 'package:portfolio/domain/models/quote.dart';
 
 const String _nikolaTesla = "Nikola Tesla";
 const String _kentBeck = "Kent Beck";

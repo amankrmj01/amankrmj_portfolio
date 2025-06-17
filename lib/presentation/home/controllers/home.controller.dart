@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:amankrmj_portfolio/infrastructure/dal/services/social_link_service.dart';
-import 'package:amankrmj_portfolio/domain/models/social_links.model.dart';
+import 'package:portfolio/infrastructure/dal/services/social_link_service.dart';
+import 'package:portfolio/domain/models/social_links.model.dart';
 
 class HomeController extends GetxController {
   // Add ScrollController
