@@ -1,11 +1,9 @@
-import 'package:portfolio/configs/constant_strings.dart';
 import 'package:portfolio/widgets/animated.navigate.button.dart';
 import 'package:atlas_icons/atlas_icons.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../domain/models/quote.model.dart';
 import '../../infrastructure/theme/colors.dart';
 import '../../utils/launch.url.dart';
 import 'controllers/footer.controller.dart';

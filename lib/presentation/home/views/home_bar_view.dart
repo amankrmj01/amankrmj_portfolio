@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../controllers/home.controller.dart';
-import '../home.desktop.screen.dart';
 
 class HomeBarView extends GetView<HomeController> {
   HomeBarView({super.key});
