@@ -49,6 +49,7 @@ class Main extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: initialRoute,
+
       getPages: Nav.routes,
       theme: kDarkTheme,
     );

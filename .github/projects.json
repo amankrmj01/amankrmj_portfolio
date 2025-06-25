@@ -17,13 +17,13 @@
   "url": "https://github.com/GreenHive-Smart-Greenhouse-System/greenhive",
   "images": [],
   "largeDescription": "GreenHive is an advanced smart greenhouse system designed to automate and optimize greenhouse operations. The repository is primarily written in Dart, making up 97.5% of the codebase, with additional support from TypeScript (1.6%) and other languages (0.9%). The project aims to deliver intelligent monitoring, control systems, and user interfaces for greenhouse environments, supporting features like sensor integration, automation, and real-time data analytics.",
-  "type": "web"
+  "type": "mobile"
 },
 {
-    "name": "restaurant_managemant_frontend",
+    "name": "Restauran Management Frontend",
     "description": "A front-end application for restaurant management, primarily built using Dart.",
     "url": "https://github.com/amankrmj01/restaurant_managemant_frontend",
-    "images": [],
+    "images": ["projects/restaurant_management/Screenshot1.png", "projects/restaurant_management/Screenshot2.png", "projects/restaurant_management/Screenshot3.png", "projects/restaurant_management/Screenshot4.png", "projects/restaurant_management/Screenshot5.png", "projects/restaurant_management/Screenshot6.png", "projects/restaurant_management/Screenshot7.png"],
     "largeDescription": "This repository contains the front-end code for a restaurant management system, developed mainly in Dart (99.1%) with some HTML (0.9%). It provides user interfaces and client-side logic to support restaurant operations, such as order processing, menu management, and customer interaction.",
     "type": "web"
   },

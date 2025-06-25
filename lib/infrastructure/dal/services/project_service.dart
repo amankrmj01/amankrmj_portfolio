@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/cupertino.dart';
 import 'package:portfolio/configs/constant_strings.dart';
 import 'package:http/http.dart' as http;
 import 'package:portfolio/domain/models/project.model.dart';
@@ -14,6 +15,7 @@ class ProjectService extends AbstractService<ProjectModel> {
       final List<dynamic> data = jsonDecode(response.body);
       return data.map((json) => ProjectModel.fromJson(json)).toList();
     } else {
+      // debugPrint(projectsUrl);
       throw Exception('Failed to load projects');
     }
   }
