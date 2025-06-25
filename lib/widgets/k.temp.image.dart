@@ -1,10 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../configs/constant_strings.dart';
+
 class KTempImage extends StatefulWidget {
   final String imageUrl;
+  final double? height;
+  final double? width;
 
-  const KTempImage({required this.imageUrl, super.key});
+  const KTempImage({
+    required this.imageUrl,
+    this.height,
+    this.width,
+    super.key,
+  });
 
   @override
   State<KTempImage> createState() => _KTempImageState();
@@ -22,15 +31,23 @@ class _KTempImageState extends State<KTempImage> {
       return const Center(child: Text('No image URL.'));
     }
     return SizedBox(
-      height: 700, // You can adjust the height as needed
-      width: double.infinity,
+      height: widget.height ?? 700,
+      width: widget.width ?? double.infinity,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12), // Optional: rounded corners
         child: CachedNetworkImage(
-          imageUrl: widget.imageUrl,
+          imageUrl: assetGithubUrl + widget.imageUrl,
           fit: BoxFit.fitHeight,
-          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
-          errorWidget: (context, url, error) => const Center(child: Text('Error loading image')),
+          height: widget.height,
+          width: widget.width,
+          memCacheHeight: ((widget.height ?? 700) * 0.5).toInt(),
+          errorWidget: (c, e, s) => const SizedBox(),
+          placeholder: (context, url) => SizedBox(
+            height: 700,
+            child: const Center(
+              child: CircularProgressIndicator(strokeWidth: 2),
+            ),
+          ),
         ),
       ),
     );

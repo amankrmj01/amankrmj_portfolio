@@ -14,7 +14,7 @@ class KInfiniteScrollImage extends StatefulWidget {
     required this.images,
     this.height = 120,
     this.imageWidth = 180,
-    this.scrollDuration = const Duration(seconds: 30),
+    this.scrollDuration = const Duration(seconds: 100),
     this.direction = 'horizontal',
   });
 
@@ -27,7 +27,6 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
   late final ScrollController _scrollController;
   late final AnimationController _animationController;
   bool _isHovering = false;
-  double _lastOffset = 0.0;
 
   Axis get _axis =>
       widget.direction == 'vertical' ? Axis.vertical : Axis.horizontal;
@@ -36,29 +35,31 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
   void initState() {
     super.initState();
     _scrollController = ScrollController();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: widget.scrollDuration,
-    )..addListener(_onAnimate);
+    _animationController =
+        AnimationController(vsync: this, duration: widget.scrollDuration)
+          ..repeat()
+          ..addListener(_onAnimate);
     WidgetsBinding.instance.addPostFrameCallback((_) => _startScrolling());
   }
 
   void _onAnimate() {
     if (!_scrollController.hasClients) return;
     final maxScroll = _scrollController.position.maxScrollExtent;
-    final value = _animationController.value;
-    // Reduce scroll speed by multiplying value by a factor less than 1
-    final offset = value * maxScroll * 0.1; // 0.5 = 50% speed, adjust as needed
+    final offset = _animationController.value * maxScroll;
     _scrollController.jumpTo(offset);
-    _lastOffset = offset;
-    // Looping effect
-    if (offset >= maxScroll - 1) {
-      _animationController.value = 0;
+    if (offset >= maxScroll - widget.images.length * widget.imageWidth) {
+      _animationController.forward(from: 0);
     }
   }
 
   void _startScrolling() {
     if (!_isHovering && !_animationController.isAnimating) {
+      if (_scrollController.hasClients) {
+        final maxScroll = _scrollController.position.maxScrollExtent;
+        if (maxScroll > 0) {
+          _animationController.value = _scrollController.offset / maxScroll;
+        }
+      }
       _animationController.repeat();
     }
   }
@@ -74,14 +75,48 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
     super.dispose();
   }
 
+  List<Widget> _buildImageWidgets(List<String> images) {
+    return images.map((img) {
+      return Padding(
+        padding: _axis == Axis.horizontal
+            ? const EdgeInsets.symmetric(horizontal: 8)
+            : const EdgeInsets.symmetric(vertical: 16),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(12),
+          child: CachedNetworkImage(
+            imageUrl: assetGithubUrl + img,
+            height: _axis == Axis.vertical ? widget.height : null,
+            width: _axis == Axis.vertical ? widget.imageWidth : null,
+            fit: BoxFit.fitHeight,
+            memCacheHeight:
+                (_axis == Axis.vertical
+                        ? widget.height * 0.5
+                        : widget.height * 0.1)
+                    .toInt(),
+            memCacheWidth: _axis == Axis.vertical
+                ? (widget.imageWidth * 0.5).toInt()
+                : null,
+            errorWidget: (c, e, s) => const SizedBox(),
+            placeholder: (context, url) => SizedBox(
+              width: widget.imageWidth,
+              height: widget.height,
+              child: const Center(
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+            ),
+          ),
+        ),
+      );
+    }).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final images = widget.images;
-    if (images.isEmpty) return const SizedBox();
-    const repeatCount = 10;
+    if (widget.images.isEmpty) return const SizedBox();
+    const repeatCount = 2;
     final displayImages = List.generate(
       repeatCount,
-      (_) => images,
+      (_) => widget.images,
     ).expand((e) => e).toList();
 
     return MouseRegion(
@@ -96,70 +131,35 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
       child: SizedBox(
         height: _axis == Axis.horizontal ? widget.height : double.infinity,
         width: _axis == Axis.horizontal ? double.infinity : widget.imageWidth,
-        child: ListView(
-          controller: _scrollController,
-          scrollDirection: _axis,
-          physics: const NeverScrollableScrollPhysics(),
-          children: [
-            _axis == Axis.horizontal
-                ? Row(
-                    children: displayImages
-                        .map(
-                          (img) => Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 8),
-                            child: CachedNetworkImage(
-                              imageUrl: assetGithubUrl + img,
-                              // height: widget.height,
-                              // width: widget.imageWidth,
-                              fit: BoxFit.fitHeight,
-                              memCacheHeight: (widget.height * 0.1).toInt(),
-                              // Reduce quality to ~50%
-                              // memCacheWidth: (widget.imageWidth * 0.5).toInt(), // Reduce quality to ~50%
-                              errorWidget: (c, e, s) => const SizedBox(),
-                              placeholder: (context, url) => SizedBox(
-                                width: widget.imageWidth,
-                                height: widget.height,
-                                child: const Center(
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  )
-                : Column(
-                    children: displayImages
-                        .map(
-                          (img) => Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 16),
-                            child: CachedNetworkImage(
-                              imageUrl: assetGithubUrl + img,
-                              height: widget.height,
-                              width: widget.imageWidth,
-                              fit: BoxFit.fitHeight,
-                              memCacheHeight: (widget.height * 0.5).toInt(),
-                              // Reduce quality to ~50%
-                              memCacheWidth: (widget.imageWidth * 0.5).toInt(),
-                              // Reduce quality to ~50%
-                              errorWidget: (c, e, s) => const SizedBox(),
-                              placeholder: (context, url) => SizedBox(
-                                width: widget.imageWidth,
-                                height: widget.height,
-                                child: const Center(
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  ),
-          ],
+        child: ShaderMask(
+          shaderCallback: (Rect bounds) {
+            return LinearGradient(
+              begin: _axis == Axis.horizontal
+                  ? Alignment.centerLeft
+                  : Alignment.topCenter,
+              end: _axis == Axis.horizontal
+                  ? Alignment.centerRight
+                  : Alignment.bottomCenter,
+              colors: [
+                Colors.transparent,
+                Colors.black,
+                Colors.black,
+                Colors.transparent,
+              ],
+              stops: const [0.0, 0.1, 0.9, 1.0],
+            ).createShader(bounds);
+          },
+          blendMode: BlendMode.dstIn,
+          child: ListView(
+            controller: _scrollController,
+            scrollDirection: _axis,
+            physics: const AlwaysScrollableScrollPhysics(),
+            children: [
+              _axis == Axis.horizontal
+                  ? Row(children: _buildImageWidgets(displayImages))
+                  : Column(children: _buildImageWidgets(displayImages)),
+            ],
+          ),
         ),
       ),
     );
