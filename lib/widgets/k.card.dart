@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../domain/models/info.model.dart';
-import '../infrastructure/theme/colors.dart';
 import 'k.image.dart';
 
 class KCard extends StatefulWidget {

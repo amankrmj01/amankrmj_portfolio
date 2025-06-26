@@ -2,7 +2,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:portfolio/presentation/footer/views/contact_me_view.dart';
 import 'package:portfolio/utils/k.showGeneralDialog.dart';
 import 'package:portfolio/widgets/animated.navigate.button.dart';
-import 'package:atlas_icons/atlas_icons.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
