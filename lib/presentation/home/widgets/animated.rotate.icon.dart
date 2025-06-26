@@ -69,22 +69,6 @@ class _AnimatedRotateIconState extends State<AnimatedRotateIcon> {
               ),
             ),
             const SizedBox(width: 8),
-            // SizedBox(
-            //   width: 80.0,
-            //   height: 40,
-            //   child: TextLiquidFill(
-            //     text: widget.label,
-            //
-            //     waveColor: Colors.blueAccent,
-            //     boxBackgroundColor: KColor.primaryColor,
-            //     textStyle: TextStyle(
-            //       fontSize: 20.0,
-            //       fontWeight: FontWeight.bold,
-            //       color: Colors.black,
-            //     ),
-            //     boxHeight: 40.0,
-            //   ),
-            // ),
             Text(
               widget.label,
               style: TextStyle(

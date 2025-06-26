@@ -45,11 +45,7 @@ class _KCardState extends State<KCard> {
             borderRadius: BorderRadius.circular(18),
             boxShadow: [
               BoxShadow(
-                color: Color.lerp(
-                  KColor.secondarySecondColor,
-                  Colors.pink,
-                  0.7,
-                )!,
+                color: Color.lerp(Colors.orange, Colors.pinkAccent, 0.7)!,
                 blurRadius: 0,
                 offset: isHover ? Offset(0, 0) : Offset(-5, 5),
               ),

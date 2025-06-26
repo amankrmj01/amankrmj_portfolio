@@ -1,118 +1,82 @@
-import 'package:portfolio/presentation/home/views/home_bar_view.dart';
-import 'package:portfolio/presentation/screens.dart';
-import 'package:portfolio/widgets/animated.navigate.button.dart';
-import 'package:portfolio/presentation/home/widgets/animated.rotate.icon.dart';
-import 'package:portfolio/presentation/home/widgets/code.block.dart';
-import 'package:portfolio/presentation/home/widgets/flicker.once.text.dart';
-import 'package:flutter/material.dart';
+import 'dart:ui';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../configs/constant_strings.dart';
 import '../../utils/k.navigate.dart';
+import '../../widgets/k.pretty.animated.dart';
+import '../../widgets/animated.navigate.button.dart';
+import 'controllers/home.controller.dart';
 import '../certificate/views/all_certificates_view.dart';
 import '../works/views/all_wroks_view.dart';
-import 'controllers/home.controller.dart';
+import '../home/views/home_bar_view.dart';
+import '../screens.dart';
+import 'widgets/animated.rotate.icon.dart';
+import 'widgets/code.block.dart';
 
 class HomeDesktopScreen extends GetView<HomeController> {
   const HomeDesktopScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).copyWith(
+      scrollbarTheme: ScrollbarThemeData(
+        thumbColor: WidgetStateProperty.all(Colors.black54),
+        trackColor: WidgetStateProperty.all(Colors.grey[300]),
+        thickness: WidgetStateProperty.all(8),
+        radius: const Radius.circular(8),
+      ),
+    );
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
           children: [
             Theme(
-              data: Theme.of(context).copyWith(
-                scrollbarTheme: ScrollbarThemeData(
-                  thumbColor: WidgetStateProperty.all(Colors.black54),
-                  trackColor: WidgetStateProperty.all(Colors.grey[300]),
-                  thickness: WidgetStateProperty.all(8),
-                  radius: const Radius.circular(8),
+              data: theme,
+              child: ScrollConfiguration(
+                behavior: ScrollConfiguration.of(context).copyWith(
+                  dragDevices: {
+                    PointerDeviceKind.touch,
+                    PointerDeviceKind.mouse,
+                  },
                 ),
-              ),
-              child: Scrollbar(
-                controller: controller.scrollController,
-                thumbVisibility: true,
-                thickness: 8,
-                radius: const Radius.circular(8),
-                interactive: true,
-                child: SingleChildScrollView(
+                child: Scrollbar(
                   controller: controller.scrollController,
-                  child: Column(
-                    children: [
-                      Center(
-                        child: SizedBox(
-                          key: HomeController.homeBarKey,
-                          height: Get.height > 776 ? Get.height : 776,
-                          width: double.infinity,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 32.0,
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: 120),
-                                displayLinesWithCodeBlock(),
-                                aboutMeLines(),
-                                navigateButtonAndSocialLinks(),
-                              ],
-                            ),
-                          ),
+                  thumbVisibility: true,
+                  thickness: 8,
+                  radius: const Radius.circular(8),
+                  interactive: true,
+                  child: SingleChildScrollView(
+                    controller: controller.scrollController,
+                    // physics: CarouselScrollPhysics(),
+                    child: Column(
+                      children: [
+                        _mainSection(context),
+                        _sliverHeaderSection(
+                          context,
+                          title: 'Recent Works',
+                          view: const AllWorksView(),
+                          sectionKey: HomeController.recentWorksKey,
                         ),
-                      ),
-                      sliverHeaderDisplay(
-                        context,
-                        title: 'Recent Works',
-                        view: const AllWorksView(),
-                        sectionKey: HomeController.recentWorksKey,
-                      ),
-                      WorksScreen(),
-                      sliverHeaderDisplay(
-                        context,
-                        title: 'Recent Certificates',
-                        view: const AllCertificatesView(),
-                        sectionKey: HomeController.recentCertificatesKey,
-                      ),
-                      CertificateScreen(),
-                      SizedBox(
-                        key: HomeController.footerKey,
-                        height: Get.height, // Adjust as needed for your footer
-                        child: FooterScreen(),
-                      ),
-                      // Container(
-                      //   height: Get.height * 0.5,
-                      //   width: double.infinity,
-                      //   color: Colors.blueGrey.shade900,
-                      //   alignment: Alignment.center,
-                      //   child: Column(
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     mainAxisSize: MainAxisSize.max,
-                      //     children: [
-                      //       Text(
-                      //         'Thank you for visiting!',
-                      //         style: TextStyle(
-                      //           color: Colors.white,
-                      //           fontSize: 32,
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //       SizedBox(height: 16),
-                      //       Text(
-                      //         'Contact: your.email@example.com',
-                      //         style: TextStyle(
-                      //           color: Colors.white70,
-                      //           fontSize: 20,
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
-                    ],
+                        const WorksScreen(),
+                        _sliverHeaderSection(
+                          context,
+                          title: 'Recent Certificates',
+                          view: const AllCertificatesView(),
+                          sectionKey: HomeController.recentCertificatesKey,
+                        ),
+                        const CertificateScreen(),
+                        SizedBox(
+                          key: HomeController.footerKey,
+                          height: Get.height,
+                          child: const FooterScreen(),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -121,16 +85,41 @@ class HomeDesktopScreen extends GetView<HomeController> {
               top: 0,
               child: Align(
                 alignment: Alignment.topCenter,
-                child: topFloatingBar(),
+                child: _topFloatingBar(),
               ),
-            ), // Move this to be the first child in the Stack
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget sliverHeaderDisplay(
+  Widget _mainSection(BuildContext context) {
+    final minHeight = Get.height > 776 ? Get.height : 776.0;
+    return Center(
+      child: SizedBox(
+        key: HomeController.homeBarKey,
+        height: minHeight,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 120),
+              Row(
+                children: [_displayLines(), const Spacer(), const CodeBlock()],
+              ),
+              _navigateButtonAndSocialLinks(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _sliverHeaderSection(
     BuildContext context, {
     required String title,
     required Widget view,
@@ -142,7 +131,6 @@ class HomeDesktopScreen extends GetView<HomeController> {
       width: double.infinity,
       padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 32.0),
       child: Row(
-        mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
@@ -156,16 +144,15 @@ class HomeDesktopScreen extends GetView<HomeController> {
               decoration: TextDecoration.none,
             ),
           ),
-          Spacer(),
-          SizedBox(
+          Container(
+            alignment: Alignment.centerLeft,
             width: 190,
             child: AnimatedNavigateButton(
               label: "Browse All",
-              icon: Icons.arrow_forward,
+              icon: const Icon(Icons.arrow_forward),
               borderRadius: 12,
-              onTap: () {
-                navigateWithSlideTransition(context, view);
-              },
+              onTap: () => navigateWithSlideTransition(context, view),
+              width: 190,
             ),
           ),
         ],
@@ -173,17 +160,19 @@ class HomeDesktopScreen extends GetView<HomeController> {
     );
   }
 
-  SizedBox navigateButtonAndSocialLinks() {
+  Widget _navigateButtonAndSocialLinks() {
     return SizedBox(
       height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          SizedBox(
+          Container(
+            alignment: Alignment.centerLeft,
             width: 210,
             child: AnimatedNavigateButton(
+              borderRadius: 20,
               label: 'See My Works',
-              icon: Icons.arrow_forward,
+              icon: const Icon(Icons.arrow_forward, size: 24),
               onTap: () {
                 final ctx = HomeController.recentWorksKey.currentContext;
                 if (ctx != null) {
@@ -191,101 +180,114 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     ctx,
                     duration: const Duration(milliseconds: 400),
                     curve: Curves.easeInOut,
-                    alignment: 0.0, // Adjust as needed
+                    alignment: 0.0,
                   );
                 }
               },
+              width: 210,
             ),
           ),
-          // Spacer(),
-          Obx(() {
-            return SizedBox(
-              height: 50,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AnimatedRotateIcon(
-                    firstIcon: Image.asset(
-                      'assets/icons/github_outline.png',
-                      width: 32,
-                      height: 32,
-                    ),
-                    secondIcon: Image.asset(
-                      'assets/icons/github_color.png',
-                      width: 32,
-                      height: 32,
-                    ),
-                    label: "Github",
-                    url: controller.socialLinks['github'] ?? '',
-                  ),
-                  VerticalDivider(width: 16, thickness: 2, color: Colors.black),
-                  AnimatedRotateIcon(
-                    firstIcon: Image.asset(
-                      'assets/icons/linkedin_outline.png',
-                      width: 32,
-                      height: 32,
-                    ),
-                    secondIcon: Image.asset(
-                      'assets/icons/linkedin_color.png',
-                      width: 32,
-                      height: 32,
-                    ),
-                    label: "LinkedIn",
-                    url: controller.socialLinks['linkedIn'] ?? '',
-                  ),
-                  VerticalDivider(width: 16, thickness: 2, color: Colors.black),
-                  AnimatedRotateIcon(
-                    firstIcon: Image.asset(
-                      'assets/icons/instagram_outline.png',
-                      width: 32,
-                      height: 32,
-                    ),
-                    secondIcon: Image.asset(
-                      'assets/icons/instagram_color.png',
-                      width: 32,
-                      height: 32,
-                    ),
-                    label: "Instagram",
-                    url: controller.socialLinks['instagram'] ?? '',
-                  ),
-                  VerticalDivider(width: 16, thickness: 2, color: Colors.black),
-                  AnimatedRotateIcon(
-                    firstIcon: Image.asset(
-                      'assets/icons/discord_outline.png',
-                      width: 32,
-                      height: 32,
-                    ),
-                    secondIcon: Image.asset(
-                      'assets/icons/discord_color.png',
-                      width: 32,
-                      height: 32,
-                    ),
-                    label: "Discord",
-                    url: controller.socialLinks['discord'] ?? '',
-                  ),
-                ],
-              ),
-            );
-          }),
+          Obx(() => _socialLinksRow()),
         ],
       ),
     );
   }
 
-  SizedBox aboutMeLines() {
+  Widget _socialLinksRow() {
+    final links = controller.socialLinks;
+    return SizedBox(
+      height: 50,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _animatedIcon(
+            outline: 'assets/icons/github_outline.svg',
+            color: 'assets/icons/github_color.svg',
+            label: "Github",
+            url: links['github'] ?? '',
+          ),
+          _verticalDivider(),
+          _animatedIcon(
+            outline: 'assets/icons/linkedin_outline.svg',
+            color: 'assets/icons/linkedin_color.svg',
+            label: "LinkedIn",
+            url: links['linkedIn'] ?? '',
+          ),
+          _verticalDivider(),
+          _animatedIcon(
+            outline: 'assets/icons/instagram_outline.svg',
+            color: 'assets/icons/instagram_color.svg',
+            label: "Instagram",
+            url: links['instagram'] ?? '',
+          ),
+          _verticalDivider(),
+          _animatedIcon(
+            outline: 'assets/icons/discord_outline.svg',
+            color: 'assets/icons/discord_color.svg',
+            label: "Discord",
+            url: links['discord'] ?? '',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _animatedIcon({
+    required String outline,
+    required String color,
+    required String label,
+    required String url,
+  }) {
+    return AnimatedRotateIcon(
+      firstIcon: SvgPicture.asset(outline, width: 32, height: 32),
+      secondIcon: SvgPicture.asset(color, width: 32, height: 32),
+      label: label,
+      url: url,
+    );
+  }
+
+  Widget _verticalDivider() {
+    return const VerticalDivider(
+      indent: 6,
+      endIndent: 12,
+      width: 16,
+      thickness: 2,
+      color: Colors.black,
+      radius: BorderRadius.all(Radius.circular(40)),
+    );
+  }
+
+  Widget _displayLines() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(
+          height: 300,
+          width: 600,
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: Alignment.centerLeft,
+            child: KPrettyAnimated(),
+          ),
+        ),
+        _aboutMeLines(),
+      ],
+    );
+  }
+
+  Widget _aboutMeLines() {
     return SizedBox(
       height: 200,
       width: 500,
       child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text.rich(
             TextSpan(
               text: "$kHomeDisplayLineAboutMe01\n",
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w800,
                 color: Colors.black,
@@ -294,11 +296,11 @@ class HomeDesktopScreen extends GetView<HomeController> {
               children: [
                 TextSpan(
                   text: "$kHomeDisplayLineAboutMe02\n",
-                  style: TextStyle(fontWeight: FontWeight.w400),
+                  style: const TextStyle(fontWeight: FontWeight.w400),
                 ),
                 TextSpan(
                   text: "$kHomeDisplayLineAboutMe03\n",
-                  style: TextStyle(fontWeight: FontWeight.w400),
+                  style: const TextStyle(fontWeight: FontWeight.w400),
                 ),
               ],
             ),
@@ -308,42 +310,17 @@ class HomeDesktopScreen extends GetView<HomeController> {
     );
   }
 
-  Row displayLinesWithCodeBlock() {
-    return Row(
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            FlickerOnceText(text: kHomeDisplayLine01),
-            FlickerOnceText(
-              text: kHomeDisplayLine02,
-              delay: Duration(milliseconds: 1600),
-            ),
-          ],
-        ),
-        Spacer(),
-        CodeBlock(),
-      ],
-    );
-  }
-
-  // Remove SliverAppBar and use a fixed header at the top of the Stack
-  Widget topFloatingBar() {
+  Widget _topFloatingBar() {
     return Container(
       height: 80,
-      width: 600,
+      width: 640,
       alignment: Alignment.bottomCenter,
-      // margin: EdgeInsets.only(bottom: 0),
-      padding: EdgeInsets.zero,
       color: Colors.transparent,
       child: Obx(
         () => AnimatedAlign(
-          duration: Duration(milliseconds: 400),
+          duration: const Duration(milliseconds: 400),
           alignment: controller.isScrolling.value
-              ? Alignment(0, -5.0)
+              ? const Alignment(0, -5.0)
               : Alignment.bottomCenter,
           child: HomeBarView(),
         ),

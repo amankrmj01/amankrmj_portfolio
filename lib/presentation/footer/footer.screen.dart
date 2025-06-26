@@ -1,3 +1,6 @@
+import 'package:flutter_svg/svg.dart';
+import 'package:portfolio/presentation/footer/views/contact_me_view.dart';
+import 'package:portfolio/utils/k.showGeneralDialog.dart';
 import 'package:portfolio/widgets/animated.navigate.button.dart';
 import 'package:atlas_icons/atlas_icons.dart';
 import 'package:flutter/material.dart';
@@ -68,6 +71,7 @@ class FooterScreen extends GetView<FooterController> {
   Widget _footerWelcomePart() {
     return Column(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Text(
           "Let's work together!",
@@ -83,6 +87,8 @@ class FooterScreen extends GetView<FooterController> {
         const SizedBox(height: 32),
         Text(
           "I'm available for Freelancing",
+          textAlign: TextAlign.center,
+          maxLines: 2,
           style: TextStyle(
             color: _footerForegroundColor,
             fontSize: 32,
@@ -101,73 +107,45 @@ class FooterScreen extends GetView<FooterController> {
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        SizedBox(
-          width: 120,
+        Container(
+          alignment: Alignment.centerLeft,
+          width: 200,
           child: AnimatedNavigateButton(
-            label: "Resume",
+            borderRadius: 16,
+            label: "View Resume",
             onTap: () =>
                 launchUrlExternal(homeController.socialLinks['resume'] ?? ''),
-            icon: Icons.cloud_download,
+            icon: SvgPicture.asset(
+              'assets/icons/resume.svg',
+              width: 28,
+              height: 28,
+            ),
+            width: 200,
           ),
         ),
-        const SizedBox(height: 40),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              "- Contact Info",
-              style: TextStyle(
-                color: _footerForegroundColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
+        const SizedBox(height: 120),
+        Container(
+          alignment: Alignment.centerLeft,
+          width: 200,
+          child: Builder(
+            builder: (context) => AnimatedNavigateButton(
+              borderRadius: 16,
+              label: "Contact Me",
+              onTap: () {
+                showBlurredGeneralDialog(
+                  context: context,
+                  builder: (context) => ContactMeView(),
+                );
+              },
+              icon: Image.asset(
+                'assets/icons/contact_me.png',
+                width: 28,
+                height: 28,
+                fit: BoxFit.fitHeight,
               ),
+              width: 200,
             ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Atlas.inbox_mailbox,
-                  color: _footerForegroundColor,
-                  size: 18.0,
-                ),
-                const SizedBox(width: 14),
-                Obx(
-                  () => Text(
-                    homeController.socialLinks['email'] ?? '',
-                    style: TextStyle(
-                      color: _footerForegroundColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Icon(
-                  Atlas.phonebook,
-                  color: _footerForegroundColor,
-                  size: 18.0,
-                ),
-                const SizedBox(width: 14),
-                Obx(
-                  () => Text(
-                    homeController.socialLinks['phoneNumber'] ??
-                        '+91 1234567890',
-                    style: TextStyle(
-                      color: _footerForegroundColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+          ),
         ),
         const SizedBox(height: 14),
       ],
@@ -224,13 +202,14 @@ class FooterScreen extends GetView<FooterController> {
             child: ColoredBox(
               color: Colors.black,
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 50.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(child: _footerWelcomePart()),
+                    Expanded(flex: 1, child: _footerWelcomePart()),
                     Expanded(
+                      flex: 1,
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -238,8 +217,8 @@ class FooterScreen extends GetView<FooterController> {
                         children: [_madeWithFlutterLabel(), _ccLabel()],
                       ),
                     ),
-                    Expanded(child: _footerSocial()),
-                    SizedBox(width: 40),
+                    Expanded(flex: 1, child: _footerSocial()),
+                    // SizedBox(width: 40),
                   ],
                 ),
               ),

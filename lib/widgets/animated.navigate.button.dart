@@ -4,7 +4,7 @@ import 'package:portfolio/infrastructure/theme/colors.dart';
 class AnimatedNavigateButton extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
-  final IconData? icon;
+  final Widget? icon;
   final Color? color;
   final Color? hoverColor;
   final double? width;
@@ -55,7 +55,7 @@ class _AnimatedNavigateButtonState extends State<AnimatedNavigateButton> {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 250),
         curve: Curves.easeInOut,
-        width: (widget.width ?? 190) + (isHovered ? 10 : 0),
+        width: (widget.width! - 10) + (isHovered ? 10 : 0),
         height: widget.height,
         decoration: BoxDecoration(
           color: backgroundColor,
@@ -76,9 +76,9 @@ class _AnimatedNavigateButtonState extends State<AnimatedNavigateButton> {
           onTap: widget.onTap,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(width: 10),
+              SizedBox(width: 16),
               Text(
                 widget.label,
                 style: const TextStyle(
@@ -89,8 +89,8 @@ class _AnimatedNavigateButtonState extends State<AnimatedNavigateButton> {
                 ),
               ),
               Spacer(),
-              Icon(widget.icon, color: Colors.white),
-              SizedBox(width: 10),
+              widget.icon ?? const SizedBox(),
+              SizedBox(width: 16),
             ],
           ),
         ),

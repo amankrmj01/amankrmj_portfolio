@@ -5,18 +5,49 @@ import 'package:portfolio/infrastructure/dal/services/social_link_service.dart';
 import 'package:portfolio/domain/models/social_links.model.dart';
 
 class HomeController extends GetxController {
-  // Add ScrollController
+  // Scroll controller and scroll state
   final ScrollController scrollController = ScrollController();
   final isScrolling = false.obs;
   Timer? _scrollEndDebouncer;
 
-  // Map to store all social links
+  // Social links
   final RxMap<String, String> socialLinks = <String, String>{}.obs;
-
-  // Use Get.find to get the SocialLinkService instance
   final SocialLinkService _socialLinkService = Get.find<SocialLinkService>();
 
-  // Function to fetch all social links
+  // Selected tab index for navigation bar
+  final RxInt selectedTabIndex = 0.obs;
+
+  // Section keys for navigation
+  static final GlobalKey recentWorksKey = GlobalKey();
+  static final GlobalKey recentCertificatesKey = GlobalKey();
+  static final GlobalKey footerKey = GlobalKey();
+  static final GlobalKey homeBarKey = GlobalKey();
+
+  static final List<GlobalKey> sectionKeys = [
+    homeBarKey,
+    recentWorksKey,
+    recentCertificatesKey,
+    footerKey,
+  ];
+
+  // Navigation actions: scrolls to section and updates selected tab
+  List<VoidCallback> get onTapActions => List.generate(
+    sectionKeys.length,
+    (index) => () {
+      final ctx = sectionKeys[index].currentContext;
+      if (ctx != null) {
+        Scrollable.ensureVisible(
+          ctx,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+          alignment: 0.0,
+        );
+        selectedTabIndex.value = index;
+      }
+    },
+  );
+
+  // Fetch social links
   Future<void> fetchSocialLinks() async {
     try {
       final SocialLinksModel links = await _socialLinkService.fetchAll();
@@ -24,7 +55,6 @@ class HomeController extends GetxController {
         (key, value) => MapEntry(key, value.toString()),
       );
     } catch (e) {
-      // Handle error, optionally log or show a message
       socialLinks.clear();
     }
   }
@@ -33,9 +63,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     fetchSocialLinks();
-    // Add scroll listener
     scrollController.addListener(_onScroll);
-    // Fetch social links on start
   }
 
   void _onScroll() {
@@ -55,40 +83,4 @@ class HomeController extends GetxController {
     _scrollEndDebouncer?.cancel();
     super.onClose();
   }
-
-  final count = 0.obs;
-
-  void increment() => count.value++;
-
-  final isHoverOnNavigateButton = false.obs;
-
-  // Section keys for navigation
-  static final GlobalKey recentWorksKey = GlobalKey();
-  static final GlobalKey recentCertificatesKey = GlobalKey();
-  static final GlobalKey footerKey = GlobalKey();
-  static final GlobalKey homeBarKey = GlobalKey();
-
-  // List of section keys for navigation
-  static final List<GlobalKey> sectionKeys = [
-    homeBarKey,
-    recentWorksKey,
-    recentCertificatesKey,
-    footerKey,
-  ];
-
-  // List of onTap actions for navigation
-  List<VoidCallback> get onTapActions => List.generate(
-    sectionKeys.length,
-    (index) => () {
-      final ctx = sectionKeys[index].currentContext;
-      if (ctx != null) {
-        Scrollable.ensureVisible(
-          ctx,
-          duration: const Duration(milliseconds: 400),
-          curve: Curves.easeInOut,
-          alignment: 0.0,
-        );
-      }
-    },
-  );
 }

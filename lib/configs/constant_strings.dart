@@ -8,3 +8,12 @@ const String kHomeDisplayLineAboutMe03 =
 
 const String assetGithubUrl =
     'https://raw.githubusercontent.com/amankrmj01/portfolio/main/.github/';
+
+const List<String> homeScreenLines = [
+  "A passionate Flutter developer.",
+  "Building beautiful, performant apps.",
+  "Java & Spring enthusiast.",
+  "Coffee-powered coder ☕",
+  "Always learning, always building.",
+  "Code. Create. Inspire.",
+];

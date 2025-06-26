@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,19 +24,25 @@ class KSliverList extends StatelessWidget {
     }
     return SizedBox(
       height: (Get.height > 776 ? Get.height : 776) - 120,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-        itemCount: items.length < 4 ? items.length : 4,
-        separatorBuilder: (context, index) => const SizedBox(width: 24),
-        itemBuilder: (context, index) {
-          final item = items[index];
-          return KCard(
-            info: item,
-            onTap: () => onCardTap(item, context),
-            height: 360,
-          );
-        },
+      child: ScrollConfiguration(
+        behavior: ScrollConfiguration.of(context).copyWith(
+          dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
+        ),
+        child: ListView.separated(
+          scrollDirection: Axis.horizontal,
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          physics: const BouncingScrollPhysics(),
+          itemCount: items.length < 4 ? items.length : 4,
+          separatorBuilder: (context, index) => const SizedBox(width: 24),
+          itemBuilder: (context, index) {
+            final item = items[index];
+            return KCard(
+              info: item,
+              onTap: () => onCardTap(item, context),
+              height: 360,
+            );
+          },
+        ),
       ),
     );
   }

@@ -12,7 +12,7 @@ void main() async {
   try {
     ServiceC.setupServiceLocator();
     var initialRoute = await Routes.initialRoute;
-    debugPrint('Initial route: $initialRoute'); // Debug print
+    debugPrint('Initial route: $initialRoute');
     runApp(Main(initialRoute));
   } catch (e, stack) {
     runApp(ErrorApp(error: e.toString(), stack: stack.toString()));
