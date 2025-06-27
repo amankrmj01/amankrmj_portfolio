@@ -17,7 +17,7 @@ class ContactMeView extends StatelessWidget {
       labelStyle: const TextStyle(color: Colors.black),
       prefixIcon: Icon(icon, color: Colors.black),
       filled: true,
-      fillColor: KColor.primarySecondColor.withOpacity(0.15),
+      fillColor: KColor.primarySecondColor.withAlpha((0.15 * 255).toInt()),
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
         borderSide: const BorderSide(color: Colors.black),

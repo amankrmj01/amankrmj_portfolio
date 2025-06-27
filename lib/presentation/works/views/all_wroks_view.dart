@@ -1,23 +1,10 @@
-// ignore_for_file: unused_import, unnecessary_import
-
-import 'dart:ui';
-
 import 'package:portfolio/presentation/works/controllers/works.controller.dart';
 import 'package:portfolio/presentation/works/views/work_view.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:portfolio/widgets/k.card.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:animations/animations.dart';
-
-import '../../../configs/projects_list.dart';
-import '../../../infrastructure/dal/daos/project.infoo.dart';
-import '../../../utils/axis.count.dart';
 import '../../../utils/k.showGeneralDialog.dart';
 import '../../../utils/k.sliver.grid.dart';
-import '../../../utils/k.transition.container.transform.dart';
-import '../../certificate/views/all_certificates_view.dart';
 
 class AllWorksView extends GetView<WorksController> {
   const AllWorksView({super.key});

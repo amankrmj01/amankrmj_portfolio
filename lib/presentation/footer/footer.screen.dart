@@ -5,6 +5,8 @@ import 'package:portfolio/widgets/animated.navigate.button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:pretty_animated_text/pretty_animated_text.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../infrastructure/theme/colors.dart';
 import '../../utils/launch.url.dart';
@@ -33,17 +35,7 @@ class FooterScreen extends GetView<FooterController> {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ChimeBellText(
-              text: '"${quote.quote}"',
-              duration: const Duration(seconds: 4),
-              type: AnimationType.word,
-              textStyle: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'ShantellSans',
-                color: KColor.secondarySecondColor,
-              ),
-            ),
+            _AnimatedQuoteOnVisible(quote: quote),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -225,6 +217,71 @@ class FooterScreen extends GetView<FooterController> {
           ),
         ],
       ),
+    );
+  }
+}
+
+class _AnimatedQuoteOnVisible extends StatefulWidget {
+  final dynamic quote;
+
+  const _AnimatedQuoteOnVisible({required this.quote});
+
+  @override
+  State<_AnimatedQuoteOnVisible> createState() =>
+      _AnimatedQuoteOnVisibleState();
+}
+
+class _AnimatedQuoteOnVisibleState extends State<_AnimatedQuoteOnVisible> {
+  bool _visible = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Fallback: trigger after first frame in case already visible
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && !_visible) {
+        setState(() {
+          _visible = true;
+        });
+        debugPrint('Quote fallback: triggered after first frame');
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return VisibilityDetector(
+      key: Key(
+        'animated-quote-visible-${widget.quote.hashCode}-${_visible ? 1 : 0}',
+      ),
+      onVisibilityChanged: (info) {
+        debugPrint('Quote visibility: ${info.visibleFraction}');
+        if (info.visibleFraction > 0 && !_visible) {
+          setState(() {
+            _visible = true;
+          });
+        } else if (info.visibleFraction == 0 && _visible) {
+          // Reset _visible and also change the key to force ChimeBellText to fully rebuild next time
+          setState(() {
+            _visible = false;
+          });
+        }
+      },
+      child: _visible
+          ? ChimeBellText(
+              key: ValueKey(DateTime.now().millisecondsSinceEpoch),
+              // force a new instance every time
+              text: '"${widget.quote.quote}"',
+              duration: const Duration(seconds: 4),
+              type: AnimationType.word,
+              textStyle: TextStyle(
+                fontSize: 32,
+                fontWeight: FontWeight.w500,
+                fontFamily: 'ShantellSans',
+                color: KColor.secondarySecondColor,
+              ),
+            )
+          : const SizedBox(height: 40),
     );
   }
 }

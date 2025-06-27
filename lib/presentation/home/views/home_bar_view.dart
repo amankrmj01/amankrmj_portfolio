@@ -51,7 +51,7 @@ class HomeBarView extends GetView<HomeController> {
               child: Container(
                 clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
-                  color: KColor.secondaryColor.withOpacity(0.19),
+                  color: KColor.secondaryColor.withAlpha((0.19 * 255).toInt()),
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
