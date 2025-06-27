@@ -1,6 +1,7 @@
 import 'package:portfolio/domain/models/info.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/infrastructure/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../widgets/k.infinite.scroll.image.dart';
@@ -31,7 +32,7 @@ class _WorkViewState extends State<WorkView> {
           child: Container(
             height: (Get.height > 776 ? Get.height : 776) - 80,
             decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
+              color: Color.lerp(Color(0xFF23304A), Colors.transparent, 0.06)!,
               borderRadius: BorderRadius.circular(24),
             ),
             child: isMobile
@@ -100,12 +101,20 @@ class _WorkViewState extends State<WorkView> {
         const SizedBox(height: 12),
         Text(
           widget.project.description,
-          style: const TextStyle(fontSize: 18, color: Colors.black87),
+          style: TextStyle(
+            fontSize: 28,
+            color: KColor.primarySecondColor,
+            fontFamily: "Poppins",
+          ),
         ),
         const SizedBox(height: 16),
         Text(
           widget.project.largeDescription,
-          style: const TextStyle(fontSize: 16, color: Colors.black54),
+          style: TextStyle(
+            fontSize: 20,
+            color: KColor.primarySecondColor,
+            fontFamily: "Poppins",
+          ),
         ),
         const SizedBox(height: 24),
         if (widget.project.url.isNotEmpty) _buildLinkRow(),
@@ -116,10 +125,10 @@ class _WorkViewState extends State<WorkView> {
   Widget _buildTitle() {
     return Text(
       widget.project.name,
-      style: const TextStyle(
+      style: TextStyle(
         fontSize: 28,
         fontWeight: FontWeight.bold,
-        color: Colors.black,
+        color: KColor.primarySecondColor,
         fontFamily: 'ShantellSans',
       ),
     );
@@ -168,17 +177,12 @@ class _WorkViewState extends State<WorkView> {
         children: [
           Expanded(child: _buildTitle()),
           IconButton(
-            icon: const Icon(
-              Icons.close,
-              color: Colors.black,
-              size: 28,
-              weight: 900,
-            ),
+            icon: const Icon(Icons.close, size: 28, weight: 900),
             onPressed: widget.onClose ?? () => Navigator.of(context).maybePop(),
             tooltip: 'Close',
             style: ButtonStyle(
-              iconColor: WidgetStateProperty.all(Colors.black),
-              overlayColor: WidgetStateProperty.all(Colors.black12),
+              iconColor: WidgetStateProperty.all(KColor.primarySecondColor),
+              overlayColor: WidgetStateProperty.all(Colors.white12),
             ),
           ),
         ],

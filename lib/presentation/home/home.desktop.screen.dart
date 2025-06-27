@@ -14,6 +14,7 @@ import '../certificate/views/all_certificates_view.dart';
 import '../works/views/all_wroks_view.dart';
 import '../home/views/home_bar_view.dart';
 import '../screens.dart';
+import 'home.tablet.screen.dart';
 import 'widgets/animated.rotate.icon.dart';
 import 'widgets/code.block.dart';
 
@@ -32,7 +33,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
     );
 
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: const Color(0xFF1A1A2E),
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
@@ -77,15 +78,15 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     child: Column(
                       children: [
                         _mainSection(context),
-                        _sliverHeaderSection(
-                          context,
+                        SliverHeaderSection(
+                          context: context,
                           title: 'Recent Works',
                           view: const AllWorksView(),
                           sectionKey: HomeController.recentWorksKey,
                         ),
                         const WorksScreen(),
-                        _sliverHeaderSection(
-                          context,
+                        SliverHeaderSection(
+                          context: context,
                           title: 'Recent Certificates',
                           view: const AllCertificatesView(),
                           sectionKey: HomeController.recentCertificatesKey,
@@ -126,7 +127,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
           padding: const EdgeInsets.symmetric(horizontal: 48.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 120),
               Row(
@@ -136,47 +137,6 @@ class HomeDesktopScreen extends GetView<HomeController> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _sliverHeaderSection(
-    BuildContext context, {
-    required String title,
-    required Widget view,
-    required GlobalKey sectionKey,
-  }) {
-    return Container(
-      key: sectionKey,
-      height: 120,
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 24.0, horizontal: 32.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.white,
-              fontFamily: "ShantellSans",
-              fontWeight: FontWeight.bold,
-              fontSize: 36,
-              letterSpacing: 1.2,
-              decoration: TextDecoration.none,
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerLeft,
-            width: 190,
-            child: AnimatedNavigateButton(
-              label: "Browse All",
-              icon: const Icon(Icons.arrow_forward),
-              borderRadius: 12,
-              onTap: () => navigateWithSlideTransition(context, view),
-              width: 190,
-            ),
-          ),
-        ],
       ),
     );
   }
@@ -284,9 +244,13 @@ class HomeDesktopScreen extends GetView<HomeController> {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SizedBox(
-          height: 300,
-          width: 700,
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 700,
+            minWidth: 200,
+            maxHeight: 240,
+            minHeight: 240,
+          ),
           child: FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
@@ -299,34 +263,41 @@ class HomeDesktopScreen extends GetView<HomeController> {
   }
 
   Widget _aboutMeLines() {
-    return SizedBox(
-      height: 200,
-      width: 500,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text.rich(
-            TextSpan(
-              text: "$kHomeDisplayLineAboutMe01\n",
-              style: const TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.w800,
-                color: Colors.white,
-                fontFamily: "ShantellSans",
+    return ConstrainedBox(
+      constraints: BoxConstraints(
+        maxWidth: 700,
+        minWidth: 200,
+        maxHeight: 240,
+        minHeight: 240,
+      ),
+      child: FittedBox(
+        fit: BoxFit.scaleDown,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text.rich(
+              TextSpan(
+                text: "$kHomeDisplayLineAboutMe01\n",
+                style: const TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
+                  color: Colors.white,
+                  fontFamily: "ShantellSans",
+                ),
+                children: [
+                  TextSpan(
+                    text: "$kHomeDisplayLineAboutMe02\n",
+                    style: const TextStyle(fontWeight: FontWeight.w400),
+                  ),
+                  TextSpan(
+                    text: "$kHomeDisplayLineAboutMe03\n",
+                    style: const TextStyle(fontWeight: FontWeight.w400),
+                  ),
+                ],
               ),
-              children: [
-                TextSpan(
-                  text: "$kHomeDisplayLineAboutMe02\n",
-                  style: const TextStyle(fontWeight: FontWeight.w400),
-                ),
-                TextSpan(
-                  text: "$kHomeDisplayLineAboutMe03\n",
-                  style: const TextStyle(fontWeight: FontWeight.w400),
-                ),
-              ],
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

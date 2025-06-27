@@ -89,6 +89,7 @@ class _KCardState extends State<KCard> {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
           child: Container(
+            clipBehavior: Clip.hardEdge,
             margin: const EdgeInsets.all(8),
             width: widget.width,
             decoration: BoxDecoration(

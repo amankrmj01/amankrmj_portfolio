@@ -1,152 +1,365 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:mesh_gradient/mesh_gradient.dart';
 
+import '../../configs/constant_strings.dart';
+import '../../utils/k.navigate.dart';
+import '../../widgets/k.pretty.animated.dart';
+import '../../widgets/animated.navigate.button.dart';
 import 'controllers/home.controller.dart';
-import 'package:portfolio/infrastructure/dal/services/certificate_service.dart';
-import 'package:portfolio/domain/models/certificate.model.dart';
-import 'package:portfolio/widgets/k.temp.image.dart';
+import '../certificate/views/all_certificates_view.dart';
+import '../works/views/all_wroks_view.dart';
+import '../home/views/home_bar_view.dart';
+import '../screens.dart';
+import 'widgets/animated.rotate.icon.dart';
+import 'widgets/code.block.dart';
 
 class HomeTabletScreen extends GetView<HomeController> {
   const HomeTabletScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).copyWith(
+      scrollbarTheme: ScrollbarThemeData(
+        thumbColor: WidgetStateProperty.all(Colors.white70),
+        trackColor: WidgetStateProperty.all(Colors.white38),
+        thickness: WidgetStateProperty.all(8),
+        radius: const Radius.circular(8),
+      ),
+    );
+
     return Scaffold(
+      backgroundColor: const Color(0xFF1A1A2E),
       body: SafeArea(
-        child: FutureBuilder<List<CertificateModel>>(
-          future: controller.fetchCertificates(),
-          builder: (context, snapshot) {
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.hasError) {
-              return Center(
-                child: Text(
-                  'Error: ${snapshot.error}',
-                  style: const TextStyle(color: Colors.black, fontSize: 24),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Positioned.fill(
+              child: AnimatedMeshGradient(
+                colors: const [
+                  Color(0xFF1A1A2E), // Deep Night Blue
+                  Color(0xFF1A1A2E), // Deep Night Blue
+                  Color(0xFF16213E), // Dark Blue
+                  Color(0xFF16213E), // Dark Blue
+                  // Color(0xFF0F3460), // Indigo Blue
+                  // Color(0xFF00ADB5), // Teal Accent
+                ],
+                controller: controller.meshGradientController,
+                options: AnimatedMeshGradientOptions(
+                  speed: 0.4,
+                  frequency: 1.0,
+                  amplitude: 1.0,
+                  grain: 0.0,
                 ),
-              );
-            } else if (snapshot.hasData) {
-              final certs = snapshot.data!;
-              return SingleChildScrollView(
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: certs.map((e) {
-                    if (e.type == 'jpg' && e.images.isNotEmpty) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 24),
-                        child: KTempImage(imageUrl: e.images.first),
-                      );
-                    } else {
-                      return const SizedBox.shrink();
-                    }
-                  }).toList(),
+              ),
+            ),
+            Theme(
+              data: theme,
+              child: ScrollConfiguration(
+                behavior: ScrollConfiguration.of(context).copyWith(
+                  dragDevices: {
+                    PointerDeviceKind.touch,
+                    PointerDeviceKind.mouse,
+                  },
                 ),
-              );
-            } else {
-              return const Center(
-                child: Text(
-                  'No data found.',
-                  style: TextStyle(color: Colors.black, fontSize: 24),
+                child: Scrollbar(
+                  controller: controller.scrollController,
+                  thumbVisibility: true,
+                  thickness: 8,
+                  radius: const Radius.circular(8),
+                  interactive: true,
+                  child: SingleChildScrollView(
+                    controller: controller.scrollController,
+                    // physics: CarouselScrollPhysics(),
+                    child: Column(
+                      children: [
+                        _mainSection(context),
+                        SliverHeaderSection(
+                          context: context,
+                          title: 'Recent Works',
+                          view: const AllWorksView(),
+                          sectionKey: HomeController.recentWorksKey,
+                        ),
+                        const WorksScreen(),
+                        SliverHeaderSection(
+                          context: context,
+                          title: 'Recent Certificates',
+                          view: const AllCertificatesView(),
+                          sectionKey: HomeController.recentCertificatesKey,
+                        ),
+                        const CertificateScreen(),
+                        SizedBox(
+                          key: HomeController.footerKey,
+                          height: Get.height,
+                          child: const FooterScreen(),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              );
-            }
-          },
+              ),
+            ),
+            Positioned(
+              top: 0,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: _topFloatingBar(),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _mainSection(BuildContext context) {
+    final minHeight = Get.height > 776 ? Get.height : 1000.0;
+    return Center(
+      child: SizedBox(
+        key: HomeController.homeBarKey,
+        height: minHeight,
+        width: double.infinity,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 120),
+              _displayLines(),
+              CodeBlock(),
+              _navigateButtonAndSocialLinks(),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _navigateButtonAndSocialLinks() {
+    return SizedBox(
+      height: 100,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          Container(
+            alignment: Alignment.centerLeft,
+            width: 210,
+            child: AnimatedNavigateButton(
+              borderRadius: 20,
+              label: 'See My Works',
+              icon: const Icon(Icons.arrow_forward, size: 24),
+              onTap: () {
+                final ctx = HomeController.recentWorksKey.currentContext;
+                if (ctx != null) {
+                  Scrollable.ensureVisible(
+                    ctx,
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut,
+                    alignment: 0.0,
+                  );
+                }
+              },
+              width: 210,
+            ),
+          ),
+          Obx(() => _socialLinksRow()),
+        ],
+      ),
+    );
+  }
+
+  Widget _socialLinksRow() {
+    final links = controller.socialLinks;
+    return SizedBox(
+      height: 50,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _animatedIcon(
+            outline: 'assets/icons/github_outline.svg',
+            color: 'assets/icons/github_color.svg',
+            label: "Github",
+            url: links['github'] ?? '',
+          ),
+          _verticalDivider(),
+          _animatedIcon(
+            outline: 'assets/icons/linkedin_outline.svg',
+            color: 'assets/icons/linkedin_color.svg',
+            label: "LinkedIn",
+            url: links['linkedIn'] ?? '',
+          ),
+          _verticalDivider(),
+          _animatedIcon(
+            outline: 'assets/icons/instagram_outline.svg',
+            color: 'assets/icons/instagram_color.svg',
+            label: "Instagram",
+            url: links['instagram'] ?? '',
+          ),
+          _verticalDivider(),
+          _animatedIcon(
+            outline: 'assets/icons/discord_outline.svg',
+            color: 'assets/icons/discord_color.svg',
+            label: "Discord",
+            url: links['discord'] ?? '',
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _animatedIcon({
+    required String outline,
+    required String color,
+    required String label,
+    required String url,
+  }) {
+    return AnimatedRotateIcon(
+      firstIcon: SvgPicture.asset(outline, width: 32, height: 32),
+      secondIcon: SvgPicture.asset(color, width: 32, height: 32),
+      label: label,
+      url: url,
+    );
+  }
+
+  Widget _verticalDivider() {
+    return const VerticalDivider(
+      indent: 6,
+      endIndent: 12,
+      width: 16,
+      thickness: 2,
+      color: Colors.black,
+      radius: BorderRadius.all(Radius.circular(40)),
+    );
+  }
+
+  Widget _displayLines() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        FittedBox(
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: KPrettyAnimated(),
+        ),
+        SizedBox(height: 100),
+        _aboutMeLines(),
+      ],
+    );
+  }
+
+  Widget _aboutMeLines() {
+    return SizedBox(
+      height: 200,
+      width: 500,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text.rich(
+            TextSpan(
+              text: "$kHomeDisplayLineAboutMe01\n",
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w800,
+                color: Colors.white,
+                fontFamily: "ShantellSans",
+              ),
+              children: [
+                TextSpan(
+                  text: "$kHomeDisplayLineAboutMe02\n",
+                  style: const TextStyle(fontWeight: FontWeight.w400),
+                ),
+                TextSpan(
+                  text: "$kHomeDisplayLineAboutMe03\n",
+                  style: const TextStyle(fontWeight: FontWeight.w400),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _topFloatingBar() {
+    return Container(
+      height: 80,
+      width: 640,
+      alignment: Alignment.bottomCenter,
+      color: Colors.transparent,
+      child: Obx(
+        () => AnimatedAlign(
+          duration: const Duration(milliseconds: 400),
+          alignment: controller.isScrolling.value
+              ? const Alignment(0, -5.0)
+              : Alignment.bottomCenter,
+          child: HomeBarView(),
         ),
       ),
     );
   }
 }
 
-extension on HomeController {
-  Future<List<CertificateModel>> fetchCertificates() async {
-    final service = Get.find<CertificateService>();
-    return await service.fetchAll();
+class SliverHeaderSection extends StatelessWidget {
+  final String title;
+  final Widget view;
+  final GlobalKey sectionKey;
+  final BuildContext context;
+
+  const SliverHeaderSection({
+    super.key,
+    required this.title,
+    required this.view,
+    required this.sectionKey,
+    required this.context,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final HomeController controller = Get.find<HomeController>();
+    return Obx(
+      () => Container(
+        key: sectionKey,
+        height: 124,
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+        child: Row(
+          crossAxisAlignment: controller.currentDevice.value == Device.Desktop
+              ? CrossAxisAlignment.center
+              : CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title,
+              style: const TextStyle(
+                color: Colors.white,
+                fontFamily: "ShantellSans",
+                fontWeight: FontWeight.bold,
+                fontSize: 36,
+                letterSpacing: 1.2,
+                decoration: TextDecoration.none,
+              ),
+            ),
+            Container(
+              alignment: Alignment.centerLeft,
+              width: 190,
+              child: AnimatedNavigateButton(
+                label: "Browse All",
+                icon: const Icon(Icons.arrow_forward),
+                borderRadius: 12,
+                onTap: () => navigateWithSlideTransition(this.context, view),
+                width: 190,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
-
-// class PdfImageTestWidget extends StatefulWidget {
-//   const PdfImageTestWidget({super.key});
-//
-//   @override
-//   State<PdfImageTestWidget> createState() => _PdfImageTestWidgetState();
-// }
-//
-// class _PdfImageTestWidgetState extends State<PdfImageTestWidget> {
-//   String? pdfUrl;
-//   bool loading = true;
-//   String? error;
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//     _loadCertificateUrl();
-//   }
-//
-//   Future<void> _loadCertificateUrl() async {
-//     try {
-//       final service = Get.find<CertificateService>();
-//       final certificates = await service.fetchAll();
-//       debugPrint("Fetched certificates: \\n");
-//       for (var cert in certificates) {
-//         debugPrint(cert.toJson().toString());
-//       }
-//       if (certificates.isNotEmpty && certificates.first.images.isNotEmpty) {
-//           certificates.first.images != null &&
-//           certificates.first.images.isNotEmpty) {
-//         setState(() {
-//           pdfUrl = certificates.first.images.first;
-//           loading = false;
-//         });
-//       } else {
-//         setState(() {
-//           error = 'No certificate or screenshot found';
-//           loading = false;
-//         });
-//       }
-//     } catch (e) {
-//       debugPrint('Error fetching certificates: $e');
-//       setState(() {
-//         error = e.toString();
-//         loading = false;
-//       });
-//     }
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     if (loading) return Center(child: CircularProgressIndicator());
-//     if (error != null) return Center(child: Text('Error: $error'));
-//     if (pdfUrl == null) return Center(child: Text('No PDF URL'));
-//     // return PdfImageLoader(pdfUrl: pdfUrl!);
-//     return SizedBox(); // Placeholder for now
-//   }
-// }
-
-// class PdfImageLoader extends StatelessWidget {
-//   final String pdfUrl;
-//
-//   const PdfImageLoader({required this.pdfUrl, super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return FutureBuilder<String>(
-//       future: DefaultAssetBundle.of(context).loadString('assets/certificates/certificates.json'),
-//       builder: (context, snapshot) {
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//           return const Center(child: CircularProgressIndicator());
-//         } else if (snapshot.hasError) {
-//           return Center(child: Text('Error: \\${snapshot.error}'));
-//         } else if (snapshot.hasData) {
-//           return SingleChildScrollView(
-//             padding: const EdgeInsets.all(16),
-//             child: Text(snapshot.data ?? '', style: const TextStyle(fontFamily: 'monospace')),
-//           );
-//         } else {
-//           return const Center(child: Text('No data found.'));
-//         }
-//       },
-//     );
-//   }
-// }

@@ -25,11 +25,12 @@ class HomeBarView extends GetView<HomeController> {
       alignment: Alignment.center,
       height: barHeight,
       decoration: BoxDecoration(
-        color: const Color(0xFF23304A), // Brighter than 0xFF16213E
+        color: Color.lerp(const Color(0xFF23304A), Colors.transparent, 0.2),
+        // Brighter than 0xFF16213E
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha((0.08 * 255).toInt()),
+            color: Colors.white.withAlpha((0.08 * 255).toInt()),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),

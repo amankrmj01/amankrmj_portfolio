@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 
 import 'home.desktop.screen.dart';
 import 'home.mobile.screen.dart';
@@ -9,12 +12,16 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
     final width = MediaQuery.of(context).size.width;
-    if (width < 600) {
+    if (width < 900) {
+      homeController.currentDevice.value = Device.Mobile;
       return const HomeMobileScreen();
-    } else if (width < 1100) {
+    } else if (width < 1300) {
+      homeController.currentDevice.value = Device.Tablet;
       return const HomeTabletScreen();
     } else {
+      homeController.currentDevice.value = Device.Desktop;
       return HomeDesktopScreen();
     }
   }

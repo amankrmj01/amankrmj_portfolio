@@ -32,35 +32,40 @@ class FooterScreen extends GetView<FooterController> {
       } else {
         final quotes = controller.quotes;
         final quote = (quotes.toList()..shuffle()).first;
-        return Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              quote.quote,
-              style: TextStyle(
-                fontSize: 40,
-                fontFamily: "ShantellSans",
-                color: KColor.primaryColor,
-              ),
-            ),
-            const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const Spacer(),
-                Text(
-                  '— ${quote.author}',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Poppins',
-                  ),
+        return Padding(
+          padding: const EdgeInsets.all(40.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                quote.quote,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 40,
+                  fontFamily: "ShantellSans",
+                  color: KColor.primaryColor,
                 ),
-                const SizedBox(width: 60),
-              ],
-            ),
-          ],
+              ),
+              const SizedBox(height: 20),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  const Spacer(),
+                  Text(
+                    '— ${quote.author}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: 'Poppins',
+                    ),
+                  ),
+                  const SizedBox(width: 60),
+                ],
+              ),
+            ],
+          ),
         );
       }
     });
@@ -121,7 +126,7 @@ class FooterScreen extends GetView<FooterController> {
             width: 200,
           ),
         ),
-        const SizedBox(height: 120),
+        const SizedBox(height: 40),
         Container(
           alignment: Alignment.centerLeft,
           width: 200,

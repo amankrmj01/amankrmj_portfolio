@@ -3,6 +3,7 @@
 import 'package:portfolio/domain/models/info.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/infrastructure/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:portfolio/widgets/k.image.dart';
@@ -23,8 +24,9 @@ class CertificateView extends StatelessWidget {
         child: Material(
           color: Colors.transparent,
           child: Container(
+            clipBehavior: Clip.hardEdge,
             decoration: BoxDecoration(
-              color: Theme.of(context).scaffoldBackgroundColor,
+              color: Color.lerp(Color(0xFF23304A), Colors.transparent, 0.06)!,
               borderRadius: BorderRadius.circular(24),
             ),
             child: Column(
@@ -38,33 +40,30 @@ class CertificateView extends StatelessWidget {
                       Expanded(
                         child: Text(
                           certificate.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: KColor.primaryColor,
                             fontFamily: 'ShantellSans',
                           ),
                         ),
                       ),
                       IconButton(
-                        icon: const Icon(
-                          Icons.close,
-                          color: Colors.black,
-                          size: 28,
-                          weight: 900,
-                        ),
+                        icon: const Icon(Icons.close, size: 28, weight: 900),
                         onPressed:
                             onClose ?? () => Navigator.of(context).maybePop(),
                         tooltip: 'Close',
                         style: ButtonStyle(
-                          iconColor: WidgetStateProperty.all(Colors.black),
-                          overlayColor: WidgetStateProperty.all(Colors.black12),
+                          iconColor: WidgetStateProperty.all(
+                            KColor.primaryColor,
+                          ),
+                          overlayColor: WidgetStateProperty.all(Colors.white12),
                         ),
                       ),
                     ],
                   ),
                 ),
-                const Divider(height: 1),
+                const Divider(height: 1, color: Colors.white),
                 Flexible(
                   child: SingleChildScrollView(
                     padding: const EdgeInsets.all(24.0),
@@ -80,27 +79,27 @@ class CertificateView extends StatelessWidget {
                         const SizedBox(height: 24),
                         Text(
                           certificate.name,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 28,
                             fontWeight: FontWeight.bold,
-                            color: Colors.black,
+                            color: KColor.primaryColor,
                             fontFamily: 'ShantellSans',
                           ),
                         ),
                         const SizedBox(height: 12),
                         Text(
                           certificate.description,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 18,
-                            color: Colors.black87,
+                            color: KColor.primaryColor,
                           ),
                         ),
                         const SizedBox(height: 16),
                         Text(
                           certificate.largeDescription,
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 16,
-                            color: Colors.black54,
+                            color: KColor.primaryColor,
                           ),
                         ),
                         const SizedBox(height: 24),

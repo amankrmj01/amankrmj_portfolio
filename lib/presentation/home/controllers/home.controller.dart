@@ -5,6 +5,8 @@ import 'package:mesh_gradient/mesh_gradient.dart';
 import 'package:portfolio/infrastructure/dal/services/social_link_service.dart';
 import 'package:portfolio/domain/models/social_links.model.dart';
 
+enum Device { Desktop, Tablet, Mobile }
+
 class HomeController extends GetxController {
   late final AnimatedMeshGradientController meshGradientController;
 
@@ -49,6 +51,19 @@ class HomeController extends GetxController {
       }
     },
   );
+
+  // Device type management
+  final Rx<Device> currentDevice = Device.Desktop.obs;
+
+  void updateDevice(double width) {
+    if (width < 900) {
+      currentDevice.value = Device.Mobile;
+    } else if (width < 1300) {
+      currentDevice.value = Device.Tablet;
+    } else {
+      currentDevice.value = Device.Desktop;
+    }
+  }
 
   // Fetch social links
   Future<void> fetchSocialLinks() async {
