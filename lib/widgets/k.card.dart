@@ -111,10 +111,7 @@ class _KCardState extends State<KCard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: widget.height,
-                      child: KImage(info: widget.info),
-                    ),
+                    SizedBox(height: 380, child: KImage(info: widget.info)),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(

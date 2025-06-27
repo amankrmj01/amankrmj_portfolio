@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:portfolio/configs/constant_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -47,7 +49,11 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
     final maxScroll = _scrollController.position.maxScrollExtent;
     final offset = _animationController.value * maxScroll;
     _scrollController.jumpTo(offset);
-    if (offset >= maxScroll - widget.images.length * widget.imageWidth) {
+    if (offset >=
+        maxScroll -
+            widget.images.length * widget.imageWidth +
+            (widget.direction == 'horizontal' ? 32 : 32) *
+                widget.images.length) {
       _animationController.forward(from: 0);
     }
   }
@@ -150,15 +156,21 @@ class _KInfiniteScrollImageState extends State<KInfiniteScrollImage>
             ).createShader(bounds);
           },
           blendMode: BlendMode.dstIn,
-          child: ListView(
-            controller: _scrollController,
-            scrollDirection: _axis,
-            physics: const AlwaysScrollableScrollPhysics(),
-            children: [
-              _axis == Axis.horizontal
-                  ? Row(children: _buildImageWidgets(displayImages))
-                  : Column(children: _buildImageWidgets(displayImages)),
-            ],
+          child: ScrollConfiguration(
+            behavior: ScrollConfiguration.of(context).copyWith(
+              scrollbars: false,
+              dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},
+            ),
+            child: ListView(
+              controller: _scrollController,
+              scrollDirection: _axis,
+              physics: const AlwaysScrollableScrollPhysics(),
+              children: [
+                _axis == Axis.horizontal
+                    ? Row(children: _buildImageWidgets(displayImages))
+                    : Column(children: _buildImageWidgets(displayImages)),
+              ],
+            ),
           ),
         ),
       ),
