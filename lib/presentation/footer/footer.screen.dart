@@ -33,11 +33,11 @@ class FooterScreen extends GetView<FooterController> {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              '"${quote.quote}"',
-              textAlign: TextAlign.center,
-              maxLines: 5,
-              style: TextStyle(
+            ChimeBellText(
+              text: '"${quote.quote}"',
+              duration: const Duration(seconds: 4),
+              type: AnimationType.word,
+              textStyle: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w500,
                 fontFamily: 'ShantellSans',
