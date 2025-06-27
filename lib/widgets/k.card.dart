@@ -103,59 +103,61 @@ class _KCardState extends State<KCard> {
               )!,
               borderRadius: BorderRadius.circular(18),
             ),
-            child: AuraBox(
-              spots: _auraSpots,
-              decoration: BoxDecoration(color: Colors.transparent),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: widget.height,
-                    child: KImage(info: widget.info),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.info.name,
-                          style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontFamily: "Poppins",
-                            decoration: TextDecoration.none,
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          widget.info.description,
-                          style: const TextStyle(
-                            fontSize: 15,
-                            color: Colors.white70,
-                            fontFamily: "Poppins",
-                            decoration: TextDecoration.none,
-                          ),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          widget.info.largeDescription,
-                          style: const TextStyle(
-                            fontSize: 13,
-                            color: Colors.white70,
-                            fontFamily: "Poppins",
-                            decoration: TextDecoration.none,
-                          ),
-                          maxLines: 4,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      ],
+            child: RepaintBoundary(
+              child: AuraBox(
+                spots: _auraSpots,
+                decoration: BoxDecoration(color: Colors.transparent),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: widget.height,
+                      child: KImage(info: widget.info),
                     ),
-                  ),
-                ],
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.info.name,
+                            style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontFamily: "Poppins",
+                              decoration: TextDecoration.none,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            widget.info.description,
+                            style: const TextStyle(
+                              fontSize: 15,
+                              color: Colors.white70,
+                              fontFamily: "Poppins",
+                              decoration: TextDecoration.none,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            widget.info.largeDescription,
+                            style: const TextStyle(
+                              fontSize: 13,
+                              color: Colors.white70,
+                              fontFamily: "Poppins",
+                              decoration: TextDecoration.none,
+                            ),
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
