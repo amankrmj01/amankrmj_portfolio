@@ -105,10 +105,7 @@ class _KCardState extends State<KCard> {
             ),
             child: AuraBox(
               spots: _auraSpots,
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                borderRadius: BorderRadius.circular(18),
-              ),
+              decoration: BoxDecoration(color: Colors.transparent),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
