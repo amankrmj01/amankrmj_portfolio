@@ -25,7 +25,7 @@ class HomeBarView extends GetView<HomeController> {
       alignment: Alignment.center,
       height: barHeight,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color(0xFF23304A), // Brighter than 0xFF16213E
         borderRadius: BorderRadius.circular(50),
         boxShadow: [
           BoxShadow(
@@ -51,7 +51,11 @@ class HomeBarView extends GetView<HomeController> {
               child: Container(
                 clipBehavior: Clip.hardEdge,
                 decoration: BoxDecoration(
-                  color: KColor.secondaryColor.withAlpha((0.19 * 255).toInt()),
+                  color: Color.lerp(
+                    Colors.deepPurpleAccent,
+                    Colors.transparent,
+                    0.4,
+                  ),
                   borderRadius: BorderRadius.circular(4),
                 ),
               ),
@@ -136,7 +140,7 @@ class _StackAnimatedTextTabButtonState
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
-                        color: Colors.black87,
+                        color: Colors.white,
                         fontFamily: "ShantellSans",
                       ),
                     ),
@@ -162,7 +166,7 @@ class _StackAnimatedTextTabButtonState
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
-                        color: KColor.secondaryColor,
+                        color: Colors.redAccent[100],
                         fontFamily: "ShantellSans",
                       ),
                     ),

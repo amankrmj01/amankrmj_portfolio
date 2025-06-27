@@ -34,7 +34,7 @@ class _AnimatedNavigateButtonState extends State<AnimatedNavigateButton> {
 
   @override
   Widget build(BuildContext context) {
-    final Color borderColor = Colors.black;
+    final Color borderColor = Color.lerp(Colors.white, Colors.black, 0.5)!;
     final Color backgroundColor = Colors.transparent;
     final bool isHovered = widget.isHovered ?? _isHovered;
     return MouseRegion(

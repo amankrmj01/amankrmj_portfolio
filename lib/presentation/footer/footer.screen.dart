@@ -35,7 +35,14 @@ class FooterScreen extends GetView<FooterController> {
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            _AnimatedQuoteOnVisible(quote: quote),
+            Text(
+              quote.quote,
+              style: TextStyle(
+                fontSize: 40,
+                fontFamily: "ShantellSans",
+                color: KColor.primaryColor,
+              ),
+            ),
             const SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
@@ -44,7 +51,7 @@ class FooterScreen extends GetView<FooterController> {
                 Text(
                   '— ${quote.author}',
                   style: TextStyle(
-                    color: Colors.black,
+                    color: Colors.white,
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     fontFamily: 'Poppins',

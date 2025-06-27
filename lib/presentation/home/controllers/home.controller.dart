@@ -1,10 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mesh_gradient/mesh_gradient.dart';
 import 'package:portfolio/infrastructure/dal/services/social_link_service.dart';
 import 'package:portfolio/domain/models/social_links.model.dart';
 
 class HomeController extends GetxController {
+  late final AnimatedMeshGradientController meshGradientController;
+
   // Scroll controller and scroll state
   final ScrollController scrollController = ScrollController();
   final isScrolling = false.obs;
@@ -64,6 +67,7 @@ class HomeController extends GetxController {
     super.onInit();
     fetchSocialLinks();
     scrollController.addListener(_onScroll);
+    meshGradientController = AnimatedMeshGradientController()..start();
   }
 
   void _onScroll() {

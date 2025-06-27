@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:timelines_plus/timelines_plus.dart';
 
 class GradientDashedLineConnector extends StatelessWidget {
   final double thickness;
@@ -8,12 +7,12 @@ class GradientDashedLineConnector extends StatelessWidget {
   final Gradient gradient;
 
   const GradientDashedLineConnector({
-    Key? key,
+    super.key,
     this.thickness = 2.0,
     this.dashLength = 6.0,
     this.gapLength = 4.0,
     required this.gradient,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

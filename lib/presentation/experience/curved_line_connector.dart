@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:timelines_plus/timelines_plus.dart';
 
 class CurvedLineConnector extends StatelessWidget {
   final Color color;

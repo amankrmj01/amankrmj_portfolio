@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:mesh_gradient/mesh_gradient.dart';
 
 import '../../configs/constant_strings.dart';
 import '../../utils/k.navigate.dart';
@@ -31,10 +32,30 @@ class HomeDesktopScreen extends GetView<HomeController> {
     );
 
     return Scaffold(
+      backgroundColor: Colors.transparent,
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,
           children: [
+            Positioned.fill(
+              child: AnimatedMeshGradient(
+                colors: const [
+                  Color(0xFF1A1A2E), // Deep Night Blue
+                  Color(0xFF1A1A2E), // Deep Night Blue
+                  Color(0xFF16213E), // Dark Blue
+                  Color(0xFF16213E), // Dark Blue
+                  // Color(0xFF0F3460), // Indigo Blue
+                  // Color(0xFF00ADB5), // Teal Accent
+                ],
+                controller: controller.meshGradientController,
+                options: AnimatedMeshGradientOptions(
+                  speed: 0.4,
+                  frequency: 1.0,
+                  amplitude: 1.0,
+                  grain: 0.0,
+                ),
+              ),
+            ),
             Theme(
               data: theme,
               child: ScrollConfiguration(
@@ -136,7 +157,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
           Text(
             title,
             style: const TextStyle(
-              color: Colors.black,
+              color: Colors.white,
               fontFamily: "ShantellSans",
               fontWeight: FontWeight.bold,
               fontSize: 36,
@@ -265,7 +286,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
       children: [
         const SizedBox(
           height: 300,
-          width: 600,
+          width: 700,
           child: FittedBox(
             fit: BoxFit.scaleDown,
             alignment: Alignment.centerLeft,
@@ -290,7 +311,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w800,
-                color: Colors.black,
+                color: Colors.white,
                 fontFamily: "ShantellSans",
               ),
               children: [
