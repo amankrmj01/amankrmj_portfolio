@@ -67,13 +67,25 @@ class HomeController extends GetxController {
   }
 
   void _onScroll() {
-    if (!isScrolling.value) {
-      isScrolling.value = true;
+    // Get the scroll position
+    final scrollOffset = scrollController.offset;
+    int newIndex = 0;
+    for (int i = 0; i < sectionKeys.length; i++) {
+      final ctx = sectionKeys[i].currentContext;
+      if (ctx != null) {
+        final box = ctx.findRenderObject() as RenderBox;
+        final position =
+            box.localToGlobal(Offset.zero, ancestor: null).dy +
+            scrollController.offset;
+        // If the scroll offset is past this section, update the index
+        if (scrollOffset >= position - 100) {
+          newIndex = i;
+        }
+      }
     }
-    _scrollEndDebouncer?.cancel();
-    _scrollEndDebouncer = Timer(const Duration(milliseconds: 400), () {
-      isScrolling.value = false;
-    });
+    if (selectedTabIndex.value != newIndex) {
+      selectedTabIndex.value = newIndex;
+    }
   }
 
   @override
