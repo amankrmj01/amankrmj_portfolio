@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:portfolio/domain/models/github_commit.model.dart';
 
 class GithubCommitService {
-  final String token = '';
+  final String token = String.fromEnvironment('PORTFOLIO_READ_WRITE');
 
   GithubCommitService();
 

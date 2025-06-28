@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 import '../../../domain/models/contact_form.model.dart';
 
 class GithubFilesService {
-  final String token = '';
+  final String token = String.fromEnvironment('PORTFOLIO_READ_WRITE');
 
   Future<List<Map<String, dynamic>>> getFilesInContacts() async {
     final url = Uri.parse(

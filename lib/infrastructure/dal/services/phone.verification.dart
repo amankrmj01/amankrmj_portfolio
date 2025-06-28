@@ -6,7 +6,7 @@ import '../../../domain/models/phone.response.model.dart';
 import 'abstract.verify.service.dart';
 
 class PhoneValidator extends AbstractValidator<PhoneValidationResponse> {
-  final String _apiKey = '';
+  final String _apiKey = String.fromEnvironment('ABSTRACT_PHONE');
 
   @override
   Future<PhoneValidationResponse> validate(String value) async {
