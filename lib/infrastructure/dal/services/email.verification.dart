@@ -5,7 +5,7 @@ import '../../../domain/models/email.respoonse.model.dart';
 import 'abstract.verify.service.dart';
 
 class EmailValidator extends AbstractValidator<EmailValidationResponse> {
-  final String _apiKey = '13d68e96a68f49328280a784dc577099';
+  final String _apiKey = '';
 
   @override
   Future<EmailValidationResponse> validate(String value) async {

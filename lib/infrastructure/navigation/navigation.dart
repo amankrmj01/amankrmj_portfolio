@@ -54,5 +54,10 @@ class Nav {
       page: () => const ExperienceScreen(),
       binding: ExperienceControllerBinding(),
     ),
+    GetPage(
+      name: Routes.ADMIN,
+      page: () => const AdminScreen(),
+      binding: AdminControllerBinding(),
+    ),
   ];
 }

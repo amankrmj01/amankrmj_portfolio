@@ -6,9 +6,9 @@ import 'package:get/get.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
 
 import '../../configs/constant_strings.dart';
-import '../../utils/k.navigate.dart';
 import '../../widgets/k.pretty.animated.dart';
 import '../../widgets/animated.navigate.button.dart';
+import '../../widgets/mesh.background.dart';
 import 'controllers/home.controller.dart';
 import '../certificate/views/all_certificates_view.dart';
 import '../works/views/all_wroks_view.dart';
@@ -38,25 +38,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            Positioned.fill(
-              child: AnimatedMeshGradient(
-                colors: const [
-                  Color(0xFF1A1A2E), // Deep Night Blue
-                  Color(0xFF1A1A2E), // Deep Night Blue
-                  Color(0xFF16213E), // Dark Blue
-                  Color(0xFF16213E), // Dark Blue
-                  // Color(0xFF0F3460), // Indigo Blue
-                  // Color(0xFF00ADB5), // Teal Accent
-                ],
-                controller: controller.meshGradientController,
-                options: AnimatedMeshGradientOptions(
-                  speed: 0.4,
-                  frequency: 1.0,
-                  amplitude: 1.0,
-                  grain: 0.0,
-                ),
-              ),
-            ),
+            Positioned.fill(child: SharedMeshBackground()),
             Theme(
               data: theme,
               child: ScrollConfiguration(

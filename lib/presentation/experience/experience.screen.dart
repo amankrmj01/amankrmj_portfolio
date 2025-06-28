@@ -261,72 +261,73 @@ class _ExperienceCardState extends State<ExperienceCard> {
             width: 1,
           ),
         ),
-        child: AuraBox(
-          spots: _auraSpots,
-          decoration: BoxDecoration(
-            color: Color.lerp(Colors.black, Colors.transparent, 0.8),
-            shape: BoxShape.rectangle,
-          ),
-          child: AnimatedPadding(
-            duration: const Duration(milliseconds: 600),
-            curve: Curves.easeInOut,
-            padding: const EdgeInsets.all(24.0),
-            child: SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    exp['title'],
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
+        child: RepaintBoundary(
+          child: AuraBox(
+            spots: _auraSpots,
+            decoration: BoxDecoration(
+              color: Color.lerp(Colors.black, Colors.transparent, 0.8),
+              shape: BoxShape.rectangle,
+            ),
+            child: AnimatedPadding(
+              duration: const Duration(milliseconds: 600),
+              curve: Curves.easeInOut,
+              padding: const EdgeInsets.all(24.0),
+              child: SingleChildScrollView(
+                physics: const ClampingScrollPhysics(),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      exp['title'],
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
-                  Text(
-                    exp['company'],
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium?.copyWith(color: Colors.grey[700]),
-                  ),
-                  Text(
-                    '${exp['startDate']} - ${exp['endDate']}',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  const SizedBox(height: 8),
-                  AnimatedSize(
-                    duration: const Duration(milliseconds: 1000),
-                    curve: Curves.easeInOut,
-                    alignment: Alignment.topCenter,
-                    child: Text(
-                      exp['description'],
-                      maxLines: _isHovered ? null : 1,
-                      overflow: _isHovered
-                          ? TextOverflow.visible
-                          : TextOverflow.ellipsis,
+                    Text(
+                      exp['company'],
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyMedium?.copyWith(color: Colors.grey[700]),
                     ),
-                  ),
-                  if (exp['technologies'] != null) ...[
+                    Text(
+                      '${exp['startDate']} - ${exp['endDate']}',
+                      style: Theme.of(context).textTheme.bodySmall,
+                    ),
                     const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 6,
-                      children: List<Widget>.from(
-                        (exp['technologies'] as List).map(
-                          (tech) => Chip(label: Text(tech)),
+                    AnimatedSize(
+                      duration: const Duration(milliseconds: 1000),
+                      curve: Curves.easeInOut,
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        exp['description'],
+                        maxLines: _isHovered ? null : 1,
+                        overflow: _isHovered
+                            ? TextOverflow.visible
+                            : TextOverflow.ellipsis,
+                      ),
+                    ),
+                    if (exp['technologies'] != null) ...[
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 6,
+                        children: List<Widget>.from(
+                          (exp['technologies'] as List).map(
+                            (tech) => Chip(label: Text(tech)),
+                          ),
                         ),
                       ),
-                    ),
-                  ],
-                  if (exp['location'] != null)
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4.0),
-                      child: Text(
-                        exp['location'],
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodySmall?.copyWith(color: Colors.blueGrey),
+                    ],
+                    if (exp['location'] != null)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 4.0),
+                        child: Text(
+                          exp['location'],
+                          style: Theme.of(context).textTheme.bodySmall
+                              ?.copyWith(color: Colors.blueGrey),
+                        ),
                       ),
-                    ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),

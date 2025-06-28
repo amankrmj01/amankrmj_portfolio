@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../infrastructure/theme/colors.dart';
 import '../../../widgets/k.card.dart';
-import '../../../utils/k.showGeneralDialog.dart';
 import '../../certificate/views/all_certificates_view.dart';
 import 'work_view.dart';
 import '../controllers/works.controller.dart';

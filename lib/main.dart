@@ -2,6 +2,7 @@ import 'package:portfolio/infrastructure/theme/dark_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:oktoast/oktoast.dart';
 
 import 'infrastructure/dal/services/services.di.dart';
 import 'infrastructure/navigation/navigation.dart';
@@ -13,7 +14,7 @@ void main() async {
     ServiceC.setupServiceLocator();
     var initialRoute = await Routes.initialRoute;
     debugPrint('Initial route: $initialRoute');
-    runApp(Main(initialRoute));
+    runApp(OKToast(child: Main(initialRoute)));
   } catch (e, stack) {
     runApp(ErrorApp(error: e.toString(), stack: stack.toString()));
   }

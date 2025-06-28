@@ -6,8 +6,9 @@ class Routes {
   }
 
   static const CERTIFICATE = '/certificate';
+  static const EXPERIENCE = '/experience';
   static const FOOTER = '/footer';
   static const HOME = '/home';
   static const WORKS = '/works';
-  static const EXPERIENCE = '/experience';
+  static const ADMIN = '/admin';
 }
