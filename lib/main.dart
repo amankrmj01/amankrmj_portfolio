@@ -11,7 +11,7 @@ import 'infrastructure/navigation/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: 'assets/.env');
+  await dotenv.load(fileName: 'assets/.env.example');
   try {
     ServiceC.setupServiceLocator();
     var initialRoute = await Routes.initialRoute;
