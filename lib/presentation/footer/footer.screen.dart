@@ -1,6 +1,4 @@
 import 'package:flutter_svg/svg.dart';
-import 'package:portfolio/presentation/footer/views/contact_me_view.dart';
-import 'package:portfolio/utils/k.showGeneralDialog.dart';
 import 'package:portfolio/widgets/animated.navigate.button.dart';
 import 'package:flutter/material.dart';
 
@@ -124,30 +122,6 @@ class FooterScreen extends GetView<FooterController> {
               height: 28,
             ),
             width: 200,
-          ),
-        ),
-        const SizedBox(height: 40),
-        Container(
-          alignment: Alignment.centerLeft,
-          width: 200,
-          child: Builder(
-            builder: (context) => AnimatedNavigateButton(
-              borderRadius: 16,
-              label: "Contact Me",
-              onTap: () {
-                showBlurredGeneralDialog(
-                  context: context,
-                  builder: (context) => ContactMeView(),
-                );
-              },
-              icon: Image.asset(
-                'assets/icons/contact_me.png',
-                width: 28,
-                height: 28,
-                fit: BoxFit.fitHeight,
-              ),
-              width: 200,
-            ),
           ),
         ),
         const SizedBox(height: 14),
