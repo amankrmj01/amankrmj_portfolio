@@ -29,7 +29,7 @@ jobs:
         run: flutter pub get
 
       - name: Build Flutter Web (WASM)
-        run: flutter build web --wasm --release --base-href=/portfolio/ --dart-define=ABSTRACT_EMAIL=${{ secrets.ABSTRACT_EMAIL }} --dart-define=ABSTRACT_PHONE=${{ secrets.ABSTRACT_PHONE }} --dart-define=PORTFOLIO_READ_WRITE=${{ secrets.PORTFOLIO_READ_WRITE }}
+        run: flutter build web --wasm --release --base-href=/portfolio/
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
