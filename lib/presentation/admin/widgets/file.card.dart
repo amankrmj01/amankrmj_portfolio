@@ -190,7 +190,9 @@ class _FileCardState extends State<FileCard> with TickerProviderStateMixin {
                                   style: TextStyle(
                                     fontSize: 15,
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.white.withOpacity(0.95),
+                                    color: Colors.white.withAlpha(
+                                      (0.95 * 255).toInt(),
+                                    ),
                                     letterSpacing: 0.2,
                                   ),
                                 ),
@@ -199,7 +201,9 @@ class _FileCardState extends State<FileCard> with TickerProviderStateMixin {
                                   'Phone: $phone',
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: Colors.white.withOpacity(0.85),
+                                    color: Colors.white.withAlpha(
+                                      (0.85 * 255).toInt(),
+                                    ),
                                     letterSpacing: 0.1,
                                   ),
                                 ),
@@ -208,7 +212,9 @@ class _FileCardState extends State<FileCard> with TickerProviderStateMixin {
                                   'Email: $email',
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: Colors.white.withOpacity(0.85),
+                                    color: Colors.white.withAlpha(
+                                      (0.85 * 255).toInt(),
+                                    ),
                                     letterSpacing: 0.1,
                                   ),
                                 ),
@@ -227,7 +233,9 @@ class _FileCardState extends State<FileCard> with TickerProviderStateMixin {
                                   message,
                                   style: TextStyle(
                                     fontSize: 14,
-                                    color: Colors.white.withOpacity(0.92),
+                                    color: Colors.white.withAlpha(
+                                      (0.92 * 255).toInt(),
+                                    ),
                                     height: 1.5,
                                   ),
                                 ),

@@ -1,16 +1,10 @@
 import 'package:atlas_icons/atlas_icons.dart';
-import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
-import 'package:mesh_gradient/mesh_gradient.dart';
 import 'package:portfolio/infrastructure/dal/services/github_files.service.dart';
 import 'package:velocity_x/velocity_x.dart';
-import 'dart:math';
 
-import '../../../domain/models/contact_form.model.dart';
 import '../../../widgets/mesh.background.dart';
-import '../controllers/admin.controller.dart';
 import '../widgets/file.card.dart';
 
 class ContactScreenView extends StatefulWidget {

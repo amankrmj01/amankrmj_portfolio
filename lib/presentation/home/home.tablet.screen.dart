@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:mesh_gradient/mesh_gradient.dart';
 
 import '../../configs/constant_strings.dart';
 import '../../utils/k.navigate.dart';

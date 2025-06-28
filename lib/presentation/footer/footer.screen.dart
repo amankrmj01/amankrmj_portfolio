@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:pretty_animated_text/pretty_animated_text.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../infrastructure/dal/services/github_commit.service.dart';
 import '../../infrastructure/dal/services/github_files.service.dart';
 import '../../infrastructure/theme/colors.dart';
 import '../../utils/launch.url.dart';
