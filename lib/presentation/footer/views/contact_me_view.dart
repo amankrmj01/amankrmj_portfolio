@@ -108,7 +108,7 @@ class _ContactMeViewState extends State<ContactMeView> {
       final contactJson = encoder.convert(contactForm.toJson());
       final contentBase64 = base64Encode(utf8.encode(contactJson));
       final commitModel = GithubCommitModel(
-        message: 'Add contact.json with user details',
+        message: '$name wants to contact you',
         content: contentBase64,
         committer: Committer(name: name, email: email),
       );
@@ -120,9 +120,11 @@ class _ContactMeViewState extends State<ContactMeView> {
         commit: commitModel,
       );
       if (response.statusCode == 201 || response.statusCode == 200) {
-        showDecoratedToast('Contact details sent to GitHub!');
+        showDecoratedToast('Contact details sent to Aman!');
+        if (!context.mounted) return;
+        Navigator.of(context).maybePop();
       } else {
-        showDecoratedToast('Failed to send details to GitHub.');
+        showDecoratedToast('Failed to send message.\nTry after few minutes.');
       }
     } catch (e) {
       showDecoratedToast('Verification failed. Please try again.');
@@ -271,13 +273,15 @@ class _ContactMeViewState extends State<ContactMeView> {
                               keyboardType: TextInputType.emailAddress,
                               context: context,
                               validator: (value) {
-                                if (value == null || value.trim().isEmpty)
+                                if (value == null || value.trim().isEmpty) {
                                   return 'Email?';
+                                }
                                 final emailRegex = RegExp(
                                   r'^[^@]+@[^@]+\.[^@]+',
                                 );
-                                if (!emailRegex.hasMatch(value.trim()))
+                                if (!emailRegex.hasMatch(value.trim())) {
                                   return 'Invalid email';
+                                }
                                 return null;
                               },
                               textInputAction: TextInputAction.next,

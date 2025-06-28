@@ -50,12 +50,14 @@ dependencies:
   aura_box: ^1.0.2
   crypto: ^3.0.6
   intl: ^0.20.2
+  logger: ^2.6.0
+  flutter_dotenv: ^5.2.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
-  build_runner: ^2.5.0
+  build_runner: ^2.5.4
   change_app_package_name: ^1.5.0
 
 flutter:
@@ -64,6 +66,7 @@ flutter:
     - assets/images/
     - assets/rive/
     - assets/icons/
+    - assets/.env
   fonts:
     - family: Lora
       fonts:
@@ -74,43 +77,16 @@ flutter:
     - family: Poppins
       fonts:
         - asset: assets/fonts/poppins/Poppins-Regular.ttf
-        - asset: assets/fonts/poppins/Poppins-Italic.ttf
-          style: italic
-        - asset: assets/fonts/poppins/Poppins-ExtraLight.ttf
-          weight: 100
-        - asset: assets/fonts/poppins/Poppins-Light.ttf
-          weight: 200
-        - asset: assets/fonts/poppins/Poppins-Medium.ttf
-          weight: 400
-        - asset: assets/fonts/poppins/Poppins-Regular.ttf
-          weight: 500
-        - asset: assets/fonts/poppins/Poppins-SemiBold.ttf
-          weight: 600
         - asset: assets/fonts/poppins/Poppins-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/poppins/Poppins-ExtraBold.ttf
-          weight: 800
-        - asset: assets/fonts/poppins/Poppins-Black.ttf
-          weight: 900
-
+        - asset: assets/fonts/poppins/Poppins-Italic.ttf
     - family: ShantellSans
       fonts:
         - asset: assets/fonts/shantell_sans/ShantellSans-Regular.ttf
-        - asset: assets/fonts/shantell_sans/ShantellSans-Italic.ttf
-          style: italic
-        - asset: assets/fonts/shantell_sans/ShantellSans-Light.ttf
-          weight: 100
-        - asset: assets/fonts/shantell_sans/ShantellSans-Light.ttf
-          weight: 200
-        - asset: assets/fonts/shantell_sans/ShantellSans-Medium.ttf
-          weight: 400
-        - asset: assets/fonts/shantell_sans/ShantellSans-Regular.ttf
-          weight: 500
-        - asset: assets/fonts/shantell_sans/ShantellSans-SemiBold.ttf
-          weight: 600
         - asset: assets/fonts/shantell_sans/ShantellSans-Bold.ttf
-          weight: 700
-        - asset: assets/fonts/shantell_sans/ShantellSans-ExtraBold.ttf
-          weight: 800
-        - asset: assets/fonts/shantell_sans/ShantellSans-ExtraBold.ttf
-          weight: 900
+        - asset: assets/fonts/shantell_sans/ShantellSans-Italic.ttf
+    - family: NotoSans
+      fonts:
+        - asset: assets/fonts/notosans/NotoSans-Regular.ttf
+        - asset: assets/fonts/notosans/NotoSans-Bold.ttf
+        - asset: assets/fonts/notosans/NotoSans-Italic.ttf
+        - asset: assets/fonts/notosans/NotoSans-BoldItalic.ttf

@@ -8,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:pretty_animated_text/pretty_animated_text.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../infrastructure/dal/services/github_files.service.dart';
 import '../../infrastructure/theme/colors.dart';
 import '../../utils/launch.url.dart';
 import 'controllers/footer.controller.dart';
@@ -140,33 +139,6 @@ class FooterScreen extends GetView<FooterController> {
                   context: context,
                   builder: (context) => ContactMeView(),
                 );
-              },
-              icon: Image.asset(
-                'assets/icons/contact_me.png',
-                width: 28,
-                height: 28,
-                fit: BoxFit.fitHeight,
-              ),
-              width: 200,
-            ),
-          ),
-        ),
-        const SizedBox(height: 40),
-        Container(
-          alignment: Alignment.centerLeft,
-          width: 200,
-          child: Builder(
-            builder: (context) => AnimatedNavigateButton(
-              borderRadius: 16,
-              label: "Print Me",
-              onTap: () async {
-                final GithubFilesService filesService = GithubFilesService();
-                try {
-                  final files = await filesService.getFilesInContacts();
-                  debugPrint('Files: $files');
-                } catch (e) {
-                  debugPrint('Error fetching files: $e');
-                }
               },
               icon: Image.asset(
                 'assets/icons/contact_me.png',

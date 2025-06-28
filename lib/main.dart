@@ -1,5 +1,6 @@
 import 'package:portfolio/infrastructure/theme/dark_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import 'package:get/get.dart';
 import 'package:oktoast/oktoast.dart';
@@ -10,6 +11,7 @@ import 'infrastructure/navigation/routes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: 'assets/.env');
   try {
     ServiceC.setupServiceLocator();
     var initialRoute = await Routes.initialRoute;

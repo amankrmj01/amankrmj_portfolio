@@ -62,9 +62,9 @@ class _ContactScreenViewState extends State<ContactScreenView> {
                 ? const Center(child: Text('No files found'))
                 : ListView.builder(
                     padding: EdgeInsets.only(top: kToolbarHeight + 8),
-                    itemCount: files.length + 8,
+                    itemCount: files.length,
                     itemBuilder: (context, index) {
-                      final file = files[0];
+                      final file = files[files.length - 1 - index];
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                           horizontal: 16,

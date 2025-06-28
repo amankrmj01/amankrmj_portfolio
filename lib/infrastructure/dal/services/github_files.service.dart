@@ -1,16 +1,26 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:logger/logger.dart';
 
 import '../../../domain/models/contact_form.model.dart';
 
 class GithubFilesService {
-  final String token = String.fromEnvironment('PORTFOLIO_READ_WRITE');
+  final Logger _logger = Logger();
+  final String token = kReleaseMode
+      ? const String.fromEnvironment('PORTFOLIO_READ_WRITE', defaultValue: '')
+      : (dotenv.env['PORTFOLIO_READ_WRITE'] ?? '');
 
   Future<List<Map<String, dynamic>>> getFilesInContacts() async {
     final url = Uri.parse(
       'https://api.github.com/repos/amankrmj01/portfolio_asset/contents/contacts/',
     );
+    if (token.isEmpty) {
+      _logger.e('GitHub token is not set.');
+      throw Exception('GitHub token is not set.');
+    }
     final response = await http.get(
       url,
       headers: {
@@ -18,14 +28,19 @@ class GithubFilesService {
         'Accept': 'application/vnd.github+json',
       },
     );
-
     if (response.statusCode == 200) {
+      _logger.i('Fetched files successfully.');
       final List<dynamic> jsonResponse = jsonDecode(response.body);
       // Use printContactFiles to fetch file contents
       return await printContactFiles(
         jsonResponse.map((file) => file as Map<String, dynamic>).toList(),
       );
     } else {
+      _logger.e(
+        'Failed to fetch files: \\${response.statusCode}+\n'
+        'Response: ${response.body}+\n'
+        'token: $token',
+      );
       throw Exception('Failed to fetch files: \\${response.statusCode}');
     }
   }
