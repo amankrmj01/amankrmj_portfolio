@@ -22,6 +22,9 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
   int _currentIndex = 0;
   bool _mounted = false;
 
+  // ignore: unused_field
+  Future<void>? _timerFuture;
+
   @override
   void initState() {
     super.initState();
@@ -29,7 +32,15 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
     _startTimer();
   }
 
-  void _startTimer() {}
+  void _startTimer() {
+    _timerFuture = Future.delayed(const Duration(seconds: 0), () {
+      if (!_mounted) return;
+      setState(() {
+        _currentIndex = 0;
+      });
+      _runAnimationLoop();
+    });
+  }
 
   void _runAnimationLoop() async {
     while (_mounted) {
