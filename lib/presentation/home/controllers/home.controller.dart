@@ -1,9 +1,14 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
 import 'package:portfolio/infrastructure/dal/services/social_link_service.dart';
 import 'package:portfolio/domain/models/social_links.model.dart';
+import 'package:oktoast/oktoast.dart';
+
+import '../../../infrastructure/dal/services/ping.server.dart';
+import '../../footer/views/contact_me_view.dart';
 
 enum Device { Desktop, Tablet, Mobile }
 
@@ -78,11 +83,43 @@ class HomeController extends GetxController {
   }
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
+    final PingServerService pingServerService = PingServerService();
+    await _pingUntilSuccess(pingServerService);
     fetchSocialLinks();
     scrollController.addListener(_onScroll);
     meshGradientController = AnimatedMeshGradientController()..start();
+  }
+
+  final Logger _logger = Logger();
+
+  Future<void> _pingUntilSuccess(PingServerService pingServerService) async {
+    try {
+      while (true) {
+        final result = await pingServerService.ping();
+        if (result == 'true') {
+          _logger.i('Server connected');
+          break;
+        } else {
+          _logger.w('Server not connected, try again! $result');
+        }
+        await Future.delayed(const Duration(seconds: 5));
+      }
+    } catch (e, stackTrace) {
+      _logger.e(
+        'Exception during server ping',
+        error: e,
+        stackTrace: stackTrace,
+      );
+      // Show error using oktoast
+      showToast(
+        'Exception during server ping: \n${e.toString()}',
+        duration: const Duration(seconds: 4),
+        position: ToastPosition.bottom,
+      );
+      rethrow;
+    }
   }
 
   void _onScroll() {

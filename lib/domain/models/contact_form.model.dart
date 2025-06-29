@@ -4,6 +4,8 @@ class ContactFormModel {
   final String phoneNumber;
   final String email;
   final String message;
+  final String date;
+  final String time;
 
   ContactFormModel({
     required this.countryCode,
@@ -11,6 +13,8 @@ class ContactFormModel {
     required this.phoneNumber,
     required this.email,
     required this.message,
+    required this.date,
+    required this.time,
   });
 
   factory ContactFormModel.fromJson(Map<String, dynamic> json) {
@@ -20,6 +24,8 @@ class ContactFormModel {
       phoneNumber: json['phone_number'] as String,
       email: json['email'] as String,
       message: json['message'] as String,
+      date: json['date'] as String,
+      time: json['time'] as String,
     );
   }
 
@@ -29,5 +35,7 @@ class ContactFormModel {
     'phone_number': phoneNumber,
     'email': email,
     'message': message,
+    'date': date,
+    'time': time,
   };
 }
