@@ -1,21 +1,20 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/presentation/home/views/home_bar_view.dart';
+import 'package:portfolio/presentation/home/widgets/code.block.dart';
+import 'package:portfolio/presentation/home/widgets/widgets.dart';
 
-import '../../configs/constant_strings.dart';
 import '../../widgets/k.pretty.animated.dart';
-import '../../widgets/animated.navigate.button.dart';
 import '../../widgets/mesh.background.dart';
-import 'controllers/home.controller.dart';
+import '../certificate/certificate.screen.dart';
 import '../certificate/views/all_certificates_view.dart';
+import '../footer/footer.screen.dart';
 import '../works/views/all_wroks_view.dart';
-import '../home/views/home_bar_view.dart';
-import '../screens.dart';
-import 'home.tablet.screen.dart';
-import 'widgets/animated.rotate.icon.dart';
-import 'widgets/code.block.dart';
+import '../works/works.screen.dart';
+import 'controllers/home.controller.dart';
+// Import the common widgets
 
 class HomeDesktopScreen extends GetView<HomeController> {
   const HomeDesktopScreen({super.key});
@@ -55,7 +54,6 @@ class HomeDesktopScreen extends GetView<HomeController> {
                   interactive: true,
                   child: SingleChildScrollView(
                     controller: controller.scrollController,
-                    // physics: CarouselScrollPhysics(),
                     child: Column(
                       children: [
                         _mainSection(context),
@@ -112,172 +110,34 @@ class HomeDesktopScreen extends GetView<HomeController> {
             children: [
               const SizedBox(height: 120),
               Row(
-                children: [_displayLines(), const Spacer(), const CodeBlock()],
-              ),
-              _navigateButtonAndSocialLinks(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _navigateButtonAndSocialLinks() {
-    return SizedBox(
-      height: 100,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            alignment: Alignment.centerLeft,
-            width: 210,
-            child: AnimatedNavigateButton(
-              borderRadius: 20,
-              label: 'See My Works',
-              icon: const Icon(Icons.arrow_forward, size: 24),
-              onTap: () {
-                final ctx = HomeController.recentWorksKey.currentContext;
-                if (ctx != null) {
-                  Scrollable.ensureVisible(
-                    ctx,
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeInOut,
-                    alignment: 0.0,
-                  );
-                }
-              },
-              width: 210,
-            ),
-          ),
-          Obx(() => _socialLinksRow()),
-        ],
-      ),
-    );
-  }
-
-  Widget _socialLinksRow() {
-    final links = controller.socialLinks;
-    return SizedBox(
-      height: 50,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _animatedIcon(
-            outline: 'assets/icons/github_outline.svg',
-            color: 'assets/icons/github_color.svg',
-            label: "Github",
-            url: links['github'] ?? '',
-          ),
-          _verticalDivider(),
-          _animatedIcon(
-            outline: 'assets/icons/linkedin_outline.svg',
-            color: 'assets/icons/linkedin_color.svg',
-            label: "LinkedIn",
-            url: links['linkedIn'] ?? '',
-          ),
-          _verticalDivider(),
-          _animatedIcon(
-            outline: 'assets/icons/instagram_outline.svg',
-            color: 'assets/icons/instagram_color.svg',
-            label: "Instagram",
-            url: links['instagram'] ?? '',
-          ),
-          _verticalDivider(),
-          _animatedIcon(
-            outline: 'assets/icons/discord_outline.svg',
-            color: 'assets/icons/discord_color.svg',
-            label: "Discord",
-            url: links['discord'] ?? '',
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _animatedIcon({
-    required String outline,
-    required String color,
-    required String label,
-    required String url,
-  }) {
-    return AnimatedRotateIcon(
-      firstIcon: SvgPicture.asset(outline, width: 32, height: 32),
-      secondIcon: SvgPicture.asset(color, width: 32, height: 32),
-      label: label,
-      url: url,
-    );
-  }
-
-  Widget _verticalDivider() {
-    return const VerticalDivider(
-      indent: 6,
-      endIndent: 12,
-      width: 16,
-      thickness: 2,
-      color: Colors.black,
-      radius: BorderRadius.all(Radius.circular(40)),
-    );
-  }
-
-  Widget _displayLines() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: 700,
-            minWidth: 200,
-            maxHeight: 240,
-            minHeight: 240,
-          ),
-          child: FittedBox(
-            fit: BoxFit.scaleDown,
-            alignment: Alignment.centerLeft,
-            child: KPrettyAnimated(),
-          ),
-        ),
-        _aboutMeLines(),
-      ],
-    );
-  }
-
-  Widget _aboutMeLines() {
-    return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxWidth: 700,
-        minWidth: 200,
-        maxHeight: 240,
-        minHeight: 240,
-      ),
-      child: FittedBox(
-        fit: BoxFit.scaleDown,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text.rich(
-              TextSpan(
-                text: "$kHomeDisplayLineAboutMe01\n",
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: Colors.white,
-                  fontFamily: "ShantellSans",
-                ),
                 children: [
-                  TextSpan(
-                    text: "$kHomeDisplayLineAboutMe02\n",
-                    style: const TextStyle(fontWeight: FontWeight.w400),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxWidth: 700,
+                          minWidth: 200,
+                          maxHeight: 240,
+                          minHeight: 240,
+                        ),
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: Alignment.centerLeft,
+                          child: KPrettyAnimated(),
+                        ),
+                      ),
+                      aboutMeLines(width: 700, height: 240),
+                    ],
                   ),
-                  TextSpan(
-                    text: "$kHomeDisplayLineAboutMe03\n",
-                    style: const TextStyle(fontWeight: FontWeight.w400),
-                  ),
+                  const Spacer(),
+                  const CodeBlock(),
                 ],
               ),
-            ),
-          ],
+              navigateButtonAndSocialLinks(controller),
+            ],
+          ),
         ),
       ),
     );

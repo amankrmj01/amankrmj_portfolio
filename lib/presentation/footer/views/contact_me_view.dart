@@ -5,13 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
-import 'package:oktoast/oktoast.dart';
 import 'package:portfolio/domain/models/contact_form.model.dart';
 import 'package:portfolio/infrastructure/dal/services/add.contact.service.dart';
-import 'package:portfolio/widgets/k.infinite.scroll.image.dart';
 
 import '../../../infrastructure/dal/services/ping.server.dart';
 import '../../../infrastructure/theme/colors.dart';
+import '../../../utils/show_decorated_toast.dart';
+
+// Moved to utils/show_decorated_toast.dart
+// Please import and use showDecoratedToast from utils.
 
 class ContactMeView extends StatefulWidget {
   const ContactMeView({super.key});
@@ -28,6 +30,7 @@ class _ContactMeViewState extends State<ContactMeView> {
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
   final _messageController = TextEditingController();
+  final Logger _logger = Logger();
 
   @override
   void dispose() {
@@ -40,13 +43,13 @@ class _ContactMeViewState extends State<ContactMeView> {
   }
 
   @override
-  Future<void> initState() async {
+  void initState() {
     super.initState();
     final PingServerService pingServerService = PingServerService();
-    await pingUntilSuccess(pingServerService);
+    _pingUntilSuccess(pingServerService);
   }
 
-  Future<void> pingUntilSuccess(PingServerService pingServerService) async {
+  Future<void> _pingUntilSuccess(PingServerService pingServerService) async {
     final Logger logger = Logger();
     while (true) {
       try {
@@ -60,13 +63,12 @@ class _ContactMeViewState extends State<ContactMeView> {
       } catch (e) {
         logger.e('Server not connected, try again');
       }
-      await Future.delayed(const Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 5));
     }
   }
 
   Future<void> _handleSubmit(BuildContext context) async {
     if (!_formKey.currentState!.validate()) {
-      showDecoratedToast('Please fill all the fields');
       return;
     }
 
@@ -78,7 +80,7 @@ class _ContactMeViewState extends State<ContactMeView> {
 
     final now = DateTime.now();
     final date = DateFormat('MMMM d, yyyy').format(now);
-    final time = DateFormat('HH:mm:ss').format(now);
+    final time = DateFormat('hh:mm a').format(now);
     final contactForm = ContactFormModel(
       name: name,
       countryCode: countryCode,
@@ -90,12 +92,15 @@ class _ContactMeViewState extends State<ContactMeView> {
     );
     final AddContactService addContactService = AddContactService();
     final response = await addContactService.addContact(contactForm);
+    _logger.i('Response from server: ${jsonEncode(contactForm.toJson())}');
     if (response == 'true') {
       showDecoratedToast('Message sent successfully');
-
-      Navigator.of(context).maybePop();
+      if (context.mounted) {
+        Navigator.of(context).maybePop();
+      }
     } else {
       showDecoratedToast('Failed to send message: \n$response');
+      _logger.e('Failed to send message: $response');
     }
   }
 
@@ -221,7 +226,7 @@ class _ContactMeViewState extends State<ContactMeView> {
                                   ? 'Please enter your name'
                                   : null,
                               textInputAction: TextInputAction.next,
-                              onFieldSubmitted: (_) => {},
+                              onFieldSubmitted: (_) => {_handleSubmit(context)},
                             ),
                             const SizedBox(height: 20),
                             Row(
@@ -238,7 +243,9 @@ class _ContactMeViewState extends State<ContactMeView> {
                                       ? 'Code?'
                                       : null,
                                   textInputAction: TextInputAction.next,
-                                  onFieldSubmitted: (_) => {},
+                                  onFieldSubmitted: (_) => {
+                                    _handleSubmit(context),
+                                  },
                                 ),
                                 const SizedBox(width: 12),
                                 Expanded(
@@ -253,7 +260,9 @@ class _ContactMeViewState extends State<ContactMeView> {
                                         ? 'Phone?'
                                         : null,
                                     textInputAction: TextInputAction.next,
-                                    onFieldSubmitted: (_) => {},
+                                    onFieldSubmitted: (_) => {
+                                      _handleSubmit(context),
+                                    },
                                   ),
                                 ),
                               ],
@@ -278,7 +287,7 @@ class _ContactMeViewState extends State<ContactMeView> {
                                 return null;
                               },
                               textInputAction: TextInputAction.next,
-                              onFieldSubmitted: (_) => {},
+                              onFieldSubmitted: (_) => {_handleSubmit(context)},
                             ),
                             const SizedBox(height: 20),
                             _buildTextFormField(
@@ -293,11 +302,11 @@ class _ContactMeViewState extends State<ContactMeView> {
                                   ? 'Message?'
                                   : null,
                               textInputAction: TextInputAction.done,
-                              onFieldSubmitted: (_) => {},
+                              onFieldSubmitted: (_) => {_handleSubmit(context)},
                             ),
                             const SizedBox(height: 24),
                             ElevatedButton(
-                              onPressed: () => {},
+                              onPressed: () => {_handleSubmit(context)},
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: KColor.secondaryColor,
                                 foregroundColor: Colors.white,
@@ -331,22 +340,4 @@ class _ContactMeViewState extends State<ContactMeView> {
       ),
     );
   }
-}
-
-void showDecoratedToast(String message) {
-  showToast(
-    message,
-    position: ToastPosition.bottom,
-    backgroundColor: KColor.primaryColor,
-    radius: 12,
-    textStyle: TextStyle(
-      color: KColor.secondarySecondColor,
-      fontSize: 16,
-      fontWeight: FontWeight.bold,
-      fontFamily: 'Poppins',
-    ),
-    textPadding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-    animationCurve: Curves.easeOutCubic,
-    duration: const Duration(seconds: 3),
-  );
 }

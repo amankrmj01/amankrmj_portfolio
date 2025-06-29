@@ -1,11 +1,10 @@
-import 'dart:convert';
-import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
+import '../../../configs/constant_strings.dart';
+
 class PingServerService {
-  static const String _pingUrl =
-      'https://portfolio-backend-3nrj.onrender.com/api/v1/ping';
+  static const String _pingUrl = "${api}ping";
   final Logger _logger = Logger();
 
   Future<String> ping() async {
@@ -15,7 +14,7 @@ class PingServerService {
         return 'true';
       } else {
         _logger.e('Request failed: ${response.body}');
-        throw Exception(response.body);
+        return 'false';
       }
     } catch (e, stackTrace) {
       _logger.e(
@@ -23,7 +22,7 @@ class PingServerService {
         error: e.toString(),
         stackTrace: stackTrace,
       );
-      rethrow;
+      return 'false';
     }
   }
 }

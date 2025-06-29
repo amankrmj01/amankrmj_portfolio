@@ -43,7 +43,6 @@ class _ContactScreenViewState extends State<ContactScreenView> {
     setState(() => _isLoading = true);
     final FetchContactService fetchContactService = FetchContactService();
     _cachedFiles = await fetchContactService.fetchContacts();
-    ;
     setState(() => _isLoading = false);
   }
 

@@ -17,3 +17,5 @@ const List<String> homeScreenLines = [
   "Always learning, always building.",
   "Code. Create. Inspire.",
 ];
+
+const String api = 'http://localhost:8080/api/v1/';

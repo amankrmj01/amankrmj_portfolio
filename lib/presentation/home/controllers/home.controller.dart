@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,10 +7,8 @@ import 'package:logger/logger.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
 import 'package:portfolio/infrastructure/dal/services/social_link_service.dart';
 import 'package:portfolio/domain/models/social_links.model.dart';
-import 'package:oktoast/oktoast.dart';
 
 import '../../../infrastructure/dal/services/ping.server.dart';
-import '../../footer/views/contact_me_view.dart';
 
 enum Device { Desktop, Tablet, Mobile }
 
@@ -74,22 +74,24 @@ class HomeController extends GetxController {
   Future<void> fetchSocialLinks() async {
     try {
       final SocialLinksModel links = await _socialLinkService.fetchAll();
+      if (isClosed) return; // Prevent update after dispose
       socialLinks.value = links.toJson().map(
         (key, value) => MapEntry(key, value.toString()),
       );
     } catch (e) {
+      if (isClosed) return;
       socialLinks.clear();
     }
   }
 
   @override
-  Future<void> onInit() async {
+  void onInit() {
     super.onInit();
-    final PingServerService pingServerService = PingServerService();
-    await _pingUntilSuccess(pingServerService);
+    // _pingUntilSuccess(pingServerService);
     fetchSocialLinks();
     scrollController.addListener(_onScroll);
     meshGradientController = AnimatedMeshGradientController()..start();
+    final PingServerService pingServerService = PingServerService();
   }
 
   final Logger _logger = Logger();
@@ -108,7 +110,6 @@ class HomeController extends GetxController {
         error: e,
         stackTrace: stackTrace,
       );
-      rethrow;
     }
   }
 
@@ -139,6 +140,8 @@ class HomeController extends GetxController {
     scrollController.removeListener(_onScroll);
     scrollController.dispose();
     _scrollEndDebouncer?.cancel();
+    _scrollEndDebouncer = null;
+    meshGradientController.dispose();
     super.onClose();
   }
 }

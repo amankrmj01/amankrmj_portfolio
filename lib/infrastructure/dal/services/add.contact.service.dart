@@ -2,9 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:portfolio/domain/models/contact_form.model.dart';
 
+import '../../../configs/constant_strings.dart';
+
 class AddContactService {
-  static const String _addContactUrl =
-      'https://portfolio-backend-3nrj.onrender.com/api/v1/add/contact';
+  static const String _addContactUrl = "${api}add/contact";
 
   Future<String> addContact(ContactFormModel contact) async {
     final response = await http.post(
