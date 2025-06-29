@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 const String kHomeDisplayLine01 = 'Flutter Developer';
 const String kHomeDisplayLine02 = 'Java Full Stack Developer';
 
@@ -18,4 +20,6 @@ const List<String> homeScreenLines = [
   "Code. Create. Inspire.",
 ];
 
-const String api = 'https://portfolio-backend-3nrj.onrender.com/api/v1';
+const String api = kReleaseMode
+    ? 'https://portfolio-backend-3nrj.onrender.com/api/v1/'
+    : "http://localhost:8080/api/v1/";
