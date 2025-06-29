@@ -18,4 +18,4 @@ const List<String> homeScreenLines = [
   "Code. Create. Inspire.",
 ];
 
-const String api = 'https://portfolio-backend-3nrj.onrender.com/';
+const String api = 'https://portfolio-backend-3nrj.onrender.com/api/v1';
