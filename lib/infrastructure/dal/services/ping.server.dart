@@ -4,7 +4,8 @@ import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 
 class PingServerService {
-  static const String _pingUrl = 'http://localhost:8080/api/v1/ping';
+  static const String _pingUrl =
+      'https://portfolio-backend-3nrj.onrender.com/api/v1/ping';
   final Logger _logger = Logger();
 
   Future<String> ping() async {

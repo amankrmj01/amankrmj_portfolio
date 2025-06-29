@@ -1,3 +1,4 @@
+export 'package:portfolio/infrastructure/navigation/bindings/controllers/admin.controller.binding.dart'; 
 export 'package:portfolio/infrastructure/navigation/bindings/controllers/certificate.controller.binding.dart';
 export 'package:portfolio/infrastructure/navigation/bindings/controllers/experience.controller.binding.dart';
 export 'package:portfolio/infrastructure/navigation/bindings/controllers/footer.controller.binding.dart';

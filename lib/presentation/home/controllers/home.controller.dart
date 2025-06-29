@@ -96,27 +96,17 @@ class HomeController extends GetxController {
 
   Future<void> _pingUntilSuccess(PingServerService pingServerService) async {
     try {
-      while (true) {
-        final result = await pingServerService.ping();
-        if (result == 'true') {
-          _logger.i('Server connected');
-          break;
-        } else {
-          _logger.w('Server not connected, try again! $result');
-        }
-        await Future.delayed(const Duration(seconds: 5));
+      final result = await pingServerService.ping();
+      if (result == 'true') {
+        _logger.i('Server connected');
+      } else {
+        _logger.w('Server not connected: $result');
       }
     } catch (e, stackTrace) {
       _logger.e(
         'Exception during server ping',
         error: e,
         stackTrace: stackTrace,
-      );
-      // Show error using oktoast
-      showToast(
-        'Exception during server ping: \n${e.toString()}',
-        duration: const Duration(seconds: 4),
-        position: ToastPosition.bottom,
       );
       rethrow;
     }

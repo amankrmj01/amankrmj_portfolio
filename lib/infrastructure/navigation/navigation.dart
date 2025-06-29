@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../config.dart';
+import '../../presentation/admin/admin.screen.dart';
 import '../../presentation/home/home.screen.dart';
 import '../../presentation/screens.dart';
 import 'bindings/controllers/controllers_bindings.dart';
@@ -53,6 +54,11 @@ class Nav {
       name: Routes.EXPERIENCE,
       page: () => const ExperienceScreen(),
       binding: ExperienceControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.ADMIN,
+      page: () => const AdminScreen(),
+      binding: AdminControllerBinding(),
     ),
   ];
 }
