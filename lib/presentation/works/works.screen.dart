@@ -15,17 +15,20 @@ class WorksScreen extends GetView<WorksController> {
       if (controller.isLoading.value) {
         return const Center(child: CircularProgressIndicator());
       }
-      return KSliverList(
-        items: controller.projects,
-        onCardTap: (project, context) {
-          showBlurredGeneralDialog(
-            context: context,
-            builder: (context) => WorkView(
-              project: project,
-              onClose: () => Navigator.of(context).maybePop(),
-            ),
-          );
-        },
+      return SizedBox(
+        height: (Get.height > 776 ? Get.height : 776) - 120,
+        child: KSliverList(
+          items: controller.projects,
+          onCardTap: (project, context) {
+            showBlurredGeneralDialog(
+              context: context,
+              builder: (context) => WorkView(
+                project: project,
+                onClose: () => Navigator.of(context).maybePop(),
+              ),
+            );
+          },
+        ),
       );
     });
   }

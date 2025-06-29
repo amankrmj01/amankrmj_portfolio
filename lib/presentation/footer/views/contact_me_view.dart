@@ -45,6 +45,12 @@ class _ContactMeViewState extends State<ContactMeView> {
   @override
   void initState() {
     super.initState();
+    _nameController.clear();
+    _countryCodeController.clear();
+    _phoneController.clear();
+    _emailController.clear();
+    _messageController.clear();
+
     final PingServerService pingServerService = PingServerService();
     _pingUntilSuccess(pingServerService);
   }

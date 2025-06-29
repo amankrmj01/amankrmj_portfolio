@@ -16,17 +16,20 @@ class CertificateScreen extends GetView<CertificateController> {
       if (controller.isLoading.value) {
         return const Center(child: CircularProgressIndicator());
       }
-      return KSliverList(
-        items: controller.certificates,
-        onCardTap: (cert, context) {
-          showBlurredGeneralDialog(
-            context: context,
-            builder: (context) => CertificateView(
-              certificate: cert,
-              onClose: () => Navigator.of(context).maybePop(),
-            ),
-          );
-        },
+      return SizedBox(
+        height: (Get.height > 776 ? Get.height : 776) - 120,
+        child: KSliverList(
+          items: controller.certificates,
+          onCardTap: (cert, context) {
+            showBlurredGeneralDialog(
+              context: context,
+              builder: (context) => CertificateView(
+                certificate: cert,
+                onClose: () => Navigator.of(context).maybePop(),
+              ),
+            );
+          },
+        ),
       );
     });
   }
