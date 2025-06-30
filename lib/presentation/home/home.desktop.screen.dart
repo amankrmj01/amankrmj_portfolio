@@ -153,7 +153,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
         () => AnimatedAlign(
           duration: const Duration(milliseconds: 400),
           alignment: controller.isScrolling.value
-              ? const Alignment(0, -5.0)
+              ? const Alignment(0, -5.5)
               : Alignment.bottomCenter,
           child: HomeBarView(),
         ),

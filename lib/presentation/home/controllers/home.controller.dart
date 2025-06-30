@@ -114,6 +114,16 @@ class HomeController extends GetxController {
   }
 
   void _onScroll() {
+    // Set isScrolling to true when scrolling starts
+    if (!isScrolling.value) {
+      isScrolling.value = true;
+    }
+    // Debounce to set isScrolling to false after scrolling ends
+    _scrollEndDebouncer?.cancel();
+    _scrollEndDebouncer = Timer(const Duration(milliseconds: 200), () {
+      isScrolling.value = false;
+    });
+
     // Get the scroll position
     final scrollOffset = scrollController.offset;
     int newIndex = 0;
