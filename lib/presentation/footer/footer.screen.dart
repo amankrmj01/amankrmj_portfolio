@@ -195,7 +195,9 @@ class FooterScreen extends GetView<FooterController> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: Get.height > 776 ? Get.height : 776,
+      height: MediaQuery.of(context).size.height > 776
+          ? MediaQuery.of(context).size.height
+          : 776,
       width: double.infinity,
       child: Column(
         children: [

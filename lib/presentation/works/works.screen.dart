@@ -16,7 +16,11 @@ class WorksScreen extends GetView<WorksController> {
         return const Center(child: CircularProgressIndicator());
       }
       return SizedBox(
-        height: (Get.height > 776 ? Get.height : 776) - 120,
+        height:
+            (MediaQuery.of(context).size.height > 776
+                ? MediaQuery.of(context).size.height
+                : 776) -
+            120,
         child: KSliverList(
           items: controller.projects,
           onCardTap: (project, context) {

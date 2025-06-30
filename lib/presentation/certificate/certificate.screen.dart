@@ -17,7 +17,11 @@ class CertificateScreen extends GetView<CertificateController> {
         return const Center(child: CircularProgressIndicator());
       }
       return SizedBox(
-        height: (Get.height > 776 ? Get.height : 776) - 120,
+        height:
+            (MediaQuery.of(context).size.height > 776
+                ? MediaQuery.of(context).size.height
+                : 776) -
+            120,
         child: KSliverList(
           items: controller.certificates,
           onCardTap: (cert, context) {
