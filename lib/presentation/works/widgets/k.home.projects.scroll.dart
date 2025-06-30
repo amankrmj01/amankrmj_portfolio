@@ -25,11 +25,7 @@ class KProjectsScrollList extends StatelessWidget {
       );
     }
     return SizedBox(
-      height:
-          (MediaQuery.of(context).size.height > 776
-              ? MediaQuery.of(context).size.height
-              : 776) -
-          120,
+      height: 656,
       child: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(
           dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},

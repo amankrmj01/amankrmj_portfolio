@@ -35,7 +35,12 @@ class _AnimatedRotateIconState extends State<AnimatedRotateIcon> {
       onExit: (_) => setState(() => _isHovered = false),
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => launchUrlExternal(widget.url),
+        onTap: () async {
+          setState(() => _isHovered = true);
+          await Future.delayed(const Duration(milliseconds: 800));
+          launchUrlExternal(widget.url);
+          setState(() => _isHovered = false);
+        },
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -68,7 +73,9 @@ class _AnimatedRotateIconState extends State<AnimatedRotateIcon> {
                 ],
               ),
             ),
-            const SizedBox(width: 8),
+            widget.label.isEmpty
+                ? const SizedBox.shrink()
+                : const SizedBox(width: 8),
             Text(
               widget.label,
               style: TextStyle(

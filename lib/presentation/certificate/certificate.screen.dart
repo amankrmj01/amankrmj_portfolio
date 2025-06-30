@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:portfolio/presentation/certificate/widgets/k.home.certificates.scroll.dart';
+import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 
 import '../../utils/k.showGeneralDialog.dart';
 import 'controllers/certificate.controller.dart';
@@ -13,16 +14,13 @@ class CertificateScreen extends GetView<CertificateController> {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
     return Obx(() {
       if (controller.isLoading.value) {
         return const Center(child: CircularProgressIndicator());
       }
       return SizedBox(
-        height:
-            (MediaQuery.of(context).size.height > 776
-                ? MediaQuery.of(context).size.height
-                : 776) -
-            120,
+        height: homeController.currentDevice.value == Device.Mobile ? 656 : 656,
         child: KCertificateScrollList(
           items: certificates,
           onCardTap: (cert, context) {

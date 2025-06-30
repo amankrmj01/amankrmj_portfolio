@@ -1,63 +1,67 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
-class HomeMenuBarView extends GetView {
+import '../controllers/home.controller.dart';
+
+class HomeMenuBarView extends GetView<HomeController> {
   const HomeMenuBarView({super.key});
+
+  final List<String> labels = const [
+    'Home',
+    'Works',
+    'Certificates',
+    'Experience',
+  ];
+  final List<IconData> icons = const [
+    Icons.home,
+    Icons.work,
+    Icons.school,
+    Icons.badge,
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // Example menu items, you can replace with your actual menu data
-    final List<_MenuItem> menuItems = [
-      _MenuItem(icon: Icons.home, label: 'Home', onTap: () {}),
-      _MenuItem(icon: Icons.work, label: 'Projects', onTap: () {}),
-      _MenuItem(icon: Icons.school, label: 'Certificates', onTap: () {}),
-      _MenuItem(icon: Icons.info, label: 'About', onTap: () {}),
-      _MenuItem(icon: Icons.contact_mail, label: 'Contact', onTap: () {}),
-    ];
-
-    return Scaffold(
-      appBar: AppBar(title: const Text('Menu'), centerTitle: true),
-      body: ListView.separated(
-        padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
-        itemCount: menuItems.length,
-        separatorBuilder: (context, index) => const Divider(height: 1),
-        itemBuilder: (context, index) {
-          final item = menuItems[index];
-          return ListTile(
-            leading: Icon(
-              item.icon,
-              color: Theme.of(context).colorScheme.primary,
-            ),
-            title: Text(
-              item.label,
-              style: const TextStyle(
-                fontSize: 20,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            onTap: item.onTap,
-            trailing: const Icon(Icons.chevron_right),
-            contentPadding: const EdgeInsets.symmetric(
-              vertical: 8,
-              horizontal: 16,
-            ),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-            hoverColor: Colors.grey.withAlpha((0.1 * 255).toInt()),
-          );
-        },
+    final onTapActions = controller.onTapActions;
+    final selectedIndex = controller.selectedTabIndex;
+    // Always return Drawer
+    return Drawer(
+      backgroundColor: const Color(0xFF1A1A2E),
+      child: SafeArea(
+        child: ListView.separated(
+          padding: const EdgeInsets.symmetric(vertical: 24, horizontal: 8),
+          itemCount: labels.length,
+          separatorBuilder: (context, index) => const Divider(height: 1),
+          itemBuilder: (context, index) {
+            return Obx(() {
+              final isSelected = selectedIndex.value == index;
+              return ListTile(
+                leading: Icon(
+                  icons[index],
+                  color: isSelected ? const Color(0xFFF66435) : Colors.grey,
+                ),
+                title: Text(
+                  labels[index],
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontFamily: 'Poppins',
+                    fontWeight: FontWeight.w600,
+                    color: isSelected ? const Color(0xFFF66435) : Colors.black,
+                  ),
+                ),
+                onTap: () {
+                  Navigator.of(context).pop(); // Close the drawer
+                  onTapActions[index](); // Then perform the action
+                },
+                selected: isSelected,
+                selectedTileColor: const Color(0xFFF4EFCA),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              );
+            });
+          },
+        ),
       ),
     );
   }
-}
-
-class _MenuItem {
-  final IconData icon;
-  final String label;
-  final VoidCallback onTap;
-
-  _MenuItem({required this.icon, required this.label, required this.onTap});
 }

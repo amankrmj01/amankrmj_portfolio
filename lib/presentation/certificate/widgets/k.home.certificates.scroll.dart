@@ -1,8 +1,12 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:portfolio/domain/models/certificate.model.dart';
 import 'package:portfolio/presentation/certificate/widgets/k.certificate.card.dart';
+
+import '../../home/controllers/home.controller.dart';
 
 class KCertificateScrollList extends StatelessWidget {
   final List<CertificateModel> items;
@@ -16,6 +20,7 @@ class KCertificateScrollList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
     if (items.isEmpty) {
       return const Center(
         child: Text(
@@ -25,11 +30,7 @@ class KCertificateScrollList extends StatelessWidget {
       );
     }
     return SizedBox(
-      height:
-          (MediaQuery.of(context).size.height > 776
-              ? MediaQuery.of(context).size.height
-              : 776) -
-          120,
+      height: homeController.currentDevice.value == Device.Mobile ? 456 : 656,
       child: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(
           dragDevices: {PointerDeviceKind.touch, PointerDeviceKind.mouse},

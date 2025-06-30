@@ -44,6 +44,7 @@ Widget verticalDivider() {
 /// Social Links Row
 Widget socialLinksRow(HomeController controller) {
   final links = controller.socialLinks;
+  final isMobile = controller.currentDevice.value == Device.Mobile;
   return SizedBox(
     height: 50,
     child: Row(
@@ -53,28 +54,28 @@ Widget socialLinksRow(HomeController controller) {
         animatedIcon(
           outline: 'assets/icons/github_outline_white.svg',
           color: 'assets/icons/github_color.svg',
-          label: "Github",
+          label: isMobile ? "" : "Github",
           url: links['github'] ?? '',
         ),
         verticalDivider(),
         animatedIcon(
           outline: 'assets/icons/linkedin_outline_white.svg',
           color: 'assets/icons/linkedin_color.svg',
-          label: "LinkedIn",
+          label: isMobile ? "" : "LinkedIn",
           url: links['linkedIn'] ?? '',
         ),
         verticalDivider(),
         animatedIcon(
           outline: 'assets/icons/instagram_outline_white.svg',
           color: 'assets/icons/instagram_color.svg',
-          label: "Instagram",
+          label: isMobile ? "" : "Instagram",
           url: links['instagram'] ?? '',
         ),
         verticalDivider(),
         animatedIcon(
           outline: 'assets/icons/discord_outline_white.svg',
           color: 'assets/icons/discord_color.svg',
-          label: "Discord",
+          label: isMobile ? "" : "Discord",
           url: links['discord'] ?? '',
         ),
       ],
@@ -155,6 +156,7 @@ class SliverHeaderSection extends StatelessWidget {
   final Widget view;
   final GlobalKey sectionKey;
   final BuildContext context;
+  final double? height;
 
   const SliverHeaderSection({
     super.key,
@@ -162,45 +164,54 @@ class SliverHeaderSection extends StatelessWidget {
     required this.view,
     required this.sectionKey,
     required this.context,
+    this.height = 124,
   });
 
   @override
   Widget build(BuildContext context) {
     final HomeController controller = Get.find<HomeController>();
+    final bool isTablet = controller.currentDevice.value == Device.Tablet;
+    final bool isMobile = controller.currentDevice.value == Device.Mobile;
+
     return Obx(
       () => Container(
         key: sectionKey,
-        height: 124,
+        height: isMobile ? 40 : height,
         width: double.infinity,
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
         child: Row(
-          crossAxisAlignment: controller.currentDevice.value == Device.Desktop
-              ? CrossAxisAlignment.center
-              : CrossAxisAlignment.end,
+          crossAxisAlignment: isTablet
+              ? CrossAxisAlignment.end
+              : CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               title,
-              style: const TextStyle(
+              style: TextStyle(
                 color: Colors.white,
                 fontFamily: "ShantellSans",
                 fontWeight: FontWeight.bold,
-                fontSize: 36,
+                fontSize: controller.currentDevice.value == Device.Mobile
+                    ? 28
+                    : 32,
                 letterSpacing: 1.2,
                 decoration: TextDecoration.none,
               ),
             ),
-            Container(
-              alignment: Alignment.centerLeft,
-              width: 190,
-              child: AnimatedNavigateButton(
-                label: "Browse All",
-                icon: const Icon(Icons.arrow_forward),
-                borderRadius: 12,
-                onTap: () => navigateWithSlideTransition(this.context, view),
-                width: 190,
-              ),
-            ),
+            isMobile
+                ? const SizedBox.shrink()
+                : Container(
+                    alignment: Alignment.centerLeft,
+                    width: 190,
+                    child: AnimatedNavigateButton(
+                      label: "Browse All",
+                      icon: const Icon(Icons.arrow_forward),
+                      borderRadius: 12,
+                      onTap: () =>
+                          navigateWithSlideTransition(this.context, view),
+                      width: 190,
+                    ),
+                  ),
           ],
         ),
       ),

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 import 'package:pretty_animated_text/pretty_animated_text.dart';
 import '../../infrastructure/theme/colors.dart';
 
@@ -57,6 +60,16 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
+    final double fontSize;
+    if (homeController.currentDevice.value == Device.Mobile) {
+      fontSize = 35;
+    } else if (homeController.currentDevice.value == Device.Tablet) {
+      fontSize = 40;
+    } else {
+      fontSize = 50;
+    }
+
     if (!_mounted) {
       return const SizedBox.shrink();
     }
@@ -64,6 +77,7 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
       key: ValueKey(_currentIndex),
       child: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           OffsetText(
             text: _words[_currentIndex],
@@ -72,7 +86,7 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
             slideType: SlideAnimationType.rightLeft,
             textStyle: TextStyle(
               wordSpacing: 10,
-              fontSize: 50,
+              fontSize: fontSize,
               fontFamily: 'ShantellSans',
               color: KColor.secondarySecondColor,
               shadows: [
@@ -84,15 +98,17 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
               ],
             ),
           ),
-          _currentIndex + 1 < _words.length
+
+          _currentIndex + 1 < _words.length && fontSize != 35
               ? OffsetText(
                   text: _words[_currentIndex + 1],
                   duration: const Duration(seconds: 2),
                   type: AnimationType.word,
                   slideType: SlideAnimationType.rightLeft,
+
                   textStyle: TextStyle(
                     wordSpacing: 10,
-                    fontSize: 50,
+                    fontSize: fontSize,
                     fontFamily: 'ShantellSans',
                     color: KColor.secondarySecondColor,
                     shadows: [

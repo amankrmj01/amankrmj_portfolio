@@ -85,7 +85,12 @@ class _KCertificateCard extends State<KCertificateCard> {
       onEnter: (_) => setState(() => isHover = true),
       onExit: (_) => setState(() => isHover = false),
       child: GestureDetector(
-        onTap: widget.onTap,
+        onTap: () async {
+          setState(() => isHover = true);
+          await Future.delayed(const Duration(milliseconds: 350));
+          widget.onTap?.call();
+          setState(() => isHover = false);
+        },
         child: AnimatedScale(
           scale: isHover ? 1.02 : 1.0,
           duration: const Duration(milliseconds: 300),
