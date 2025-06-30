@@ -1,14 +1,14 @@
 [
   {
     "name": "SwiftCafe",
-    "description": "A project repository focused on Swift programming, featuring code, experiments, and examples related to Swift development.",
+    "description": "A Flutter-based mobile app for placing orders at SwiftCafe, designed to streamline the ordering experience with a clean and intuitive interface.",
     "url": "https://github.com/amankrmj01/swift_cafe",
     "images": [
       "projects/swift_cafe/Screenshot_Auth_screen.png",
       "projects/swift_cafe/Screenshot_Details_Screen.png",
       "projects/swift_cafe/Screenshot_Home_screen.png"
     ],
-    "largeDescription": "This repository, SwiftCafe, is dedicated to exploring the Swift programming language. It contains a variety of sample code, practical exercises, and demonstrations covering topics relevant to Swift development. The project aims to help learners and developers understand Swift syntax, core programming concepts, and best practices for building apps or scripts using Swift.",
+    "largeDescription": "SwiftCafe is a Flutter mobile application built to enhance the customer experience at SwiftCafe. It allows users to browse the menu, customize their orders, and place them seamlessly from their smartphones. Featuring smooth navigation across the home, authentication, and detail screens, the app combines modern UI with efficient backend integration.",
     "type": "mobile"
   },
   {
@@ -29,7 +29,7 @@
     "type": "mobile"
   },
   {
-    "name": "Restauran Management Frontend",
+    "name": "Restaurant Management Frontend",
     "description": "A front-end application for restaurant management, primarily built using Dart.",
     "url": "https://github.com/amankrmj01/restaurant_managemant_frontend",
     "images": [
@@ -45,7 +45,7 @@
     "type": "web"
   },
   {
-    "name": "restaurant_management_backend",
+    "name": "Restauran Management Backend",
     "description": "A Java-based backend for restaurant management systems, offering robust APIs and business logic.",
     "url": "https://github.com/amankrmj01/restaurant_management_backend",
     "images": [
