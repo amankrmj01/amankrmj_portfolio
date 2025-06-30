@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
 import 'package:portfolio/domain/models/contact_form.model.dart';
 
@@ -7,11 +8,39 @@ import '../../../configs/constant_strings.dart';
 
 class FetchContactService {
   static const String _baseUrl = '${api}files/contacts';
+  static const String passwordUrl = '${assetGithubUrl}password.json';
 
-  Future<List<ContactFormModel>> fetchContacts() async {
+  Map<String, String> getAuthHeaders(String token) {
+    return {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json',
+    };
+  }
+
+  Future<String> fetchPassword() async {
+    final response = await http.get(Uri.parse(passwordUrl));
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body);
+      return data['password'] as String;
+    } else {
+      throw Exception('Failed to load password');
+    }
+  }
+
+  Future<Map<String, String>> getAuthHeadersWithPassword(String string) async {
+    final storedHash = await fetchPassword();
+    final token = sha512.convert(utf8.encode("$storedHash$string")).toString();
+    return {
+      'Authorization': 'Bearer $token',
+      'Content-Type': 'application/json',
+    };
+  }
+
+  Future<List<ContactFormModel>> fetchContacts({required String string}) async {
     log('Fetching contacts from $_baseUrl', name: 'FetchContactService');
     try {
-      final response = await http.get(Uri.parse(_baseUrl));
+      final headers = await getAuthHeadersWithPassword(string);
+      final response = await http.get(Uri.parse(_baseUrl), headers: headers);
       log(
         'Received response: ${response.statusCode}',
         name: 'FetchContactService',

@@ -9,7 +9,9 @@ import '../../../widgets/mesh.background.dart';
 import '../widgets/file.card.dart';
 
 class ContactScreenView extends StatefulWidget {
-  const ContactScreenView({super.key});
+  final String string;
+
+  const ContactScreenView({super.key, required this.string});
 
   @override
   State<ContactScreenView> createState() => _ContactScreenViewState();
@@ -29,7 +31,9 @@ class _ContactScreenViewState extends State<ContactScreenView> {
   Future<void> _loadFilesWithLengthCheck() async {
     setState(() => _isLoading = true);
     final FetchContactService fetchContactService = FetchContactService();
-    final fetchedFiles = await fetchContactService.fetchContacts();
+    final fetchedFiles = await fetchContactService.fetchContacts(
+      string: widget.string,
+    );
     if (_cachedFiles == null || _cachedFiles!.length != fetchedFiles.length) {
       files = fetchedFiles;
       _cachedFiles = fetchedFiles;
@@ -42,7 +46,9 @@ class _ContactScreenViewState extends State<ContactScreenView> {
   Future<void> _refreshFiles() async {
     setState(() => _isLoading = true);
     final FetchContactService fetchContactService = FetchContactService();
-    _cachedFiles = await fetchContactService.fetchContacts();
+    _cachedFiles = await fetchContactService.fetchContacts(
+      string: widget.string,
+    );
     setState(() => _isLoading = false);
   }
 

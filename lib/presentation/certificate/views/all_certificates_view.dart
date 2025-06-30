@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/configs/certificates.dart';
+import 'package:portfolio/presentation/certificate/widgets/k.certificate.card.dart';
 import 'package:portfolio/utils/axis.count.dart';
 import '../../../infrastructure/theme/colors.dart';
-import '../../../widgets/k.card.dart';
 import '../../../utils/k.showGeneralDialog.dart';
 import 'certificate_view.dart';
 import '../controllers/certificate.controller.dart';
@@ -17,14 +18,17 @@ class AllCertificatesView extends GetView<CertificateController> {
       () => AllItemsView(
         title: "ALL Certificates",
         isLoading: controller.isLoading.value,
-        items: controller.certificates,
+        items: certificates,
         titleColor: KColor.primarySecondColor,
         buildDialog: (certificate) => CertificateView(
           certificate: certificate,
           onClose: () => Navigator.of(context).maybePop(),
         ),
-        buildCard: (certificate, onTap) =>
-            KCard(info: certificate, onTap: onTap, height: 360),
+        buildCard: (certificate, onTap) => KCertificateCard(
+          certificate: certificate,
+          onTap: onTap,
+          fixedHeight: false,
+        ),
       ),
     );
   }

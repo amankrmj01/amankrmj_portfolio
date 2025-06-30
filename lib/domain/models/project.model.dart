@@ -1,18 +1,9 @@
-import 'info.model.dart';
-
-class ProjectModel implements InfoModel {
-  @override
+class ProjectModel {
   final String name;
-  @override
   final String description;
-  @override
   final String url;
-  @override
   final List<String> images;
-  @override
   final String largeDescription;
-
-  @override
   final String type;
 
   ProjectModel({

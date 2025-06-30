@@ -1,15 +1,18 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:portfolio/domain/models/project.model.dart';
+import 'package:portfolio/presentation/works/widgets/k.project.card.dart';
 
-import '../domain/models/info.model.dart';
-import '../widgets/k.card.dart';
+class KProjectsScrollList extends StatelessWidget {
+  final List<ProjectModel> items;
+  final void Function(ProjectModel project, BuildContext context) onCardTap;
 
-class KSliverList extends StatelessWidget {
-  final List<InfoModel> items;
-  final void Function(InfoModel project, BuildContext context) onCardTap;
-
-  const KSliverList({super.key, required this.items, required this.onCardTap});
+  const KProjectsScrollList({
+    super.key,
+    required this.items,
+    required this.onCardTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -39,8 +42,8 @@ class KSliverList extends StatelessWidget {
           separatorBuilder: (context, index) => const SizedBox(width: 24),
           itemBuilder: (context, index) {
             final item = items[index];
-            return KCard(
-              info: item,
+            return KProjectCard(
+              project: item,
               onTap: () => onCardTap(item, context),
               height: 360,
             );

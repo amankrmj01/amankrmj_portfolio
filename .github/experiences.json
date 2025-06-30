@@ -1,0 +1,113 @@
+[
+  {
+    "title": "Software Engineer",
+    "company": "Tech Solutions Inc.",
+    "startDate": "May 6, 2025",
+    "endDate": "May 6, 2025",
+    "description": "Developed and maintained mobile applications using Flutter and Dart.",
+    "location": "Remote",
+    "technologies": [
+      "Flutter",
+      "Dart",
+      "Firebase"
+    ],
+    "current": false
+  },
+  {
+    "title": "Frontend Developer",
+    "company": "Webify",
+    "startDate": "May 6, 2025",
+    "endDate": "May 6, 2025",
+    "description": "Built responsive web interfaces and collaborated with backend teams.",
+    "location": "New York, NY",
+    "technologies": [
+      "React",
+      "JavaScript",
+      "CSS"
+    ],
+    "current": false
+  },
+  {
+    "title": "Intern",
+    "company": "Startup Hub",
+    "startDate": "May 6, 2025",
+    "endDate": "May 6, 2025",
+    "description": "Assisted in prototyping and testing new product features.",
+    "location": "San Francisco, CA",
+    "technologies": [
+      "Python",
+      "Django"
+    ],
+    "current": false
+  },
+  {
+    "title": "Mobile App Developer",
+    "company": "AppVantage",
+    "startDate": "May 6, 2025",
+    "endDate": "May 6, 2025",
+    "description": "Developed cross-platform mobile applications using Flutter and integrated RESTful APIs.",
+    "location": "Remote",
+    "technologies": [
+      "Flutter",
+      "Dart",
+      "Firebase"
+    ],
+    "current": false
+  },
+  {
+    "title": "Backend Engineer",
+    "company": "DataCore",
+    "startDate": "May 6, 2025",
+    "endDate": "May 6, 2025",
+    "description": "Designed and maintained scalable backend services and databases.",
+    "location": "Austin, TX",
+    "technologies": [
+      "Node.js",
+      "Express",
+      "MongoDB"
+    ],
+    "current": false
+  },
+  {
+    "title": "Full Stack Developer",
+    "company": "TechBridge",
+    "startDate": "May 6, 2025",
+    "endDate": "May 6, 2025",
+    "description": "Worked on both frontend and backend for enterprise web applications.",
+    "location": "Chicago, IL",
+    "technologies": [
+      "Angular",
+      "Java",
+      "Spring Boot"
+    ],
+    "current": false
+  },
+  {
+    "title": "UI/UX Designer",
+    "company": "Designify",
+    "startDate": "May 6, 2025",
+    "endDate": "May 6, 2025",
+    "description": "Created wireframes, prototypes, and visual designs for web and mobile apps.",
+    "location": "Boston, MA",
+    "technologies": [
+      "Figma",
+      "Adobe XD",
+      "Sketch"
+    ],
+    "current": false
+  },
+  {
+    "title": "Junior Web Developer",
+    "company": "BrightWeb",
+    "startDate": "May 6, 2025",
+    "endDate": "May 6, 2025",
+    "description": "Assisted in building and maintaining client websites.\nCollaborated with senior developers to implement new features.\nDebugged and resolved issues in legacy codebases.\nParticipated in daily stand-up meetings and sprint planning.\nWrote and maintained technical documentation for projects.\nOptimized website performance and improved load times.\nWorked closely with designers to ensure pixel-perfect UI.\nTested websites across multiple browsers and devices.\nIntegrated third-party APIs and services as required.\nAssisted in client meetings to gather requirements.\nMaintained version control using Git and GitHub.\nProvided support and training to end-users as needed.",
+    "location": "Seattle, WA",
+    "technologies": [
+      "HTML",
+      "CSS",
+      "jQuery"
+    ],
+    "current": false
+  }
+]

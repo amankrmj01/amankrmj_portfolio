@@ -61,7 +61,12 @@ class _LoginFormState extends State<LoginForm> {
         );
         Future.delayed(const Duration(seconds: 1), () {
           if (mounted) {
-            navigateWithSlideTransition(context, ContactScreenView());
+            navigateWithSlideTransition(
+              context,
+              ContactScreenView(
+                string: usernameController.text + passwordController.text,
+              ),
+            );
           }
         });
       } else {

@@ -1,6 +1,6 @@
-import 'package:portfolio/domain/models/info.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/domain/models/project.model.dart';
 import 'package:portfolio/infrastructure/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -8,7 +8,7 @@ import '../../../widgets/k.infinite.scroll.image.dart';
 import '../controllers/works.controller.dart';
 
 class WorkView extends StatefulWidget {
-  final InfoModel project;
+  final ProjectModel project;
   final VoidCallback? onClose;
 
   const WorkView({super.key, required this.project, this.onClose});

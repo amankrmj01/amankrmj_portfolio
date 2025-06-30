@@ -1,17 +1,12 @@
-import 'info.model.dart';
-
-class CertificateModel implements InfoModel {
-  @override
+class CertificateModel {
   final String name;
-  @override
   final String description;
-  @override
   final String url;
-  @override
   final List<String> images;
-  @override
   final String largeDescription;
-  @override
+  final String issuingOrganization;
+  final String issueDate;
+  final List<String> skills;
   final String type;
 
   CertificateModel({
@@ -20,6 +15,9 @@ class CertificateModel implements InfoModel {
     required this.url,
     required this.images,
     required this.largeDescription,
+    required this.issuingOrganization,
+    required this.issueDate,
+    required this.skills,
     required this.type,
   });
 
@@ -30,6 +28,9 @@ class CertificateModel implements InfoModel {
       url: json['url'] as String,
       images: List<String>.from(json['images'] as List),
       largeDescription: json['largeDescription'] as String,
+      issuingOrganization: json['issuingOrganization'] as String,
+      issueDate: json['issueDate'] as String,
+      skills: List<String>.from(json['skills'] as List),
       type: json['type'] as String,
     );
   }
@@ -41,6 +42,9 @@ class CertificateModel implements InfoModel {
       'url': url,
       'images': images,
       'largeDescription': largeDescription,
+      'issuingOrganization': issuingOrganization,
+      'issueDate': issueDate,
+      'skills': skills,
       'type': type,
     };
   }

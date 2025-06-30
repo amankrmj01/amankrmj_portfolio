@@ -2,30 +2,32 @@ import 'dart:math';
 
 import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio/domain/models/certificate.model.dart';
 
-import '../domain/models/info.model.dart';
-import 'k.image.dart';
+import '../../../widgets/k.image.dart';
 
-class KCard extends StatefulWidget {
-  final InfoModel info;
+class KCertificateCard extends StatefulWidget {
+  final CertificateModel certificate;
   final VoidCallback? onTap;
 
   final double? width;
   final double? height;
+  final bool? fixedHeight;
 
-  const KCard({
+  const KCertificateCard({
     super.key,
-    required this.info,
+    required this.certificate,
     this.onTap,
     this.width = 500,
     this.height,
+    this.fixedHeight = true,
   });
 
   @override
-  State<KCard> createState() => _KCardState();
+  State<KCertificateCard> createState() => _KCertificateCard();
 }
 
-class _KCardState extends State<KCard> {
+class _KCertificateCard extends State<KCertificateCard> {
   bool isHover = false;
   late List<AuraSpot> _auraSpots;
 
@@ -89,7 +91,7 @@ class _KCardState extends State<KCard> {
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeInOut,
           child: Container(
-            clipBehavior: Clip.hardEdge,
+            clipBehavior: Clip.antiAliasWithSaveLayer,
             margin: const EdgeInsets.all(8),
             width: widget.width,
             decoration: BoxDecoration(
@@ -109,16 +111,21 @@ class _KCardState extends State<KCard> {
                 spots: _auraSpots,
                 decoration: BoxDecoration(color: Colors.transparent),
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(height: 380, child: KImage(info: widget.info)),
+                    SizedBox(
+                      height: 380,
+                      child: KImage(url: widget.certificate.images[0]),
+                    ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
                         children: [
                           Text(
-                            widget.info.name,
+                            widget.certificate.name,
                             style: const TextStyle(
                               fontSize: 20,
                               fontWeight: FontWeight.bold,
@@ -126,31 +133,80 @@ class _KCardState extends State<KCard> {
                               fontFamily: "Poppins",
                               decoration: TextDecoration.none,
                             ),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            widget.info.description,
+                            widget.certificate.description,
                             style: const TextStyle(
                               fontSize: 15,
                               color: Colors.white70,
                               fontFamily: "Poppins",
                               decoration: TextDecoration.none,
                             ),
+                            maxLines: widget.fixedHeight == true ? 2 : null,
+                            overflow: widget.fixedHeight == true
+                                ? TextOverflow.ellipsis
+                                : null,
+                            softWrap: true,
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            widget.info.largeDescription,
+                            widget.certificate.largeDescription,
                             style: const TextStyle(
                               fontSize: 13,
                               color: Colors.white70,
                               fontFamily: "Poppins",
                               decoration: TextDecoration.none,
                             ),
-                            maxLines: 4,
-                            overflow: TextOverflow.ellipsis,
+                            overflow: widget.fixedHeight == true
+                                ? TextOverflow.ellipsis
+                                : null,
+                            softWrap: true,
                           ),
+                          const SizedBox(height: 12),
+                          widget.fixedHeight == true
+                              ? LayoutBuilder(
+                                  builder: (context, constraints) {
+                                    final skills = widget.certificate.skills;
+                                    List<Widget> chips = [];
+                                    double usedWidth = 0;
+                                    double spacing = 6;
+                                    double maxWidth = constraints.maxWidth;
+                                    for (var tech in skills) {
+                                      double chipWidth = 24 + (tech.length * 9);
+                                      if (chips.isNotEmpty) {
+                                        usedWidth += spacing;
+                                      }
+                                      if (usedWidth + chipWidth > maxWidth) {
+                                        break;
+                                      }
+                                      chips.add(
+                                        Padding(
+                                          padding: EdgeInsets.only(
+                                            right: spacing,
+                                          ),
+                                          child: Chip(label: Text(tech)),
+                                        ),
+                                      );
+                                      usedWidth += chipWidth;
+                                    }
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: chips,
+                                    );
+                                  },
+                                )
+                              : Wrap(
+                                  spacing: 6,
+                                  runSpacing: 6,
+                                  runAlignment: WrapAlignment.end,
+                                  children: List<Widget>.from(
+                                    widget.certificate.skills.map(
+                                      (tech) => Chip(label: Text(tech)),
+                                    ),
+                                  ),
+                                ),
                         ],
                       ),
                     ),

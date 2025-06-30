@@ -8,6 +8,7 @@ final List<Map<String, dynamic>> experiences = [
         'Developed and maintained mobile applications using Flutter and Dart.',
     'location': 'Remote',
     'technologies': ['Flutter', 'Dart', 'Firebase'],
+    'current': false,
   },
   {
     'title': 'Frontend Developer',
@@ -18,6 +19,7 @@ final List<Map<String, dynamic>> experiences = [
         'Built responsive web interfaces and collaborated with backend teams.',
     'location': 'New York, NY',
     'technologies': ['React', 'JavaScript', 'CSS'],
+    'current': false,
   },
   {
     'title': 'Intern',
@@ -27,6 +29,7 @@ final List<Map<String, dynamic>> experiences = [
     'description': 'Assisted in prototyping and testing new product features.',
     'location': 'San Francisco, CA',
     'technologies': ['Python', 'Django'],
+    'current': false,
   },
   {
     'title': 'Mobile App Developer',
@@ -37,6 +40,7 @@ final List<Map<String, dynamic>> experiences = [
         'Developed cross-platform mobile applications using Flutter and integrated RESTful APIs.',
     'location': 'Remote',
     'technologies': ['Flutter', 'Dart', 'Firebase'],
+    'current': false,
   },
   {
     'title': 'Backend Engineer',
@@ -47,6 +51,7 @@ final List<Map<String, dynamic>> experiences = [
         'Designed and maintained scalable backend services and databases.',
     'location': 'Austin, TX',
     'technologies': ['Node.js', 'Express', 'MongoDB'],
+    'current': false,
   },
   {
     'title': 'Full Stack Developer',
@@ -57,6 +62,7 @@ final List<Map<String, dynamic>> experiences = [
         'Worked on both frontend and backend for enterprise web applications.',
     'location': 'Chicago, IL',
     'technologies': ['Angular', 'Java', 'Spring Boot'],
+    'current': false,
   },
   {
     'title': 'UI/UX Designer',
@@ -67,6 +73,7 @@ final List<Map<String, dynamic>> experiences = [
         'Created wireframes, prototypes, and visual designs for web and mobile apps.',
     'location': 'Boston, MA',
     'technologies': ['Figma', 'Adobe XD', 'Sketch'],
+    'current': false,
   },
   {
     'title': 'Junior Web Developer',
@@ -87,5 +94,6 @@ Maintained version control using Git and GitHub.
 Provided support and training to end-users as needed.''',
     'location': 'Seattle, WA',
     'technologies': ['HTML', 'CSS', 'jQuery'],
+    'current': false,
   },
 ];

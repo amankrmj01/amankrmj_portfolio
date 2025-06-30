@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/presentation/works/widgets/k.project.card.dart';
 import '../../../infrastructure/theme/colors.dart';
-import '../../../widgets/k.card.dart';
 import '../../certificate/views/all_certificates_view.dart';
 import 'work_view.dart';
 import '../controllers/works.controller.dart';
@@ -21,7 +21,8 @@ class AllWorksView extends GetView<WorksController> {
           project: project,
           onClose: () => Navigator.of(context).maybePop(),
         ),
-        buildCard: (project, onTap) => KCard(info: project, onTap: onTap),
+        buildCard: (project, onTap) =>
+            KProjectCard(project: project, onTap: onTap, fixedHeight: false),
       ),
     );
   }

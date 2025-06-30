@@ -1,8 +1,8 @@
 import 'package:portfolio/presentation/works/views/work_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/presentation/works/widgets/k.home.projects.scroll.dart';
 
-import '../../utils/k.left.scroll.list.dart';
 import '../../utils/k.showGeneralDialog.dart';
 import 'controllers/works.controller.dart';
 
@@ -21,7 +21,7 @@ class WorksScreen extends GetView<WorksController> {
                 ? MediaQuery.of(context).size.height
                 : 776) -
             120,
-        child: KSliverList(
+        child: KProjectsScrollList(
           items: controller.projects,
           onCardTap: (project, context) {
             showBlurredGeneralDialog(

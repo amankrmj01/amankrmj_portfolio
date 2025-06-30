@@ -1,6 +1,5 @@
 // ignore_for_file: unused_import
 
-import 'package:portfolio/domain/models/info.model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/infrastructure/theme/colors.dart';
@@ -11,7 +10,7 @@ import 'package:portfolio/widgets/k.image.dart';
 import '../../../domain/models/certificate.model.dart';
 
 class CertificateView extends StatelessWidget {
-  final InfoModel certificate;
+  final CertificateModel certificate;
   final VoidCallback? onClose;
 
   const CertificateView({super.key, required this.certificate, this.onClose});
@@ -73,7 +72,7 @@ class CertificateView extends StatelessWidget {
                         Center(
                           child: SizedBox(
                             height: 400,
-                            child: KImage(info: certificate),
+                            child: KImage(url: certificate.images[0]),
                           ),
                         ),
                         const SizedBox(height: 24),
