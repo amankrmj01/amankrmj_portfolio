@@ -41,7 +41,7 @@
       "projects/restaurant_management/Screenshot6.png",
       "projects/restaurant_management/Screenshot7.png"
     ],
-    "largeDescription": "This repository contains the front-end code for a restaurant management system, developed mainly in Dart (99.1%) with some HTML (0.9%). It provides user interfaces and client-side logic to support restaurant operations, such as order processing, menu management, and customer interaction.",
+    "largeDescription": "This repository contains the front-end code for a restaurant management system, developed using Flutter. It provides user interfaces and client-side logic to support restaurant operations, such as order processing, menu management, and customer interaction.",
     "type": "web"
   },
   {
