@@ -9,12 +9,20 @@ class QuoteService extends AbstractService<QuoteModel> {
 
   @override
   Future<List<QuoteModel>> fetchAll() async {
-    final response = await http.get(Uri.parse(quotesUrl));
-    if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
-      return data.map((json) => QuoteModel.fromJson(json)).toList();
-    } else {
-      throw Exception('Failed to load quotes');
+    try {
+      final response = await http.get(Uri.parse(quotesUrl));
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data is List) {
+          return data.map((json) => QuoteModel.fromJson(json)).toList();
+        } else {
+          throw Exception('Invalid JSON format: expected a list');
+        }
+      } else {
+        throw Exception('Failed to load quotes: HTTP [${response.statusCode}]');
+      }
+    } catch (e) {
+      throw Exception('Error fetching quotes: $e');
     }
   }
 }

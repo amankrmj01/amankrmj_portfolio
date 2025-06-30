@@ -9,13 +9,20 @@ class ProjectService extends AbstractService<ProjectModel> {
 
   @override
   Future<List<ProjectModel>> fetchAll() async {
-    final response = await http.get(Uri.parse(projectsUrl));
-    if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
-      return data.map((json) => ProjectModel.fromJson(json)).toList();
-    } else {
-      // debugPrint(projectsUrl);
-      throw Exception('Failed to load projects');
+    try {
+      final response = await http.get(Uri.parse(projectsUrl));
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data is List) {
+          return data.map((json) => ProjectModel.fromJson(json)).toList();
+        } else {
+          throw Exception('Invalid JSON format: expected a list');
+        }
+      } else {
+        throw Exception('Failed to load projects: HTTP ${response.statusCode}');
+      }
+    } catch (e) {
+      throw Exception('Error fetching projects: $e');
     }
   }
 }

@@ -8,8 +8,8 @@ class PingServerService {
   final Logger _logger = Logger();
 
   Future<String> ping() async {
-    final response = await http.get(Uri.parse(_pingUrl));
     try {
+      final response = await http.get(Uri.parse(_pingUrl));
       if (response.statusCode == 200) {
         return 'true';
       } else {

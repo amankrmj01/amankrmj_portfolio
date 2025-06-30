@@ -91,7 +91,7 @@ class HomeTabletScreen extends GetView<HomeController> {
   }
 
   Widget _mainSection(BuildContext context) {
-    var minHeight = MediaQuery.of(context).size.height > 776
+    var minHeight = MediaQuery.of(context).size.height > 1000
         ? MediaQuery.of(context).size.height
         : 1000.0;
     return Center(

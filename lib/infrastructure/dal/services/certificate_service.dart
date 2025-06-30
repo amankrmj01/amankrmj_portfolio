@@ -9,13 +9,22 @@ class CertificateService extends AbstractService<CertificateModel> {
 
   @override
   Future<List<CertificateModel>> fetchAll() async {
-    final response = await http.get(Uri.parse(certificatesUrl));
-    if (response.statusCode == 200) {
-      final List<dynamic> data = jsonDecode(response.body);
-      return data.map((json) => CertificateModel.fromJson(json)).toList();
-    } else {
-      // debugPrint(certificatesUrl);
-      throw Exception('Failed to load certificates');
+    try {
+      final response = await http.get(Uri.parse(certificatesUrl));
+      if (response.statusCode == 200) {
+        final data = jsonDecode(response.body);
+        if (data is List) {
+          return data.map((json) => CertificateModel.fromJson(json)).toList();
+        } else {
+          throw Exception('Invalid JSON format: expected a list');
+        }
+      } else {
+        throw Exception(
+          'Failed to load certificates: HTTP ${response.statusCode}',
+        );
+      }
+    } catch (e) {
+      throw Exception('Error fetching certificates: $e');
     }
   }
 }
