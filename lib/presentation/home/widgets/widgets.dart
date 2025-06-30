@@ -14,9 +14,15 @@ Widget animatedIcon({
   required String color,
   required String label,
   required String url,
+  Color? iconColor = Colors.white54,
 }) {
   return AnimatedRotateIcon(
-    firstIcon: SvgPicture.asset(outline, width: 32, height: 32),
+    firstIcon: SvgPicture.asset(
+      outline,
+      width: 32,
+      height: 32,
+      colorFilter: ColorFilter.mode(iconColor ?? Colors.black, BlendMode.srcIn),
+    ),
     secondIcon: SvgPicture.asset(color, width: 32, height: 32),
     label: label,
     url: url,
@@ -45,28 +51,28 @@ Widget socialLinksRow(HomeController controller) {
       mainAxisSize: MainAxisSize.min,
       children: [
         animatedIcon(
-          outline: 'assets/icons/github_outline.svg',
+          outline: 'assets/icons/github_outline_white.svg',
           color: 'assets/icons/github_color.svg',
           label: "Github",
           url: links['github'] ?? '',
         ),
         verticalDivider(),
         animatedIcon(
-          outline: 'assets/icons/linkedin_outline.svg',
+          outline: 'assets/icons/linkedin_outline_white.svg',
           color: 'assets/icons/linkedin_color.svg',
           label: "LinkedIn",
           url: links['linkedIn'] ?? '',
         ),
         verticalDivider(),
         animatedIcon(
-          outline: 'assets/icons/instagram_outline.svg',
+          outline: 'assets/icons/instagram_outline_white.svg',
           color: 'assets/icons/instagram_color.svg',
           label: "Instagram",
           url: links['instagram'] ?? '',
         ),
         verticalDivider(),
         animatedIcon(
-          outline: 'assets/icons/discord_outline.svg',
+          outline: 'assets/icons/discord_outline_white.svg',
           color: 'assets/icons/discord_color.svg',
           label: "Discord",
           url: links['discord'] ?? '',

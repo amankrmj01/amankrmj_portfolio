@@ -30,7 +30,11 @@ class _WorkViewState extends State<WorkView> {
         child: Material(
           color: Colors.transparent,
           child: Container(
-            height: (Get.height > 776 ? Get.height : 776) - 80,
+            height:
+                (MediaQuery.of(context).size.height > 776
+                    ? MediaQuery.of(context).size.height
+                    : 776) -
+                80,
             decoration: BoxDecoration(
               color: Color.lerp(Color(0xFF23304A), Colors.transparent, 0.06)!,
               borderRadius: BorderRadius.circular(24),

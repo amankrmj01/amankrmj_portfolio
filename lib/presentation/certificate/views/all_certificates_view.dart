@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/utils/axis.count.dart';
 import '../../../infrastructure/theme/colors.dart';
 import '../../../widgets/k.card.dart';
 import '../../../utils/k.showGeneralDialog.dart';
@@ -92,7 +93,7 @@ class AllItemsView<T> extends StatelessWidget {
                       ),
                     )
                   : MasonryGridView.count(
-                      crossAxisCount: 3,
+                      crossAxisCount: getCrossAxisCount(context),
                       mainAxisSpacing: 4,
                       crossAxisSpacing: 4,
                       padding: const EdgeInsets.symmetric(

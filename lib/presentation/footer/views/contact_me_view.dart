@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:atlas_icons/atlas_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:portfolio/domain/models/contact_form.model.dart';
@@ -202,7 +201,11 @@ class _ContactMeViewState extends State<ContactMeView> {
           child: Container(
             padding: const EdgeInsets.all(20),
             width: 600,
-            height: (Get.height > 776 ? Get.height : 776) - 80,
+            height:
+                (MediaQuery.of(context).size.height > 776
+                    ? MediaQuery.of(context).size.height
+                    : 776) -
+                80,
             decoration: BoxDecoration(
               color: const Color(0xFF1A1A2E),
               borderRadius: BorderRadius.circular(24),

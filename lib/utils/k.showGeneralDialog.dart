@@ -20,9 +20,11 @@ dynamic showBlurredGeneralDialog({
       );
     },
     transitionBuilder: (context, anim1, anim2, child) {
-      return FadeTransition(
-        opacity: CurvedAnimation(parent: anim1, curve: Curves.easeInOut),
-        child: child,
+      return RepaintBoundary(
+        child: FadeTransition(
+          opacity: CurvedAnimation(parent: anim1, curve: Curves.easeInOut),
+          child: child,
+        ),
       );
     },
   );

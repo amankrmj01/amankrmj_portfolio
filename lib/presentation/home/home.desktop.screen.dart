@@ -73,7 +73,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
                         const CertificateScreen(),
                         SizedBox(
                           key: HomeController.footerKey,
-                          height: Get.height,
+                          height: MediaQuery.of(context).size.height,
                           child: const FooterScreen(),
                         ),
                       ],
@@ -96,7 +96,9 @@ class HomeDesktopScreen extends GetView<HomeController> {
   }
 
   Widget _mainSection(BuildContext context) {
-    final minHeight = Get.height > 776 ? Get.height : 776.0;
+    var minHeight = MediaQuery.of(context).size.height > 776
+        ? MediaQuery.of(context).size.height
+        : 776.0;
     return Center(
       child: SizedBox(
         key: HomeController.homeBarKey,

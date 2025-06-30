@@ -68,7 +68,7 @@ class HomeTabletScreen extends GetView<HomeController> {
                         const CertificateScreen(),
                         SizedBox(
                           key: HomeController.footerKey,
-                          height: Get.height,
+                          height: MediaQuery.of(context).size.height,
                           child: const FooterScreen(),
                         ),
                       ],
@@ -91,7 +91,9 @@ class HomeTabletScreen extends GetView<HomeController> {
   }
 
   Widget _mainSection(BuildContext context) {
-    final minHeight = Get.height > 776 ? Get.height : 1000.0;
+    var minHeight = MediaQuery.of(context).size.height > 776
+        ? MediaQuery.of(context).size.height
+        : 1000.0;
     return Center(
       child: SizedBox(
         key: HomeController.homeBarKey,
@@ -137,7 +139,7 @@ class HomeTabletScreen extends GetView<HomeController> {
         () => AnimatedAlign(
           duration: const Duration(milliseconds: 400),
           alignment: controller.isScrolling.value
-              ? const Alignment(0, -5.0)
+              ? const Alignment(0, -5.5)
               : Alignment.bottomCenter,
           child: HomeBarView(),
         ),

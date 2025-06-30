@@ -120,7 +120,7 @@ class HomeController extends GetxController {
     }
     // Debounce to set isScrolling to false after scrolling ends
     _scrollEndDebouncer?.cancel();
-    _scrollEndDebouncer = Timer(const Duration(milliseconds: 200), () {
+    _scrollEndDebouncer = Timer(const Duration(milliseconds: 400), () {
       isScrolling.value = false;
     });
 

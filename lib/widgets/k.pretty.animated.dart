@@ -22,19 +22,12 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
   int _currentIndex = 0;
   bool _mounted = false;
 
-  // ignore: unused_field
-  Future<void>? _timerFuture;
-
   @override
   void initState() {
     super.initState();
-    _mounted = true;
-    _startTimer();
-  }
 
-  void _startTimer() {
-    _timerFuture = Future.delayed(const Duration(seconds: 0), () {
-      if (!_mounted) return;
+    Future.delayed(const Duration(seconds: 5), () {
+      _mounted = true;
       setState(() {
         _currentIndex = 0;
       });
@@ -64,6 +57,9 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_mounted) {
+      return const SizedBox.shrink();
+    }
     return KeyedSubtree(
       key: ValueKey(_currentIndex),
       child: Column(
