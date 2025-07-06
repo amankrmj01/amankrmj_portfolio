@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:portfolio/domain/models/certificate.model.dart';
 import 'package:portfolio/presentation/certificate/widgets/k.certificate.card.dart';
 
