@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:portfolio/domain/models/certificate.model.dart';
+import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 
 import '../../../widgets/k.image.dart';
 
@@ -80,6 +82,8 @@ class _KCertificateCard extends State<KCertificateCard> {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
+    final bool isMobile = homeController.currentDevice.value == Device.Mobile;
     return MouseRegion(
       cursor: isHover ? SystemMouseCursors.click : SystemMouseCursors.basic,
       onEnter: (_) => setState(() => isHover = true),
@@ -98,7 +102,7 @@ class _KCertificateCard extends State<KCertificateCard> {
           child: Container(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             margin: const EdgeInsets.all(8),
-            width: widget.width,
+            width: isMobile ? 380 : widget.width,
             decoration: BoxDecoration(
               border: Border.all(
                 color: Color.lerp(Colors.white, Colors.black, 0.5)!,
@@ -120,7 +124,7 @@ class _KCertificateCard extends State<KCertificateCard> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 380,
+                      height: isMobile ? 300 : 380,
                       child: KImage(url: widget.certificate.images[0]),
                     ),
                     Padding(
@@ -163,12 +167,13 @@ class _KCertificateCard extends State<KCertificateCard> {
                               fontFamily: "Poppins",
                               decoration: TextDecoration.none,
                             ),
+                            maxLines: isMobile ? 4 : null,
                             overflow: widget.fixedHeight == true
                                 ? TextOverflow.ellipsis
                                 : null,
                             softWrap: true,
                           ),
-                          const SizedBox(height: 12),
+                          const SizedBox(height: 10),
                           widget.fixedHeight == true
                               ? LayoutBuilder(
                                   builder: (context, constraints) {

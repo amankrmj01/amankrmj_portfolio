@@ -1,4 +1,5 @@
 import 'package:portfolio/configs/certificates.dart';
+import 'package:portfolio/presentation/certificate/views/certificate_mobile_view.dart';
 import 'package:portfolio/presentation/certificate/views/certificate_view.dart';
 import 'package:flutter/material.dart';
 
@@ -15,21 +16,27 @@ class CertificateScreen extends GetView<CertificateController> {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find<HomeController>();
+    final isMobile = homeController.currentDevice.value == Device.Mobile;
     return Obx(() {
       if (controller.isLoading.value) {
         return const Center(child: CircularProgressIndicator());
       }
       return SizedBox(
-        height: homeController.currentDevice.value == Device.Mobile ? 656 : 656,
+        height: isMobile ? MediaQuery.of(context).size.height - 220 : 656,
         child: KCertificateScrollList(
           items: certificates,
           onCardTap: (cert, context) {
             showBlurredGeneralDialog(
               context: context,
-              builder: (context) => CertificateView(
-                certificate: cert,
-                onClose: () => Navigator.of(context).maybePop(),
-              ),
+              builder: (context) => isMobile
+                  ? CertificateMobileView(
+                      certificate: cert,
+                      onClose: () => Navigator.of(context).maybePop(),
+                    )
+                  : CertificateView(
+                      certificate: cert,
+                      onClose: () => Navigator.of(context).maybePop(),
+                    ),
             );
           },
         ),

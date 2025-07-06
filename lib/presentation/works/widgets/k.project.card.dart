@@ -2,9 +2,11 @@ import 'dart:math';
 
 import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:portfolio/domain/models/project.model.dart';
 
 import '../../../widgets/k.image.dart';
+import '../../home/controllers/home.controller.dart';
 
 class KProjectCard extends StatefulWidget {
   final ProjectModel project;
@@ -80,6 +82,8 @@ class _KProjectCard extends State<KProjectCard> {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
+    final bool isMobile = homeController.currentDevice.value == Device.Mobile;
     return MouseRegion(
       cursor: isHover ? SystemMouseCursors.click : SystemMouseCursors.basic,
       onEnter: (_) => setState(() => isHover = true),
@@ -93,7 +97,7 @@ class _KProjectCard extends State<KProjectCard> {
           child: Container(
             clipBehavior: Clip.hardEdge,
             margin: const EdgeInsets.all(8),
-            width: widget.width,
+            width: isMobile ? 380 : widget.width,
             decoration: BoxDecoration(
               border: Border.all(
                 color: Color.lerp(Colors.white, Colors.black, 0.5)!,
@@ -114,55 +118,57 @@ class _KProjectCard extends State<KProjectCard> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: 380,
+                      height: isMobile ? 320 : 380,
                       child: KImage(url: widget.project.images[0]),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.project.name,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontFamily: "Poppins",
-                              decoration: TextDecoration.none,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              widget.project.name,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                                fontFamily: "Poppins",
+                                decoration: TextDecoration.none,
+                              ),
                             ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            widget.project.description,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.white70,
-                              fontFamily: "Poppins",
-                              decoration: TextDecoration.none,
+                            const SizedBox(height: 8),
+                            Text(
+                              widget.project.description,
+                              style: const TextStyle(
+                                fontSize: 15,
+                                color: Colors.white70,
+                                fontFamily: "Poppins",
+                                decoration: TextDecoration.none,
+                              ),
+                              maxLines: widget.fixedHeight == true ? 2 : null,
+                              overflow: widget.fixedHeight == true
+                                  ? TextOverflow.ellipsis
+                                  : null,
+                              softWrap: true,
                             ),
-                            maxLines: widget.fixedHeight == true ? 2 : null,
-                            overflow: widget.fixedHeight == true
-                                ? TextOverflow.ellipsis
-                                : null,
-                            softWrap: true,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            widget.project.largeDescription,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              color: Colors.white70,
-                              fontFamily: "Poppins",
-                              decoration: TextDecoration.none,
+                            const SizedBox(height: 8),
+                            Text(
+                              widget.project.largeDescription,
+                              style: const TextStyle(
+                                fontSize: 13,
+                                color: Colors.white70,
+                                fontFamily: "Poppins",
+                                decoration: TextDecoration.none,
+                              ),
+                              maxLines: widget.fixedHeight == true ? 5 : null,
+                              overflow: widget.fixedHeight == true
+                                  ? TextOverflow.ellipsis
+                                  : null,
+                              softWrap: true,
                             ),
-                            maxLines: widget.fixedHeight == true ? 5 : null,
-                            overflow: widget.fixedHeight == true
-                                ? TextOverflow.ellipsis
-                                : null,
-                            softWrap: true,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],

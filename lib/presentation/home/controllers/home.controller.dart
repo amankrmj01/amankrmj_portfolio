@@ -87,16 +87,16 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // _pingUntilSuccess(pingServerService);
+    _pingOnce();
     fetchSocialLinks();
     scrollController.addListener(_onScroll);
     meshGradientController = AnimatedMeshGradientController()..start();
-    final PingServerService pingServerService = PingServerService();
   }
 
   final Logger _logger = Logger();
 
-  Future<void> _pingUntilSuccess(PingServerService pingServerService) async {
+  Future<void> _pingOnce() async {
+    final PingServerService pingServerService = PingServerService();
     try {
       final result = await pingServerService.ping();
       if (result == 'true') {

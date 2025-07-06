@@ -43,6 +43,7 @@ class HomeTabletScreen extends GetView<HomeController> {
                 ),
                 child: Scrollbar(
                   controller: controller.scrollController,
+
                   thumbVisibility: true,
                   thickness: 8,
                   radius: const Radius.circular(8),
@@ -91,9 +92,7 @@ class HomeTabletScreen extends GetView<HomeController> {
   }
 
   Widget _mainSection(BuildContext context) {
-    var minHeight = MediaQuery.of(context).size.height > 1000
-        ? MediaQuery.of(context).size.height
-        : 1000.0;
+    var minHeight = MediaQuery.of(context).size.height;
     return Center(
       child: SizedBox(
         key: HomeController.homeBarKey,
@@ -105,22 +104,30 @@ class HomeTabletScreen extends GetView<HomeController> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 120),
-              Column(
-                mainAxisSize: MainAxisSize.min,
+              const SizedBox(height: 100),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: KPrettyAnimated(),
+                ),
+              ),
+              const SizedBox(height: 100),
+              Row(
+                mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  FittedBox(
-                    fit: BoxFit.scaleDown,
-                    alignment: Alignment.centerLeft,
-                    child: KPrettyAnimated(),
+                  Expanded(
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.bottomCenter,
+                      child: aboutMeLines(),
+                    ),
                   ),
-                  const SizedBox(height: 100),
-                  aboutMeLines(width: 500, height: 200),
+                  const SizedBox(width: 40),
+                  const CodeBlock(),
                 ],
               ),
-              const CodeBlock(),
+
               navigateButtonAndSocialLinks(controller),
             ],
           ),

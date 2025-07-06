@@ -14,7 +14,9 @@ import 'controllers/footer.controller.dart';
 import '../home/controllers/home.controller.dart';
 
 class FooterScreen extends GetView<FooterController> {
-  const FooterScreen({super.key});
+  final bool? isMobile;
+
+  const FooterScreen({this.isMobile = false, super.key});
 
   final Color _footerForegroundColor = const Color(0xFFC7D3B6);
 
@@ -71,7 +73,7 @@ class FooterScreen extends GetView<FooterController> {
     });
   }
 
-  Widget _footerWelcomePart() {
+  Widget _footerWelcomePart({bool isMobile = false}) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -79,10 +81,10 @@ class FooterScreen extends GetView<FooterController> {
         Text(
           "Let's work together!",
           textAlign: TextAlign.center,
-          maxLines: 2,
+          maxLines: isMobile ? 1 : 2,
           style: TextStyle(
             color: _footerForegroundColor,
-            fontSize: 40,
+            fontSize: isMobile ? 28 : 40,
             fontWeight: FontWeight.bold,
             fontFamily: 'ShantellSans',
           ),
@@ -91,10 +93,10 @@ class FooterScreen extends GetView<FooterController> {
         Text(
           "I'm available for Freelancing",
           textAlign: TextAlign.center,
-          maxLines: 2,
+          maxLines: isMobile ? 1 : 2,
           style: TextStyle(
             color: _footerForegroundColor,
-            fontSize: 32,
+            fontSize: isMobile ? 20 : 32,
             fontWeight: FontWeight.w400,
             fontFamily: 'ShantellSans',
           ),
@@ -181,17 +183,6 @@ class FooterScreen extends GetView<FooterController> {
     );
   }
 
-  Widget _ccLabel() {
-    return Text(
-      '©️ 2025 Aman Kumar',
-      style: TextStyle(
-        color: _footerForegroundColor,
-        fontSize: 15,
-        fontWeight: FontWeight.w400,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -208,24 +199,36 @@ class FooterScreen extends GetView<FooterController> {
               color: Colors.black,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Expanded(flex: 1, child: _footerWelcomePart()),
-                    Expanded(
-                      flex: 1,
-                      child: Column(
+                child: isMobile!
+                    ? Column(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          _footerWelcomePart(isMobile: isMobile!),
+                          _footerSocial(),
+                        ],
+                      )
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [_madeWithFlutterLabel(), _ccLabel()],
+                        children: [
+                          Expanded(flex: 1, child: _footerWelcomePart()),
+                          Expanded(
+                            flex: 1,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                _madeWithFlutterLabel(),
+                                FooterWidgets.ccLabel(_footerForegroundColor),
+                              ],
+                            ),
+                          ),
+                          Expanded(flex: 1, child: _footerSocial()),
+                          // SizedBox(width: 40),
+                        ],
                       ),
-                    ),
-                    Expanded(flex: 1, child: _footerSocial()),
-                    // SizedBox(width: 40),
-                  ],
-                ),
               ),
             ),
           ),
@@ -296,6 +299,15 @@ class _AnimatedQuoteOnVisibleState extends State<_AnimatedQuoteOnVisible> {
               ),
             )
           : const SizedBox(height: 40),
+    );
+  }
+}
+
+class FooterWidgets {
+  static Widget ccLabel(Color color) {
+    return Text(
+      '©️ 2025 Aman Kumar',
+      style: TextStyle(color: color, fontSize: 15, fontWeight: FontWeight.w400),
     );
   }
 }

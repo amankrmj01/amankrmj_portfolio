@@ -3,9 +3,11 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/configs/certificates.dart';
 import 'package:portfolio/presentation/certificate/widgets/k.certificate.card.dart';
+import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 import 'package:portfolio/utils/axis.count.dart';
 import '../../../infrastructure/theme/colors.dart';
 import '../../../utils/k.showGeneralDialog.dart';
+import 'certificate_mobile_view.dart';
 import 'certificate_view.dart';
 import '../controllers/certificate.controller.dart';
 
@@ -14,16 +16,24 @@ class AllCertificatesView extends GetView<CertificateController> {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
+    final isMobile = homeController.currentDevice.value == Device.Mobile;
     return Obx(
       () => AllItemsView(
         title: "ALL Certificates",
         isLoading: controller.isLoading.value,
         items: certificates,
         titleColor: KColor.primarySecondColor,
-        buildDialog: (certificate) => CertificateView(
-          certificate: certificate,
-          onClose: () => Navigator.of(context).maybePop(),
-        ),
+        isMobile: isMobile,
+        buildDialog: (certificate) => isMobile
+            ? CertificateMobileView(
+                certificate: certificate,
+                onClose: () => Navigator.of(context).maybePop(),
+              )
+            : CertificateView(
+                certificate: certificate,
+                onClose: () => Navigator.of(context).maybePop(),
+              ),
         buildCard: (certificate, onTap) => KCertificateCard(
           certificate: certificate,
           onTap: onTap,
@@ -39,12 +49,14 @@ class AllItemsView<T> extends StatelessWidget {
   final bool isLoading;
   final List<T> items;
   final Color titleColor;
+  final bool? isMobile;
   final Widget Function(T item) buildDialog;
   final Widget Function(T item, VoidCallback onTap) buildCard;
 
   const AllItemsView({
     super.key,
     required this.title,
+    this.isMobile = false,
     required this.isLoading,
     required this.items,
     required this.titleColor,
@@ -78,7 +90,7 @@ class AllItemsView<T> extends StatelessWidget {
                       color: titleColor,
                       fontFamily: "ShantellSans",
                       fontWeight: FontWeight.bold,
-                      fontSize: 36,
+                      fontSize: isMobile! ? 24 : 36,
                       letterSpacing: 1.2,
                       decoration: TextDecoration.none,
                     ),

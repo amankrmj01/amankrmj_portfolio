@@ -1,14 +1,14 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/presentation/home/views/home_menu_bar_view.dart';
 import 'package:portfolio/presentation/home/widgets/widgets.dart';
+import 'package:portfolio/widgets/animated.navigate.button.dart';
+import '../../utils/k.navigate.dart';
 import '../../widgets/k.pretty.animated.dart';
 import '../../widgets/mesh.background.dart';
 import 'controllers/home.controller.dart';
 import '../certificate/views/all_certificates_view.dart';
 import '../works/views/all_wroks_view.dart';
-import '../home/views/home_bar_view.dart';
 import '../screens.dart';
 import 'widgets/code.block.dart';
 
@@ -31,24 +31,51 @@ class HomeMobileScreen extends GetView<HomeController> {
             child: Column(
               children: [
                 _mainSection(context),
+                const SizedBox(height: 10),
                 SliverHeaderSection(
                   context: context,
                   title: 'Recent Works',
-                  view: const AllWorksView(),
                   sectionKey: HomeController.recentWorksKey,
                 ),
+                const SizedBox(height: 10),
                 const WorksScreen(),
+                const SizedBox(height: 20),
+                AnimatedNavigateButton(
+                  label: "Browse All",
+                  icon: const Icon(Icons.arrow_forward),
+                  borderRadius: 12,
+                  onTap: () => navigateWithSlideTransition(
+                    context,
+                    const AllWorksView(),
+                  ),
+                  width: 190,
+                ),
+                const SizedBox(height: 20),
                 SliverHeaderSection(
                   context: context,
                   title: 'Recent Certificates',
-                  view: const AllCertificatesView(),
                   sectionKey: HomeController.recentCertificatesKey,
                 ),
+                const SizedBox(height: 10),
                 const CertificateScreen(),
+                const SizedBox(height: 20),
+                AnimatedNavigateButton(
+                  label: "Browse All",
+                  icon: const Icon(Icons.arrow_forward),
+                  borderRadius: 12,
+                  onTap: () => navigateWithSlideTransition(
+                    context,
+                    const AllCertificatesView(),
+                  ),
+                  width: 190,
+                ),
+                const SizedBox(height: 20),
                 SizedBox(
                   key: HomeController.footerKey,
                   height: MediaQuery.of(context).size.height,
-                  child: const FooterScreen(),
+                  child: FooterScreen(
+                    isMobile: controller.currentDevice.value == Device.Mobile,
+                  ),
                 ),
               ],
             ),
@@ -59,37 +86,34 @@ class HomeMobileScreen extends GetView<HomeController> {
   }
 
   Widget _mainSection(BuildContext context) {
-    final HomeController controller = Get.find<HomeController>();
-    var minHeight = MediaQuery.of(context).size.height > 1000
-        ? MediaQuery.of(context).size.height
-        : 1000.0;
     return Center(
       child: SizedBox(
         key: HomeController.homeBarKey,
-        height: controller.currentDevice.value == Device.Mobile
-            ? MediaQuery.of(context).size.height - kToolbarHeight
-            : minHeight,
+        height: MediaQuery.of(context).size.height - kToolbarHeight,
         width: double.infinity,
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 48.0),
+          padding: const EdgeInsets.symmetric(horizontal: 32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 120),
-              KPrettyAnimated(),
-              const SizedBox(height: 120),
+              const SizedBox(height: 60),
+              Expanded(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: KPrettyAnimated(),
+                ),
+              ),
               FittedBox(
                 fit: BoxFit.fitWidth,
                 alignment: Alignment.bottomCenter,
                 child: aboutMeLines(width: 500, height: 200),
               ),
               FittedBox(
-                fit: BoxFit.fitHeight,
+                fit: BoxFit.fitWidth,
                 alignment: Alignment.center,
                 child: CodeBlock(),
               ),
-              const SizedBox(height: 40),
               socialLinksRow(controller),
             ],
           ),

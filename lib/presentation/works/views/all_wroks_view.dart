@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/presentation/works/views/work_mobile_view.dart';
 import 'package:portfolio/presentation/works/widgets/k.project.card.dart';
 import '../../../infrastructure/theme/colors.dart';
 import '../../certificate/views/all_certificates_view.dart';
+import '../../home/controllers/home.controller.dart';
 import 'work_view.dart';
 import '../controllers/works.controller.dart';
 
@@ -11,16 +13,23 @@ class AllWorksView extends GetView<WorksController> {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
+    final isMobile = homeController.currentDevice.value == Device.Mobile;
     return Obx(
       () => AllItemsView(
         title: "ALL Projects",
         isLoading: controller.isLoading.value,
         items: controller.projects,
         titleColor: KColor.primarySecondColor,
-        buildDialog: (project) => WorkView(
-          project: project,
-          onClose: () => Navigator.of(context).maybePop(),
-        ),
+        buildDialog: (project) => isMobile
+            ? WorkMobileView(
+                project: project,
+                onClose: () => Navigator.of(context).maybePop(),
+              )
+            : WorkView(
+                project: project,
+                onClose: () => Navigator.of(context).maybePop(),
+              ),
         buildCard: (project, onTap) =>
             KProjectCard(project: project, onTap: onTap, fixedHeight: false),
       ),

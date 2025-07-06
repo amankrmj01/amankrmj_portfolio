@@ -153,7 +153,7 @@ Widget navigateButtonAndSocialLinks(HomeController controller) {
 
 class SliverHeaderSection extends StatelessWidget {
   final String title;
-  final Widget view;
+  final Widget? view;
   final GlobalKey sectionKey;
   final BuildContext context;
   final double? height;
@@ -161,7 +161,7 @@ class SliverHeaderSection extends StatelessWidget {
   const SliverHeaderSection({
     super.key,
     required this.title,
-    required this.view,
+    this.view,
     required this.sectionKey,
     required this.context,
     this.height = 124,
@@ -176,8 +176,9 @@ class SliverHeaderSection extends StatelessWidget {
     return Obx(
       () => Container(
         key: sectionKey,
-        height: isMobile ? 40 : height,
+        height: isMobile ? 60 : height,
         width: double.infinity,
+        alignment: Alignment.bottomCenter,
         padding: const EdgeInsets.symmetric(horizontal: 32.0),
         child: Row(
           crossAxisAlignment: isTablet
@@ -192,7 +193,7 @@ class SliverHeaderSection extends StatelessWidget {
                 fontFamily: "ShantellSans",
                 fontWeight: FontWeight.bold,
                 fontSize: controller.currentDevice.value == Device.Mobile
-                    ? 28
+                    ? 24
                     : 32,
                 letterSpacing: 1.2,
                 decoration: TextDecoration.none,
@@ -207,8 +208,9 @@ class SliverHeaderSection extends StatelessWidget {
                       label: "Browse All",
                       icon: const Icon(Icons.arrow_forward),
                       borderRadius: 12,
-                      onTap: () =>
-                          navigateWithSlideTransition(this.context, view),
+                      onTap: () => isMobile
+                          ? {}
+                          : navigateWithSlideTransition(this.context, view!),
                       width: 190,
                     ),
                   ),

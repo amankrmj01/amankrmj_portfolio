@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 import 'package:pretty_animated_text/pretty_animated_text.dart';
 import '../../infrastructure/theme/colors.dart';
@@ -43,8 +42,8 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
       await Future.delayed(const Duration(seconds: 6));
       if (!_mounted) break;
       setState(() {
-        if (_currentIndex < _words.length - 2) {
-          _currentIndex += 2;
+        if (_currentIndex < _words.length - 1) {
+          _currentIndex += 1;
         } else {
           _currentIndex = 0;
         }
@@ -63,9 +62,9 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
     final HomeController homeController = Get.find<HomeController>();
     final double fontSize;
     if (homeController.currentDevice.value == Device.Mobile) {
-      fontSize = 35;
-    } else if (homeController.currentDevice.value == Device.Tablet) {
       fontSize = 40;
+    } else if (homeController.currentDevice.value == Device.Tablet) {
+      fontSize = 60;
     } else {
       fontSize = 50;
     }
@@ -75,53 +74,24 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
     }
     return KeyedSubtree(
       key: ValueKey(_currentIndex),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          OffsetText(
-            text: _words[_currentIndex],
-            duration: const Duration(seconds: 2),
-            type: AnimationType.word,
-            slideType: SlideAnimationType.rightLeft,
-            textStyle: TextStyle(
-              wordSpacing: 10,
-              fontSize: fontSize,
-              fontFamily: 'ShantellSans',
-              color: KColor.secondarySecondColor,
-              shadows: [
-                Shadow(
-                  color: Colors.pinkAccent,
-                  // offset: const Offset(-2, 0),
-                  blurRadius: 2,
-                ),
-              ],
+      child: OffsetText(
+        text: _words[_currentIndex],
+        duration: const Duration(seconds: 2),
+        type: AnimationType.word,
+        slideType: SlideAnimationType.rightLeft,
+        textStyle: TextStyle(
+          wordSpacing: 10,
+          fontSize: fontSize,
+          fontFamily: 'ShantellSans',
+          color: KColor.secondarySecondColor,
+          shadows: [
+            Shadow(
+              color: Colors.pinkAccent,
+              // offset: const Offset(-2, 0),
+              blurRadius: 2,
             ),
-          ),
-
-          _currentIndex + 1 < _words.length && fontSize != 35
-              ? OffsetText(
-                  text: _words[_currentIndex + 1],
-                  duration: const Duration(seconds: 2),
-                  type: AnimationType.word,
-                  slideType: SlideAnimationType.rightLeft,
-
-                  textStyle: TextStyle(
-                    wordSpacing: 10,
-                    fontSize: fontSize,
-                    fontFamily: 'ShantellSans',
-                    color: KColor.secondarySecondColor,
-                    shadows: [
-                      Shadow(
-                        color: Colors.pinkAccent,
-                        // offset: const Offset(-2, 0),
-                        blurRadius: 2,
-                      ),
-                    ],
-                  ),
-                )
-              : const SizedBox.shrink(),
-        ],
+          ],
+        ),
       ),
     );
   }

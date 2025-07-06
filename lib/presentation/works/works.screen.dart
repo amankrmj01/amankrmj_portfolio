@@ -1,3 +1,5 @@
+import 'package:portfolio/presentation/home/controllers/home.controller.dart';
+import 'package:portfolio/presentation/works/views/work_mobile_view.dart';
 import 'package:portfolio/presentation/works/views/work_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,21 +13,28 @@ class WorksScreen extends GetView<WorksController> {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.find<HomeController>();
+    final isMobile = homeController.currentDevice.value == Device.Mobile;
     return Obx(() {
       if (controller.isLoading.value) {
         return const Center(child: CircularProgressIndicator());
       }
       return SizedBox(
-        height: 656,
+        height: isMobile ? MediaQuery.of(context).size.height - 220 : 656,
         child: KProjectsScrollList(
           items: controller.projects,
           onCardTap: (project, context) {
             showBlurredGeneralDialog(
               context: context,
-              builder: (context) => WorkView(
-                project: project,
-                onClose: () => Navigator.of(context).maybePop(),
-              ),
+              builder: (context) => isMobile
+                  ? WorkMobileView(
+                      project: project,
+                      onClose: () => Navigator.of(context).maybePop(),
+                    )
+                  : WorkView(
+                      project: project,
+                      onClose: () => Navigator.of(context).maybePop(),
+                    ),
             );
           },
         ),
