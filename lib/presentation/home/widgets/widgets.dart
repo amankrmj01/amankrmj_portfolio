@@ -176,7 +176,7 @@ class SliverHeaderSection extends StatelessWidget {
     return Obx(
       () => Container(
         key: sectionKey,
-        height: isMobile ? 60 : height,
+        height: isMobile ? 40 : height,
         width: double.infinity,
         alignment: Alignment.bottomCenter,
         padding: const EdgeInsets.symmetric(horizontal: 32.0),

@@ -22,7 +22,7 @@ class CertificateScreen extends GetView<CertificateController> {
         return const Center(child: CircularProgressIndicator());
       }
       return SizedBox(
-        height: isMobile ? MediaQuery.of(context).size.height - 220 : 656,
+        height: isMobile ? MediaQuery.of(context).size.height * 0.85 : 656,
         child: KCertificateScrollList(
           items: certificates,
           onCardTap: (cert, context) {

@@ -7,7 +7,7 @@ import '../../../widgets/animated.navigate.button.dart';
 import '../../footer/views/contact_me_view.dart';
 import '../controllers/home.controller.dart';
 
-class HomeMenuBarView extends GetView<HomeController> {
+class HomeMenuBarView extends StatelessWidget {
   const HomeMenuBarView({super.key});
 
   final List<String> labels = const [
@@ -25,6 +25,7 @@ class HomeMenuBarView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController controller = Get.find<HomeController>();
     final onTapActions = controller.onTapActions;
     final selectedIndex = controller.selectedTabIndex;
     // Always return Drawer
@@ -33,15 +34,17 @@ class HomeMenuBarView extends GetView<HomeController> {
       child: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
               child: ListView.separated(
+                shrinkWrap: true,
                 padding: const EdgeInsets.symmetric(
                   vertical: 24,
                   horizontal: 8,
                 ),
                 itemCount: labels.length,
+                physics: NeverScrollableScrollPhysics(),
                 separatorBuilder: (context, index) => const Divider(height: 24),
                 itemBuilder: (context, index) {
                   return Obx(() {
@@ -89,44 +92,41 @@ class HomeMenuBarView extends GetView<HomeController> {
                 },
               ),
             ),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    alignment: Alignment.centerLeft,
-                    width: 200,
-                    child: Builder(
-                      builder: (context) => AnimatedNavigateButton(
-                        borderRadius: 16,
-                        label: "Contact Me",
-                        onTap: () async {
-                          await Future.delayed(
-                            const Duration(milliseconds: 300),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  alignment: Alignment.centerLeft,
+                  width: 200,
+                  child: Builder(
+                    builder: (context) => AnimatedNavigateButton(
+                      borderRadius: 16,
+                      label: "Contact Me",
+                      onTap: () async {
+                        await Future.delayed(const Duration(milliseconds: 300));
+                        if (context.mounted) {
+                          showBlurredGeneralDialog(
+                            context: context,
+                            builder: (context) => ContactMeView(),
                           );
-                          if (context.mounted) {
-                            showBlurredGeneralDialog(
-                              context: context,
-                              builder: (context) => ContactMeView(),
-                            );
-                          }
-                        },
-                        icon: Image.asset(
-                          'assets/icons/contact_me.png',
-                          width: 28,
-                          height: 28,
-                          fit: BoxFit.fitHeight,
-                        ),
-                        width: 200,
+                        }
+                      },
+                      icon: Image.asset(
+                        'assets/icons/contact_me.png',
+                        width: 28,
+                        height: 28,
+                        fit: BoxFit.fitHeight,
                       ),
+                      width: 200,
                     ),
                   ),
-                  const SizedBox(height: 28),
-                  FooterWidgets.ccLabel(Colors.white),
-                  const SizedBox(height: 20),
-                ],
-              ),
+                ),
+                const SizedBox(height: 28),
+                FooterWidgets.ccLabel(Colors.white),
+                const SizedBox(height: 20),
+              ],
             ),
           ],
         ),

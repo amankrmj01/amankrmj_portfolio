@@ -30,8 +30,12 @@ class AllWorksView extends GetView<WorksController> {
                 project: project,
                 onClose: () => Navigator.of(context).maybePop(),
               ),
-        buildCard: (project, onTap) =>
-            KProjectCard(project: project, onTap: onTap, fixedHeight: false),
+        buildCard: (project, onTap) => KProjectCard(
+          project: project,
+          onTap: onTap,
+          fixedHeight: false,
+          expandToContentHeight: true,
+        ),
       ),
     );
   }

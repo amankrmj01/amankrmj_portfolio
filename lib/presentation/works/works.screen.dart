@@ -20,7 +20,7 @@ class WorksScreen extends GetView<WorksController> {
         return const Center(child: CircularProgressIndicator());
       }
       return SizedBox(
-        height: isMobile ? MediaQuery.of(context).size.height - 220 : 656,
+        height: isMobile ? MediaQuery.of(context).size.height * 0.85 : 656,
         child: KProjectsScrollList(
           items: controller.projects,
           onCardTap: (project, context) {

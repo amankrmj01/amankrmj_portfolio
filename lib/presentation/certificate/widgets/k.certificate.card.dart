@@ -15,6 +15,7 @@ class KCertificateCard extends StatefulWidget {
   final double? width;
   final double? height;
   final bool? fixedHeight;
+  final bool expandToContentHeight;
 
   const KCertificateCard({
     super.key,
@@ -23,6 +24,7 @@ class KCertificateCard extends StatefulWidget {
     this.width = 500,
     this.height,
     this.fixedHeight = true,
+    this.expandToContentHeight = false,
   });
 
   @override
@@ -84,6 +86,7 @@ class _KCertificateCard extends State<KCertificateCard> {
   Widget build(BuildContext context) {
     final HomeController homeController = Get.find<HomeController>();
     final bool isMobile = homeController.currentDevice.value == Device.Mobile;
+    final bool expandToContent = widget.expandToContentHeight;
     return MouseRegion(
       cursor: isHover ? SystemMouseCursors.click : SystemMouseCursors.basic,
       onEnter: (_) => setState(() => isHover = true),
@@ -102,7 +105,12 @@ class _KCertificateCard extends State<KCertificateCard> {
           child: Container(
             clipBehavior: Clip.antiAliasWithSaveLayer,
             margin: const EdgeInsets.all(8),
-            width: isMobile ? 380 : widget.width,
+            width: isMobile
+                ? (MediaQuery.of(context).size.width * 0.45 > 340
+                      ? MediaQuery.of(context).size.width * 0.45
+                      : 340)
+                : widget.width,
+            height: expandToContent ? null : widget.height,
             decoration: BoxDecoration(
               border: Border.all(
                 color: Color.lerp(Colors.white, Colors.black, 0.5)!,
@@ -120,7 +128,9 @@ class _KCertificateCard extends State<KCertificateCard> {
                 spots: _auraSpots,
                 decoration: BoxDecoration(color: Colors.transparent),
                 child: Column(
-                  mainAxisSize: MainAxisSize.min,
+                  mainAxisSize: expandToContent
+                      ? MainAxisSize.min
+                      : MainAxisSize.max,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
@@ -129,87 +139,57 @@ class _KCertificateCard extends State<KCertificateCard> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            widget.certificate.name,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontFamily: "Poppins",
-                              decoration: TextDecoration.none,
-                            ),
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            widget.certificate.description,
-                            style: const TextStyle(
-                              fontSize: 15,
-                              color: Colors.white70,
-                              fontFamily: "Poppins",
-                              decoration: TextDecoration.none,
-                            ),
-                            maxLines: widget.fixedHeight == true ? 2 : null,
-                            overflow: widget.fixedHeight == true
-                                ? TextOverflow.ellipsis
-                                : null,
-                            softWrap: true,
-                          ),
-                          const SizedBox(height: 8),
-                          Text(
-                            widget.certificate.largeDescription,
-                            style: const TextStyle(
-                              fontSize: 13,
-                              color: Colors.white70,
-                              fontFamily: "Poppins",
-                              decoration: TextDecoration.none,
-                            ),
-                            maxLines: isMobile ? 4 : null,
-                            overflow: widget.fixedHeight == true
-                                ? TextOverflow.ellipsis
-                                : null,
-                            softWrap: true,
-                          ),
-                          const SizedBox(height: 10),
-                          widget.fixedHeight == true
-                              ? LayoutBuilder(
-                                  builder: (context, constraints) {
-                                    final skills = widget.certificate.skills;
-                                    List<Widget> chips = [];
-                                    double usedWidth = 0;
-                                    double spacing = 6;
-                                    double maxWidth = constraints.maxWidth;
-                                    for (var tech in skills) {
-                                      double chipWidth = 24 + (tech.length * 9);
-                                      if (chips.isNotEmpty) {
-                                        usedWidth += spacing;
-                                      }
-                                      if (usedWidth + chipWidth > maxWidth) {
-                                        break;
-                                      }
-                                      chips.add(
-                                        Padding(
-                                          padding: EdgeInsets.only(
-                                            right: spacing,
-                                          ),
-                                          child: Chip(label: Text(tech)),
-                                        ),
-                                      );
-                                      usedWidth += chipWidth;
-                                    }
-                                    return Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: chips,
-                                    );
-                                  },
-                                )
-                              : Wrap(
+                      child: expandToContent
+                          ? Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.certificate.name,
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontFamily: "Poppins",
+                                    decoration: TextDecoration.none,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  widget.certificate.description,
+                                  style: const TextStyle(
+                                    fontSize: 15,
+                                    color: Colors.white70,
+                                    fontFamily: "Poppins",
+                                    decoration: TextDecoration.none,
+                                  ),
+                                  maxLines: widget.fixedHeight == true
+                                      ? 2
+                                      : null,
+                                  overflow: widget.fixedHeight == true
+                                      ? TextOverflow.ellipsis
+                                      : null,
+                                  softWrap: true,
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  widget.certificate.largeDescription,
+                                  textAlign: TextAlign.justify,
+                                  style: const TextStyle(
+                                    fontSize: 13,
+                                    color: Colors.white70,
+                                    fontFamily: "Poppins",
+                                    decoration: TextDecoration.none,
+                                  ),
+                                  maxLines: isMobile ? 4 : 8,
+                                  overflow: widget.fixedHeight == true
+                                      ? TextOverflow.ellipsis
+                                      : null,
+                                  softWrap: true,
+                                ),
+                                const SizedBox(height: 10),
+                                Wrap(
                                   spacing: 6,
-                                  runSpacing: 6,
+                                  runSpacing: 2,
                                   runAlignment: WrapAlignment.end,
                                   children: List<Widget>.from(
                                     widget.certificate.skills.map(
@@ -217,8 +197,73 @@ class _KCertificateCard extends State<KCertificateCard> {
                                     ),
                                   ),
                                 ),
-                        ],
-                      ),
+                              ],
+                            )
+                          : SizedBox(
+                              height:
+                                  widget.height! - (isMobile ? 300 : 380) - 52,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      widget.certificate.name,
+                                      style: const TextStyle(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold,
+                                        color: Colors.white,
+                                        fontFamily: "Poppins",
+                                        decoration: TextDecoration.none,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      widget.certificate.description,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        color: Colors.white70,
+                                        fontFamily: "Poppins",
+                                        decoration: TextDecoration.none,
+                                      ),
+                                      maxLines: widget.fixedHeight == true
+                                          ? 2
+                                          : null,
+                                      overflow: widget.fixedHeight == true
+                                          ? TextOverflow.ellipsis
+                                          : null,
+                                      softWrap: true,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(
+                                      widget.certificate.largeDescription,
+                                      textAlign: TextAlign.justify,
+                                      style: const TextStyle(
+                                        fontSize: 13,
+                                        color: Colors.white70,
+                                        fontFamily: "Poppins",
+                                        decoration: TextDecoration.none,
+                                      ),
+                                      maxLines: isMobile ? 4 : 8,
+                                      overflow: widget.fixedHeight == true
+                                          ? TextOverflow.ellipsis
+                                          : null,
+                                      softWrap: true,
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Wrap(
+                                      spacing: 6,
+                                      runAlignment: WrapAlignment.end,
+                                      children: List<Widget>.from(
+                                        widget.certificate.skills.map(
+                                          (tech) => Chip(label: Text(tech)),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                     ),
                   ],
                 ),

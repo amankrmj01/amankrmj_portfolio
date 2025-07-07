@@ -20,7 +20,7 @@ class FooterScreen extends GetView<FooterController> {
 
   final Color _footerForegroundColor = const Color(0xFFC7D3B6);
 
-  Widget _quoteSection() {
+  Widget _quoteSection({bool isMobile = false}) {
     return Obx(() {
       if (controller.isLoading.value) {
         return const Center(child: CircularProgressIndicator());
@@ -44,7 +44,7 @@ class FooterScreen extends GetView<FooterController> {
                 quote.quote,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 40,
+                  fontSize: isMobile ? 28 : 40,
                   fontFamily: "ShantellSans",
                   color: KColor.primaryColor,
                 ),
@@ -77,19 +77,22 @@ class FooterScreen extends GetView<FooterController> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          "Let's work together!",
-          textAlign: TextAlign.center,
-          maxLines: isMobile ? 1 : 2,
-          style: TextStyle(
-            color: _footerForegroundColor,
-            fontSize: isMobile ? 28 : 40,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'ShantellSans',
+        FittedBox(
+          fit: BoxFit.fitWidth,
+          child: Text(
+            "Let's work together!",
+            textAlign: TextAlign.center,
+            maxLines: isMobile ? 1 : 2,
+            style: TextStyle(
+              color: _footerForegroundColor,
+              fontSize: isMobile ? 28 : 40,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'ShantellSans',
+            ),
           ),
         ),
-        const SizedBox(height: 32),
         Text(
           "I'm available for Freelancing",
           textAlign: TextAlign.center,
@@ -186,29 +189,47 @@ class FooterScreen extends GetView<FooterController> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height > 776
-          ? MediaQuery.of(context).size.height
-          : 776,
+      height: MediaQuery.of(context).size.height,
       width: double.infinity,
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: [
-          Expanded(flex: 6, child: _quoteSection()),
-          Expanded(
-            flex: 4,
-            child: ColoredBox(
-              color: Colors.black,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                child: isMobile!
-                    ? Column(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          _footerWelcomePart(isMobile: isMobile!),
-                          _footerSocial(),
-                        ],
-                      )
-                    : Row(
+          SizedBox(height: isMobile! ? kToolbarHeight : 124),
+          Expanded(flex: 6, child: _quoteSection(isMobile: isMobile!)),
+          isMobile!
+              ? SizedBox(
+                  width: double.infinity,
+                  child: ColoredBox(
+                    color: Colors.black,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: LayoutBuilder(
+                        builder: (context, constraints) {
+                          final swap = constraints.maxWidth < 600;
+                          return Wrap(
+                            alignment: swap
+                                ? WrapAlignment.center
+                                : WrapAlignment.spaceBetween,
+                            crossAxisAlignment: WrapCrossAlignment.center,
+                            children: [
+                              _footerWelcomePart(isMobile: isMobile!),
+                              const SizedBox(height: 20, width: 20),
+                              _footerSocial(),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                )
+              : Expanded(
+                  flex: 4,
+                  child: ColoredBox(
+                    color: Colors.black,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
+                      child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -229,9 +250,9 @@ class FooterScreen extends GetView<FooterController> {
                           // SizedBox(width: 40),
                         ],
                       ),
-              ),
-            ),
-          ),
+                    ),
+                  ),
+                ),
         ],
       ),
     );

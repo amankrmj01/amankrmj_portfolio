@@ -2,13 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/presentation/home/views/home_menu_bar_view.dart';
 import 'package:portfolio/presentation/home/widgets/widgets.dart';
-import 'package:portfolio/widgets/animated.navigate.button.dart';
-import '../../utils/k.navigate.dart';
 import '../../widgets/k.pretty.animated.dart';
 import '../../widgets/mesh.background.dart';
 import 'controllers/home.controller.dart';
-import '../certificate/views/all_certificates_view.dart';
-import '../works/views/all_wroks_view.dart';
 import '../screens.dart';
 import 'widgets/code.block.dart';
 
@@ -40,17 +36,7 @@ class HomeMobileScreen extends GetView<HomeController> {
                 const SizedBox(height: 10),
                 const WorksScreen(),
                 const SizedBox(height: 20),
-                AnimatedNavigateButton(
-                  label: "Browse All",
-                  icon: const Icon(Icons.arrow_forward),
-                  borderRadius: 12,
-                  onTap: () => navigateWithSlideTransition(
-                    context,
-                    const AllWorksView(),
-                  ),
-                  width: 190,
-                ),
-                const SizedBox(height: 20),
+
                 SliverHeaderSection(
                   context: context,
                   title: 'Recent Certificates',
@@ -59,17 +45,7 @@ class HomeMobileScreen extends GetView<HomeController> {
                 const SizedBox(height: 10),
                 const CertificateScreen(),
                 const SizedBox(height: 20),
-                AnimatedNavigateButton(
-                  label: "Browse All",
-                  icon: const Icon(Icons.arrow_forward),
-                  borderRadius: 12,
-                  onTap: () => navigateWithSlideTransition(
-                    context,
-                    const AllCertificatesView(),
-                  ),
-                  width: 190,
-                ),
-                const SizedBox(height: 20),
+
                 SizedBox(
                   key: HomeController.footerKey,
                   height: MediaQuery.of(context).size.height,
@@ -97,11 +73,15 @@ class HomeMobileScreen extends GetView<HomeController> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const SizedBox(height: 60),
+              const SizedBox(height: kToolbarHeight),
               Expanded(
-                child: Align(
-                  alignment: Alignment.center,
-                  child: KPrettyAnimated(),
+                child: SizedBox(
+                  height: MediaQuery.of(context).size.width * 0.1,
+                  child: FittedBox(
+                    alignment: Alignment.center,
+                    fit: BoxFit.scaleDown,
+                    child: KPrettyAnimated(),
+                  ),
                 ),
               ),
               FittedBox(
