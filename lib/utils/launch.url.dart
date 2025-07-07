@@ -6,7 +6,7 @@ Future<void> launchUrlExternal(String url) async {
   if (await canLaunchUrl(uri)) {
     await launchUrl(
       uri,
-      mode: LaunchMode.externalApplication,
+      mode: LaunchMode.platformDefault,
       webOnlyWindowName: kIsWeb ? '_blank' : null,
     );
   } else {
