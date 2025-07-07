@@ -27,36 +27,5 @@
     ],
     "largeDescription": "GreenHive is an advanced smart greenhouse system designed to automate and optimize greenhouse operations. The repository is primarily written in Dart, making up 97.5% of the codebase, with additional support from TypeScript (1.6%) and other languages (0.9%). The project aims to deliver intelligent monitoring, control systems, and user interfaces for greenhouse environments, supporting features like sensor integration, automation, and real-time data analytics.",
     "type": "mobile"
-  },
-  {
-  "name": "Restaurant Management Frontend",
-  "description": "A dynamic front-end application built using Flutter (Dart) to streamline restaurant operations through an intuitive user interface and responsive client-side logic.",
-  "largeDescription": "This Flutter-based web application serves as the front-end of a restaurant management system, delivering seamless interaction and real-time responsiveness. It is designed to handle essential restaurant operations such as:\n\n- 🍽️ Order Processing: Streamlines order placement and tracking for efficient service.\n- 📋 Menu Management: Empowers staff to dynamically update menu items and categories.\n- 💬 Customer Interaction: Provides user-centric interfaces to enhance the dining experience.\n\nWith a responsive layout and clean component architecture, the project emphasizes performance, user experience, and integration readiness with backend systems. It showcases your ability to design scalable Flutter applications tailored to real-world operational needs.",
-  "url": "https://github.com/amankrmj01/restaurant_managemant_frontend",
-  "type": "web",
-  "images": [
-    "projects/restaurant_management/Screenshot1.png",
-    "projects/restaurant_management/Screenshot2.png",
-    "projects/restaurant_management/Screenshot3.png",
-    "projects/restaurant_management/Screenshot4.png",
-    "projects/restaurant_management/Screenshot5.png",
-    "projects/restaurant_management/Screenshot6.png",
-    "projects/restaurant_management/Screenshot7.png"
-  ]
-},
-  {
-  "name": "Restaurant Management Backend",
-  "description": "A robust Java-based backend service powering restaurant operations through secure RESTful APIs and modular business logic.",
-  "largeDescription": "This repository houses the backend infrastructure for a restaurant management system, fully developed in Java. It delivers a suite of RESTful APIs and implements core functionalities essential for smooth restaurant workflows, including:\n\n- 🔄 Order Lifecycle Management: Handles order creation, updates, and tracking.\n- 🗂️ Menu & Inventory APIs: Facilitates real-time updates to menu items and stock levels.\n- 🔐 Authentication & Security: Enforces secure access and data protection across services.\n\nThe backend seamlessly integrates with the Flutter-based frontend and is engineered for scalability, efficient data handling, and maintainability. This project highlights your strengths in backend architecture, API design, and production-level implementation.",
-  "url": "https://github.com/amankrmj01/restaurant_management_backend",
-  "type": "web",
-  "images": [
-    "projects/restaurant_management/image_1.png",
-    "projects/restaurant_management/image_2.png",
-    "projects/restaurant_management/image_1.png",
-    "projects/restaurant_management/image_2.png",
-    "projects/restaurant_management/image_1.png",
-    "projects/restaurant_management/image_2.png"
-  ]
-}
+  }
 ]
