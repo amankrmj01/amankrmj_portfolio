@@ -1,5 +1,4 @@
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/foundation.dart';
 
 Future<void> launchUrlExternal(String url) async {
   final uri = Uri.parse(url);
@@ -7,7 +6,7 @@ Future<void> launchUrlExternal(String url) async {
     await launchUrl(
       uri,
       mode: LaunchMode.platformDefault,
-      webOnlyWindowName: kIsWeb ? '_blank' : null,
+      webOnlyWindowName: '_blank',
     );
   } else {
     throw 'Could not launch $url';
