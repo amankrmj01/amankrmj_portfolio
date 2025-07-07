@@ -1,5 +1,36 @@
 [
   {
+    "name": "Restaurant Management Frontend",
+    "description": "A dynamic front-end application built using Flutter (Dart) to streamline restaurant operations through an intuitive user interface and responsive client-side logic.",
+    "url": "https://github.com/amankrmj01/restaurant_managemant_frontend",
+    "images": [
+      "projects/restaurant_management/Screenshot1.png",
+      "projects/restaurant_management/Screenshot2.png",
+      "projects/restaurant_management/Screenshot3.png",
+      "projects/restaurant_management/Screenshot4.png",
+      "projects/restaurant_management/Screenshot5.png",
+      "projects/restaurant_management/Screenshot6.png",
+      "projects/restaurant_management/Screenshot7.png"
+    ],
+    "largeDescription": "This Flutter-based web application serves as the front-end of a restaurant management system, delivering seamless interaction and real-time responsiveness. It is designed to handle essential restaurant operations such as:\n\n- 🍽️ Order Processing: Streamlines order placement and tracking for efficient service.\n- 📋 Menu Management: Empowers staff to dynamically update menu items and categories.\n- 💬 Customer Interaction: Provides user-centric interfaces to enhance the dining experience.\n\nWith a responsive layout and clean component architecture, the project emphasizes performance, user experience, and integration readiness with backend systems. It showcases your ability to design scalable Flutter applications tailored to real-world operational needs.",
+    "type": "web"
+  },
+  {
+    "name": "Restaurant Management Backend",
+    "description": "A robust Java-based backend service powering restaurant operations through secure RESTful APIs and modular business logic.",
+    "url": "https://github.com/amankrmj01/restaurant_management_backend",
+    "images": [
+      "projects/restaurant_management/image_1.png",
+      "projects/restaurant_management/image_2.png",
+      "projects/restaurant_management/image_1.png",
+      "projects/restaurant_management/image_2.png",
+      "projects/restaurant_management/image_1.png",
+      "projects/restaurant_management/image_2.png"
+    ],
+    "largeDescription": "This repository houses the backend infrastructure for a restaurant management system, fully developed in Java. It delivers a suite of RESTful APIs and implements core functionalities essential for smooth restaurant workflows, including:\n\n- 🔄 Order Lifecycle Management: Handles order creation, updates, and tracking.\n- 🗂️ Menu & Inventory APIs: Facilitates real-time updates to menu items and stock levels.\n- 🔐 Authentication & Security: Enforces secure access and data protection across services.\n\nThe backend seamlessly integrates with the Flutter-based frontend and is engineered for scalability, efficient data handling, and maintainability. This project highlights your strengths in backend architecture, API design, and production-level implementation.",
+    "type": "web"
+  },
+  {
     "name": "SwiftCafe",
     "description": "A Flutter-based mobile app for placing orders at SwiftCafe, designed to streamline the ordering experience with a clean and intuitive interface.",
     "url": "https://github.com/amankrmj01/swift_cafe",
@@ -8,12 +39,12 @@
       "projects/swift_cafe/Screenshot_Details_Screen.png",
       "projects/swift_cafe/Screenshot_Home_screen.png"
     ],
-    "largeDescription": "SwiftCafe is a Flutter mobile application built to enhance the customer experience at SwiftCafe. It allows users to browse the menu, customize their orders, and place them seamlessly from their smartphones. Featuring smooth navigation across the home, authentication, and detail screens, the app combines modern UI with efficient backend integration.",
+    "largeDescription": "SwiftCafe is a cross-platform mobile app built using Flutter, crafted to enhance the café-ordering experience. With intuitive navigation across authentication, home, and product detail screens, the app allows customers to:\n\n- ☕ Explore the menu and product details.\n- ✏️ Customize their orders effortlessly.\n- 📱 Place orders with a smooth, responsive UI.\n\nThe project emphasizes simplicity, performance, and modern design, making it ideal for real-world customer-centric ordering solutions.",
     "type": "mobile"
   },
   {
     "name": "GreenHive",
-    "description": "A smart greenhouse system project utilizing Dart for core application logic, with supporting code in TypeScript and other technologies.",
+    "description": "An intelligent greenhouse automation system powered by Dart, featuring real-time control, monitoring, and data visualization for optimized plant care.",
     "url": "https://github.com/GreenHive-Smart-Greenhouse-System/greenhive",
     "images": [
       "projects/greenhive/image_1.png",
@@ -25,7 +56,7 @@
       "projects/greenhive/image_7.png",
       "projects/greenhive/image_8.png"
     ],
-    "largeDescription": "GreenHive is an advanced smart greenhouse system designed to automate and optimize greenhouse operations. The repository is primarily written in Dart, making up 97.5% of the codebase, with additional support from TypeScript (1.6%) and other languages (0.9%). The project aims to deliver intelligent monitoring, control systems, and user interfaces for greenhouse environments, supporting features like sensor integration, automation, and real-time data analytics.",
+    "largeDescription": "GreenHive is a smart greenhouse system designed to intelligently manage and automate key agricultural functions. Developed primarily in Dart (97.5%), with additional support from TypeScript (1.6%) and other technologies (0.9%), this project aims to:\n\n- 🌱 Automate climate control and irrigation through sensor integration.\n- 📈 Provide real-time monitoring of environmental data like humidity, temperature, and soil moisture.\n- 🧠 Enable intelligent decision-making with predictive logic for optimized plant growth.\n\nWith a focus on sustainability and agricultural innovation, GreenHive offers a mobile-friendly dashboard that empowers users to control greenhouse conditions remotely, making it ideal for modern smart farming ecosystems.",
     "type": "mobile"
   }
 ]
