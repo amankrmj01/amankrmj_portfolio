@@ -36,9 +36,7 @@ class _AnimatedRotateIconState extends State<AnimatedRotateIcon> {
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
         onTap: () {
-          setState(() => _isHovered = true);
           launchUrlExternal(widget.url);
-          setState(() => _isHovered = false);
         },
         child: Row(
           mainAxisSize: MainAxisSize.min,

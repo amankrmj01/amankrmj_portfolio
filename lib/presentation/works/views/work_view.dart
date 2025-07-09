@@ -51,7 +51,9 @@ class _WorkViewState extends State<WorkView> {
                               flex: 2,
                               child: Padding(
                                 padding: const EdgeInsets.all(24.0),
-                                child: _buildContent(),
+                                child: SingleChildScrollView(
+                                  child: _buildContent(),
+                                ),
                               ),
                             ),
                             Expanded(

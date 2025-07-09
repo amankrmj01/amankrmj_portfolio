@@ -14,7 +14,7 @@ class KCertificateCard extends StatefulWidget {
 
   final double? width;
   final double? height;
-  final bool? fixedHeight;
+  final bool onHome;
   final bool expandToContentHeight;
 
   const KCertificateCard({
@@ -23,7 +23,7 @@ class KCertificateCard extends StatefulWidget {
     this.onTap,
     this.width = 500,
     this.height,
-    this.fixedHeight = true,
+    required this.onHome,
     this.expandToContentHeight = false,
   });
 
@@ -156,18 +156,13 @@ class _KCertificateCard extends State<KCertificateCard> {
                                 const SizedBox(height: 8),
                                 Text(
                                   widget.certificate.description,
+                                  textAlign: TextAlign.justify,
                                   style: const TextStyle(
                                     fontSize: 15,
                                     color: Colors.white70,
                                     fontFamily: "Poppins",
                                     decoration: TextDecoration.none,
                                   ),
-                                  maxLines: widget.fixedHeight == true
-                                      ? 2
-                                      : null,
-                                  overflow: widget.fixedHeight == true
-                                      ? TextOverflow.ellipsis
-                                      : null,
                                   softWrap: true,
                                 ),
                                 const SizedBox(height: 8),
@@ -181,9 +176,6 @@ class _KCertificateCard extends State<KCertificateCard> {
                                     decoration: TextDecoration.none,
                                   ),
                                   maxLines: isMobile ? 4 : 8,
-                                  overflow: widget.fixedHeight == true
-                                      ? TextOverflow.ellipsis
-                                      : null,
                                   softWrap: true,
                                 ),
                                 const SizedBox(height: 10),
@@ -226,33 +218,28 @@ class _KCertificateCard extends State<KCertificateCard> {
                                         fontFamily: "Poppins",
                                         decoration: TextDecoration.none,
                                       ),
-                                      maxLines: widget.fixedHeight == true
-                                          ? 2
-                                          : null,
-                                      overflow: widget.fixedHeight == true
-                                          ? TextOverflow.ellipsis
-                                          : null,
                                       softWrap: true,
                                     ),
                                     const SizedBox(height: 8),
-                                    Text(
-                                      widget.certificate.largeDescription,
-                                      textAlign: TextAlign.justify,
-                                      style: const TextStyle(
-                                        fontSize: 13,
-                                        color: Colors.white70,
-                                        fontFamily: "Poppins",
-                                        decoration: TextDecoration.none,
-                                      ),
-                                      maxLines: isMobile ? 4 : 8,
-                                      overflow: widget.fixedHeight == true
-                                          ? TextOverflow.ellipsis
-                                          : null,
-                                      softWrap: true,
-                                    ),
+                                    widget.onHome
+                                        ? const SizedBox.shrink()
+                                        : Text(
+                                            widget.certificate.largeDescription,
+                                            textAlign: TextAlign.justify,
+                                            style: const TextStyle(
+                                              fontSize: 13,
+                                              color: Colors.white70,
+                                              fontFamily: "Poppins",
+                                              decoration: TextDecoration.none,
+                                            ),
+                                            softWrap: true,
+                                          ),
                                     const SizedBox(height: 10),
                                     Wrap(
                                       spacing: 6,
+                                      runSpacing: 4,
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.start,
                                       runAlignment: WrapAlignment.end,
                                       children: List<Widget>.from(
                                         widget.certificate.skills.map(

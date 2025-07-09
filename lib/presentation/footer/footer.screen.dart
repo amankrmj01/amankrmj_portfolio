@@ -4,8 +4,6 @@ import 'package:portfolio/widgets/animated.navigate.button.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:pretty_animated_text/pretty_animated_text.dart';
-import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../infrastructure/theme/colors.dart';
 import '../../utils/k.showGeneralDialog.dart';
@@ -108,56 +106,113 @@ class FooterScreen extends GetView<FooterController> {
     );
   }
 
-  Widget _footerSocial() {
+  Widget _footerSocial({required bool swap}) {
     final homeController = Get.find<HomeController>();
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Container(
-          alignment: Alignment.centerLeft,
-          width: 200,
-          child: AnimatedNavigateButton(
-            borderRadius: 16,
-            label: "View Resume",
-            onTap: () =>
-                launchUrlExternal(homeController.socialLinks['resume'] ?? ''),
-            icon: SvgPicture.asset(
-              'assets/icons/resume.svg',
-              width: 28,
-              height: 28,
-            ),
-            width: 200,
-          ),
-        ),
-        const SizedBox(height: 40),
-        Container(
-          alignment: Alignment.centerLeft,
-          width: 200,
-          child: Builder(
-            builder: (context) => AnimatedNavigateButton(
-              borderRadius: 16,
-              label: "Contact Me",
-              onTap: () {
-                showBlurredGeneralDialog(
-                  context: context,
-                  builder: (context) => ContactMeView(),
-                );
-              },
-              icon: Image.asset(
-                'assets/icons/contact_me.png',
-                width: 28,
-                height: 28,
-                fit: BoxFit.fitHeight,
+    return swap
+        ? Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: 200,
+                    child: AnimatedNavigateButton(
+                      borderRadius: 16,
+                      label: "View Resume",
+                      onTap: () => launchUrlExternal(
+                        homeController.socialLinks['resume'] ?? '',
+                      ),
+                      icon: SvgPicture.asset(
+                        'assets/icons/resume.svg',
+                        width: 28,
+                        height: 28,
+                      ),
+                      width: 200,
+                    ),
+                  ),
+                ),
               ),
-              width: 200,
-            ),
-          ),
-        ),
-        const SizedBox(height: 14),
-      ],
-    );
+              Flexible(
+                child: FittedBox(
+                  fit: BoxFit.fitWidth,
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    width: 200,
+                    child: Builder(
+                      builder: (context) => AnimatedNavigateButton(
+                        borderRadius: 16,
+                        label: "Contact Me",
+                        onTap: () {
+                          showBlurredGeneralDialog(
+                            context: context,
+                            builder: (context) => ContactMeView(),
+                          );
+                        },
+                        icon: Image.asset(
+                          'assets/icons/contact_me.png',
+                          width: 28,
+                          height: 28,
+                          fit: BoxFit.fitHeight,
+                        ),
+                        width: 200,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          )
+        : Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Container(
+                alignment: Alignment.centerLeft,
+                width: 200,
+                child: AnimatedNavigateButton(
+                  borderRadius: 16,
+                  label: "View Resume",
+                  onTap: () => launchUrlExternal(
+                    homeController.socialLinks['resume'] ?? '',
+                  ),
+                  icon: SvgPicture.asset(
+                    'assets/icons/resume.svg',
+                    width: 28,
+                    height: 28,
+                  ),
+                  width: 200,
+                ),
+              ),
+              const SizedBox(height: 40),
+              Container(
+                alignment: Alignment.centerLeft,
+                width: 200,
+                child: Builder(
+                  builder: (context) => AnimatedNavigateButton(
+                    borderRadius: 16,
+                    label: "Contact Me",
+                    onTap: () {
+                      showBlurredGeneralDialog(
+                        context: context,
+                        builder: (context) => ContactMeView(),
+                      );
+                    },
+                    icon: Image.asset(
+                      'assets/icons/contact_me.png',
+                      width: 28,
+                      height: 28,
+                      fit: BoxFit.fitHeight,
+                    ),
+                    width: 200,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 14),
+            ],
+          );
   }
 
   Widget _madeWithFlutterLabel() {
@@ -198,27 +253,38 @@ class FooterScreen extends GetView<FooterController> {
           SizedBox(height: isMobile! ? kToolbarHeight : 124),
           Expanded(flex: 6, child: _quoteSection(isMobile: isMobile!)),
           isMobile!
-              ? SizedBox(
-                  width: double.infinity,
-                  child: ColoredBox(
-                    color: Colors.black,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: LayoutBuilder(
-                        builder: (context, constraints) {
-                          final swap = constraints.maxWidth < 600;
-                          return Wrap(
-                            alignment: swap
-                                ? WrapAlignment.center
-                                : WrapAlignment.spaceBetween,
-                            crossAxisAlignment: WrapCrossAlignment.center,
-                            children: [
-                              _footerWelcomePart(isMobile: isMobile!),
-                              const SizedBox(height: 20, width: 20),
-                              _footerSocial(),
-                            ],
-                          );
-                        },
+              ? Expanded(
+                  flex: 4,
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ColoredBox(
+                      color: Colors.black,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: LayoutBuilder(
+                          builder: (context, constraints) {
+                            final swap = constraints.maxWidth < 600;
+                            return swap
+                                ? Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      _footerWelcomePart(isMobile: isMobile!),
+                                      const SizedBox(height: 20, width: 20),
+                                      _footerSocial(swap: swap),
+                                    ],
+                                  )
+                                : Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      _footerWelcomePart(isMobile: isMobile!),
+                                      const SizedBox(height: 20, width: 20),
+                                      _footerSocial(swap: swap),
+                                    ],
+                                  );
+                          },
+                        ),
                       ),
                     ),
                   ),
@@ -246,7 +312,7 @@ class FooterScreen extends GetView<FooterController> {
                               ],
                             ),
                           ),
-                          Expanded(flex: 1, child: _footerSocial()),
+                          Expanded(flex: 1, child: _footerSocial(swap: false)),
                           // SizedBox(width: 40),
                         ],
                       ),
@@ -255,71 +321,6 @@ class FooterScreen extends GetView<FooterController> {
                 ),
         ],
       ),
-    );
-  }
-}
-
-class _AnimatedQuoteOnVisible extends StatefulWidget {
-  final dynamic quote;
-
-  const _AnimatedQuoteOnVisible({required this.quote});
-
-  @override
-  State<_AnimatedQuoteOnVisible> createState() =>
-      _AnimatedQuoteOnVisibleState();
-}
-
-class _AnimatedQuoteOnVisibleState extends State<_AnimatedQuoteOnVisible> {
-  bool _visible = false;
-
-  @override
-  void initState() {
-    super.initState();
-    // Fallback: trigger after first frame in case already visible
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted && !_visible) {
-        setState(() {
-          _visible = true;
-        });
-        debugPrint('Quote fallback: triggered after first frame');
-      }
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return VisibilityDetector(
-      key: Key(
-        'animated-quote-visible-${widget.quote.hashCode}-${_visible ? 1 : 0}',
-      ),
-      onVisibilityChanged: (info) {
-        debugPrint('Quote visibility: ${info.visibleFraction}');
-        if (info.visibleFraction > 0 && !_visible) {
-          setState(() {
-            _visible = true;
-          });
-        } else if (info.visibleFraction == 0 && _visible) {
-          // Reset _visible and also change the key to force ChimeBellText to fully rebuild next time
-          setState(() {
-            _visible = false;
-          });
-        }
-      },
-      child: _visible
-          ? ChimeBellText(
-              key: ValueKey(DateTime.now().millisecondsSinceEpoch),
-              // force a new instance every time
-              text: '"${widget.quote.quote}"',
-              duration: const Duration(seconds: 4),
-              type: AnimationType.word,
-              textStyle: TextStyle(
-                fontSize: 32,
-                fontWeight: FontWeight.w500,
-                fontFamily: 'ShantellSans',
-                color: KColor.secondarySecondColor,
-              ),
-            )
-          : const SizedBox(height: 40),
     );
   }
 }

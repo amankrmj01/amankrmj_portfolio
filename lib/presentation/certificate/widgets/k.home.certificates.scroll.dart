@@ -49,6 +49,7 @@ class _KCertificateScrollListState extends State<KCertificateScrollList> {
             return LayoutBuilder(
               builder: (context, constraints) {
                 return KCertificateCard(
+                  onHome: true,
                   certificate: item,
                   onTap: () => widget.onCardTap(item, context),
                   height: constraints.maxHeight,
