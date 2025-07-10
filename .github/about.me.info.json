@@ -28,147 +28,147 @@
         "name": "Css",
         "image": "svg_icons/css-3-svgrepo-com.svg",
         "url": "https://www.w3.org/Style/CSS/Overview.en.html",
-        "color": 2920248,
+        "color": "0xFF1172b8",
         "width": 60
       },
       {
         "name": "Javascript",
         "image": "svg_icons/javascript-svgrepo-com.svg",
         "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-        "color": 16273822,
+        "color": "0xFFF7DF1E",
         "width": 170
       },
       {
         "name": "Java",
         "image": "svg_icons/java-svgrepo-com.svg",
         "url": "https://www.java.com",
-        "color": 755890,
+        "color": "0xFF007396",
         "width": 70
       },
       {
         "name": "Kotlin",
         "image": "svg_icons/kotlin-svgrepo-com.svg",
         "url": "https://kotlinlang.org",
-        "color": 8357119,
+        "color": "0xFF7F52FF",
         "width": 100
       },
       {
         "name": "Python",
         "image": "svg_icons/python-svgrepo-com.svg",
         "url": "https://www.python.org",
-        "color": 3633915,
+        "color": "0xFF3776AB",
         "width": 110
       },
       {
         "name": "Html",
         "image": "svg_icons/html-5-svgrepo-com.svg",
         "url": "https://html.spec.whatwg.org",
-        "color": 15849897,
+        "color": "0xFFf16529",
         "width": 60
       },
       {
         "name": "Django",
         "image": "svg_icons/django-svgrepo-com.svg",
         "url": "https://www.djangoproject.com",
-        "color": 4511883,
+        "color": "0xFF44b78b",
         "width": 80
       },
       {
         "name": "Flutter",
         "image": "svg_icons/flutter-svgrepo-com.svg",
         "url": "https://flutter.dev",
-        "color": 4327933,
+        "color": "0xFF41d0fd",
         "width": 90
       },
       {
         "name": "Spring",
         "image": "svg_icons/spring-svgrepo-com.svg",
         "url": "https://spring.io",
-        "color": 7197119,
+        "color": "0xFF6DB33F",
         "width": 70
       },
       {
         "name": "Mongodb",
         "image": "svg_icons/mongodb-svgrepo-com.svg",
         "url": "https://www.mongodb.com",
-        "color": 4688712,
+        "color": "0xFF47A248",
         "width": 90
       },
       {
         "name": "Pgsql",
         "image": "svg_icons/pgsql-svgrepo-com.svg",
         "url": "https://www.postgresql.org",
-        "color": 3367569,
+        "color": "0xFF336791",
         "width": 70
       },
       {
         "name": "Gitlab",
         "image": "svg_icons/gitlab-svgrepo-com.svg",
         "url": "https://gitlab.com",
-        "color": 16537062,
+        "color": "0xFFfc6d26",
         "width": 80
       },
       {
         "name": "Git",
         "image": "svg_icons/git-svgrepo-com.svg",
         "url": "https://git-scm.com",
-        "color": 15637051,
+        "color": "0xFFee513b",
         "width": 50
       },
       {
         "name": "Github",
         "image": "svg_icons/github-color-svgrepo-com.svg",
         "url": "https://github.com",
-        "color": 4098371,
+        "color": "0xFF3e75c3",
         "width": 70
       },
       {
         "name": "Docker",
         "image": "svg_icons/docker-svgrepo-com.svg",
         "url": "https://www.docker.com",
-        "color": 15528532,
+        "color": "0xFF1794d4",
         "width": 70
       },
       {
         "name": "Android Studio",
         "image": "svg_icons/icons8-android-studio.svg",
         "url": "https://developer.android.com/studio",
-        "color": 4569990,
+        "color": "0xFF45d286",
         "width": 130
       },
       {
         "name": "Intellij Idea",
         "image": "svg_icons/icons8-intellij-idea.svg",
         "url": "https://www.jetbrains.com/idea/",
-        "color": 11204796,
+        "color": "0xFFab47bc",
         "width": 100
       },
       {
         "name": "Spring Boot",
         "image": "svg_icons/icons8-spring-boot.svg",
         "url": "https://spring.io/projects/spring-boot",
-        "color": 7197119,
+        "color": "0xFF6DB33F",
         "width": 90
       },
       {
         "name": "Postman",
         "image": "svg_icons/postman-icon-svgrepo-com.svg",
         "url": "https://www.postman.com",
-        "color": 8081787,
+        "color": "0xFF7B7B7B",
         "width": 70
       },
       {
         "name": "Pycharm",
         "image": "svg_icons/pycharm-svgrepo-com.svg",
         "url": "https://www.jetbrains.com/pycharm/",
-        "color": 13299553,
+        "color": "0xFFc9eb61",
         "width": 70
       },
       {
         "name": "Vscode",
         "image": "svg_icons/vscode-svgrepo-com.svg",
         "url": "https://code.visualstudio.com",
-        "color": 2071792,
+        "color": "0xFF1f9cf0",
         "width": 70
       }
     ]
