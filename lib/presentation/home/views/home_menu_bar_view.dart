@@ -14,7 +14,7 @@ class HomeMenuBarView extends StatelessWidget {
     'Home',
     'Works',
     'Certificates',
-    'Experience',
+    'About Me',
   ];
   final List<IconData> icons = const [
     Icons.home,

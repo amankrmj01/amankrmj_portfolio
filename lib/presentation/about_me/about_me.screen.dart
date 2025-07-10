@@ -1,8 +1,15 @@
+import 'package:portfolio/presentation/about_me/widgets/animated.experience.card.dart';
+import 'package:portfolio/presentation/about_me/widgets/animated.tools.widget.dart';
+import 'package:portfolio/presentation/experience/experience.screen.dart';
+
 import '../../configs/about_me.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../configs/experience.dart';
+import '../../utils/k.navigate.dart';
+import '../experience/controllers/experience.controller.dart';
 import 'controllers/about_me.controller.dart';
 
 class AboutMeScreen extends GetView<AboutMeController> {
@@ -10,12 +17,12 @@ class AboutMeScreen extends GetView<AboutMeController> {
 
   @override
   Widget build(BuildContext context) {
-    final summary = aboutMe['summary'] ?? '';
-    final profession = aboutMe['profession'] ?? '';
-    final education = aboutMe['education'] ?? '';
-    final email = aboutMe['email'] ?? '';
-    final interests = aboutMe['interests'] as List<dynamic>?;
-    final experience = aboutMe['experience'] ?? '';
+    final summary = aboutMe.summary;
+    final profession = aboutMe.profession;
+    final education = aboutMe.education;
+    final email = aboutMe.email;
+    final interests = aboutMe.interests;
+    final experience = aboutMe.experience;
     return SafeArea(
       child: SizedBox(
         height: MediaQuery.of(context).size.height * 0.70,
@@ -34,92 +41,144 @@ class AboutMeScreen extends GetView<AboutMeController> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
               colors: [
-                Color.lerp(Colors.transparent, Colors.white, 0.30)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.25)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.20)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.15)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.05)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.10)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.15)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.20)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.25)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.30)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.30)!,
-                Color.lerp(Colors.transparent, Colors.white, 0.20)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.30)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.25)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.20)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.15)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.05)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.10)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.15)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.20)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.25)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.30)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.30)!,
+                Color.lerp(Colors.transparent, Colors.black, 0.20)!,
               ],
             ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          child: Row(
             children: [
-              Text(
-                summary,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 24),
-              Row(
-                children: [
-                  const Icon(Icons.work_outline, size: 20),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Profession: $profession',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  const Icon(Icons.school_outlined, size: 20),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Education: $education',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  const Icon(Icons.timeline, size: 20),
-                  const SizedBox(width: 8),
-                  Text(
-                    'Experience: $experience',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  const Icon(Icons.email_outlined, size: 20),
-                  const SizedBox(width: 8),
-                  Text('Email: $email', style: const TextStyle(fontSize: 16)),
-                ],
-              ),
-              const SizedBox(height: 16),
-              if (interests != null) ...[
-                const Text(
-                  'Interests:',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                const SizedBox(height: 8),
-                Wrap(
-                  spacing: 8,
-                  children: interests
-                      .map(
-                        (interest) => Chip(
-                          label: Text(interest.toString()),
-                          backgroundColor: Colors.blue.shade50,
-                          labelStyle: const TextStyle(color: Colors.blue),
+              Flexible(
+                flex: 4,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      summary,
+                      textAlign: TextAlign.justify,
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Row(
+                      children: [
+                        const Icon(Icons.work_outline, size: 20),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Profession: $profession',
+                          style: const TextStyle(fontSize: 16),
                         ),
-                      )
-                      .toList(),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        const Icon(Icons.school_outlined, size: 20),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Education: $education',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        const Icon(Icons.timeline, size: 20),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Experience: $experience',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 12),
+                    Row(
+                      children: [
+                        const Icon(Icons.email_outlined, size: 20),
+                        const SizedBox(width: 8),
+                        Text(
+                          'Email: $email',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 16),
+                    ...[
+                      const Text(
+                        'Interests:',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      Wrap(
+                        spacing: 8,
+                        children: interests
+                            .map(
+                              (interest) => Chip(
+                                label: Text(interest.toString()),
+                                backgroundColor: Colors.blue.shade50,
+                                labelStyle: const TextStyle(color: Colors.blue),
+                              ),
+                            )
+                            .toList(),
+                      ),
+                    ],
+                  ],
                 ),
-              ],
+              ),
+              const SizedBox(width: 60),
+              Flexible(
+                flex: 3,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Column(
+                      children: [
+                        const Text(
+                          'Tools I Use:',
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        const SizedBox(height: 12),
+                        AnimatedToolsWidget(tools: aboutMe.tools),
+                      ],
+                    ),
+                    InkWell(
+                      onTap: () {
+                        // Ensure ExperienceController is registered before navigation
+                        if (!Get.isRegistered<ExperienceController>()) {
+                          Get.put(ExperienceController());
+                        }
+                        navigateWithSlideTransition(
+                          context,
+                          const ExperienceScreen(),
+                        );
+                      },
+                      child: AnimatedExperienceCard(experiences: experiences),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),

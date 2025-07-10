@@ -77,69 +77,63 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(24.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextFormField(
-              controller: usernameController,
-              style: const TextStyle(color: Colors.black),
-              onFieldSubmitted: (_) => _submit(),
-              decoration: _inputDecoration(
-                label: 'Username',
-                icon: Icons.person,
-                context: context,
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your admin username';
-                }
-                return null;
-              },
+    return Form(
+      key: _formKey,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextFormField(
+            controller: usernameController,
+            style: const TextStyle(color: Colors.black),
+            onFieldSubmitted: (_) => _submit(),
+            decoration: _inputDecoration(
+              label: 'Username',
+              icon: Icons.person,
+              context: context,
             ),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: passwordController,
-              obscureText: true,
-              style: const TextStyle(color: Colors.black),
-              onFieldSubmitted: (_) => _submit(),
-              decoration: _inputDecoration(
-                label: 'Password',
-                icon: Icons.lock,
-                context: context,
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter your password';
-                }
-                return null;
-              },
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your admin username';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 16),
+          TextFormField(
+            controller: passwordController,
+            obscureText: true,
+            style: const TextStyle(color: Colors.black),
+            onFieldSubmitted: (_) => _submit(),
+            decoration: _inputDecoration(
+              label: 'Password',
+              icon: Icons.lock,
+              context: context,
             ),
-            const SizedBox(height: 24),
-            ElevatedButton(
-              onPressed: _submit,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: KColor.secondaryColor,
-                foregroundColor: Colors.white,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 40,
-                  vertical: 20,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-              ),
-              child: const Text(
-                'Submit',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter your password';
+              }
+              return null;
+            },
+          ),
+          const SizedBox(height: 24),
+          ElevatedButton(
+            onPressed: _submit,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: KColor.secondaryColor,
+              foregroundColor: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(28),
               ),
             ),
-          ],
-        ),
+            child: const Text(
+              'Submit',
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+        ],
       ),
     );
   }

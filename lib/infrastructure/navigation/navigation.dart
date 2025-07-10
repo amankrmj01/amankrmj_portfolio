@@ -60,5 +60,10 @@ class Nav {
       page: () => const AdminScreen(),
       binding: AdminControllerBinding(),
     ),
+    GetPage(
+      name: Routes.ABOUT_ME,
+      page: () => const AboutMeScreen(),
+      binding: AboutMeControllerBinding(),
+    ),
   ];
 }

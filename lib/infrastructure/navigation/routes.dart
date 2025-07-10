@@ -5,10 +5,11 @@ class Routes {
     return HOME;
   }
 
+  static const ADMIN = '/admin';
   static const CERTIFICATE = '/certificate';
   static const EXPERIENCE = '/experience';
   static const FOOTER = '/footer';
   static const HOME = '/home';
   static const WORKS = '/works';
-  static const ADMIN = '/admin';
+  static const ABOUT_ME = '/about-me';
 }

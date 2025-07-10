@@ -13,7 +13,7 @@ final class KColor {
 class HomeBarView extends GetView<HomeController> {
   HomeBarView({super.key});
 
-  final List<String> labels = ['Home', 'Works', 'Certificates', 'Experience'];
+  final List<String> labels = ['Home', 'Works', 'Certificates', 'About Me'];
 
   @override
   Widget build(BuildContext context) {

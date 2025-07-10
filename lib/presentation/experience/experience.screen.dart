@@ -2,6 +2,7 @@ import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:portfolio/domain/models/experience.model.dart';
 
 import 'package:timelines_plus/timelines_plus.dart';
 
@@ -143,6 +144,7 @@ class ExperienceScreen extends GetView<ExperienceController> {
                           () => AnimatedWaveDotIndicator(
                             animate: controller.hoveredIndex.value == index,
                             color: KColor.secondarySecondColor,
+                            secondaryColor: KColor.secondaryColor,
                           ),
                         );
                       },
@@ -174,7 +176,7 @@ class ExperienceScreen extends GetView<ExperienceController> {
 }
 
 class ExperienceCard extends StatefulWidget {
-  final Map<String, dynamic> exp;
+  final Experience exp;
   final int index;
 
   const ExperienceCard({super.key, required this.exp, required this.index});
@@ -183,8 +185,9 @@ class ExperienceCard extends StatefulWidget {
   State<ExperienceCard> createState() => _ExperienceCardState();
 }
 
-class _ExperienceCardState extends State<ExperienceCard> {
-  bool _isHovered = false;
+class _ExperienceCardState extends State<ExperienceCard>
+    with TickerProviderStateMixin {
+  bool _isExpanded = false;
   late List<AuraSpot> _auraSpots;
 
   @override
@@ -237,96 +240,101 @@ class _ExperienceCardState extends State<ExperienceCard> {
   @override
   Widget build(BuildContext context) {
     final exp = widget.exp;
-    final controller = Get.find<ExperienceController>();
     return MouseRegion(
-      onEnter: (_) {
-        setState(() => _isHovered = true);
-        controller.hoveredIndex.value = widget.index;
-      },
       onExit: (_) {
-        setState(() => _isHovered = false);
-        controller.hoveredIndex.value = null;
+        setState(() {
+          _isExpanded = false;
+        });
       },
-      child: AnimatedContainer(
-        clipBehavior: Clip.hardEdge,
-        duration: const Duration(milliseconds: 600),
-        curve: Curves.easeInOut,
-        width: _isHovered ? 550 : 500,
-        height: _isHovered ? 220 : 200,
-        decoration: BoxDecoration(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: Color.lerp(Colors.transparent, Colors.white, 0.6)!,
-            width: 1,
-          ),
-        ),
-        child: RepaintBoundary(
-          child: AuraBox(
-            spots: _auraSpots,
+      child: GestureDetector(
+        onTap: () {
+          setState(() {
+            _isExpanded = !_isExpanded;
+          });
+        },
+        child: AnimatedSize(
+          duration: const Duration(milliseconds: 600),
+          curve: Curves.easeInOut,
+          child: AnimatedContainer(
+            clipBehavior: Clip.hardEdge,
+            duration: const Duration(milliseconds: 600),
+            curve: Curves.easeInOut,
+            width: 500,
+            constraints: _isExpanded
+                ? const BoxConstraints(minHeight: 200, maxHeight: 1000)
+                : const BoxConstraints(minHeight: 200, maxHeight: 200),
             decoration: BoxDecoration(
-              color: Color.lerp(Colors.black, Colors.transparent, 0.8),
-              shape: BoxShape.rectangle,
+              color: Colors.transparent,
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: Color.lerp(Colors.transparent, Colors.white, 0.6)!,
+                width: 1,
+              ),
             ),
-            child: AnimatedPadding(
-              duration: const Duration(milliseconds: 600),
-              curve: Curves.easeInOut,
-              padding: const EdgeInsets.all(24.0),
-              child: SingleChildScrollView(
-                physics: const ClampingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      exp['title'],
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      exp['company'],
-                      style: Theme.of(
-                        context,
-                      ).textTheme.bodyMedium?.copyWith(color: Colors.grey[700]),
-                    ),
-                    Text(
-                      '${exp['startDate']} - ${exp['endDate']}',
-                      style: Theme.of(context).textTheme.bodySmall,
-                    ),
-                    const SizedBox(height: 8),
-                    AnimatedSize(
-                      duration: const Duration(milliseconds: 1000),
-                      curve: Curves.easeInOut,
-                      alignment: Alignment.topCenter,
-                      child: Text(
-                        exp['description'],
-                        maxLines: _isHovered ? null : 1,
-                        overflow: _isHovered
-                            ? TextOverflow.visible
-                            : TextOverflow.ellipsis,
-                      ),
-                    ),
-                    if (exp['technologies'] != null) ...[
-                      const SizedBox(height: 8),
-                      Wrap(
-                        spacing: 6,
-                        children: List<Widget>.from(
-                          (exp['technologies'] as List).map(
-                            (tech) => Chip(label: Text(tech)),
+            child: RepaintBoundary(
+              child: AuraBox(
+                spots: _auraSpots,
+                decoration: BoxDecoration(
+                  color: Color.lerp(Colors.black, Colors.transparent, 0.8),
+                  shape: BoxShape.rectangle,
+                ),
+                child: AnimatedPadding(
+                  duration: const Duration(milliseconds: 600),
+                  curve: Curves.easeInOut,
+                  padding: const EdgeInsets.all(24.0),
+                  child: SingleChildScrollView(
+                    physics: const ClampingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          exp.title,
+                          style: Theme.of(context).textTheme.titleMedium
+                              ?.copyWith(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          exp.company,
+                          style: Theme.of(context).textTheme.bodyMedium
+                              ?.copyWith(color: Colors.grey[700]),
+                        ),
+                        Text(
+                          '${exp.startDate} - ${exp.endDate}',
+                          style: Theme.of(context).textTheme.bodySmall,
+                        ),
+                        const SizedBox(height: 8),
+                        AnimatedSize(
+                          duration: const Duration(milliseconds: 1000),
+                          curve: Curves.easeInOut,
+                          alignment: Alignment.topCenter,
+                          child: Text(
+                            exp.description,
+                            maxLines: _isExpanded ? null : 1,
+                            overflow: _isExpanded
+                                ? TextOverflow.visible
+                                : TextOverflow.ellipsis,
                           ),
                         ),
-                      ),
-                    ],
-                    if (exp['location'] != null)
-                      Padding(
-                        padding: const EdgeInsets.only(top: 4.0),
-                        child: Text(
-                          exp['location'],
-                          style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: Colors.blueGrey),
-                        ),
-                      ),
-                  ],
+                        if (exp.technologies.isNotEmpty) ...[
+                          const SizedBox(height: 8),
+                          Wrap(
+                            spacing: 6,
+                            children: exp.technologies
+                                .map((tech) => Chip(label: Text(tech)))
+                                .toList(),
+                          ),
+                        ],
+                        if (exp.location.isNotEmpty)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 4.0),
+                            child: Text(
+                              exp.location,
+                              style: Theme.of(context).textTheme.bodySmall
+                                  ?.copyWith(color: Colors.blueGrey),
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -340,11 +348,13 @@ class _ExperienceCardState extends State<ExperienceCard> {
 class AnimatedWaveDotIndicator extends StatefulWidget {
   final bool animate;
   final Color color;
+  final Color secondaryColor;
 
   const AnimatedWaveDotIndicator({
     super.key,
     required this.animate,
     required this.color,
+    required this.secondaryColor,
   });
 
   @override
@@ -422,10 +432,8 @@ class _AnimatedWaveDotIndicatorState extends State<AnimatedWaveDotIndicator>
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: widget.animate
-                        ? KColor.secondarySecondColor
-                        : KColor.secondarySecondColor.withAlpha(
-                            (0.4 * 255).toInt(),
-                          ),
+                        ? widget.secondaryColor
+                        : widget.secondaryColor.withAlpha((0.4 * 255).toInt()),
                     boxShadow: widget.animate
                         ? [
                             BoxShadow(

@@ -47,7 +47,7 @@ class HomeMobileScreen extends GetView<HomeController> {
                 const SizedBox(height: 20),
 
                 SizedBox(
-                  key: HomeController.footerKey,
+                  key: HomeController.aboutMeKey,
                   height: MediaQuery.of(context).size.height,
                   child: FooterScreen(
                     isMobile: controller.currentDevice.value == Device.Mobile,
@@ -64,7 +64,7 @@ class HomeMobileScreen extends GetView<HomeController> {
   Widget _mainSection(BuildContext context) {
     return Center(
       child: SizedBox(
-        key: HomeController.homeBarKey,
+        key: HomeController.homeKey,
         height: MediaQuery.of(context).size.height - kToolbarHeight,
         width: double.infinity,
         child: Padding(

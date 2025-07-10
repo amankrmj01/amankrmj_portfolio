@@ -68,7 +68,7 @@ class HomeTabletScreen extends GetView<HomeController> {
                         ),
                         const CertificateScreen(),
                         SizedBox(
-                          key: HomeController.footerKey,
+                          key: HomeController.aboutMeKey,
                           height: MediaQuery.of(context).size.height,
                           child: const FooterScreen(),
                         ),
@@ -95,7 +95,7 @@ class HomeTabletScreen extends GetView<HomeController> {
     var minHeight = MediaQuery.of(context).size.height;
     return Center(
       child: SizedBox(
-        key: HomeController.homeBarKey,
+        key: HomeController.homeKey,
         height: minHeight,
         width: double.infinity,
         child: Padding(

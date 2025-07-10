@@ -30,14 +30,14 @@ class HomeController extends GetxController {
   // Section keys for navigation
   static final GlobalKey recentWorksKey = GlobalKey();
   static final GlobalKey recentCertificatesKey = GlobalKey();
-  static final GlobalKey footerKey = GlobalKey();
-  static final GlobalKey homeBarKey = GlobalKey();
+  static final GlobalKey aboutMeKey = GlobalKey();
+  static final GlobalKey homeKey = GlobalKey();
 
   static final List<GlobalKey> sectionKeys = [
-    homeBarKey,
+    homeKey,
     recentWorksKey,
     recentCertificatesKey,
-    footerKey,
+    aboutMeKey,
   ];
 
   // Navigation actions: scrolls to section and updates selected tab

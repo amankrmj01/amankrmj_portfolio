@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/presentation/about_me/about_me.screen.dart';
 import 'package:portfolio/presentation/home/views/home_bar_view.dart';
 import 'package:portfolio/presentation/home/widgets/code.block.dart';
 import 'package:portfolio/presentation/home/widgets/widgets.dart';
@@ -72,7 +73,11 @@ class HomeDesktopScreen extends GetView<HomeController> {
                         ),
                         const CertificateScreen(),
                         SizedBox(
-                          key: HomeController.footerKey,
+                          key: HomeController.aboutMeKey,
+                          height: MediaQuery.of(context).size.height,
+                          child: const AboutMeScreen(),
+                        ),
+                        SizedBox(
                           height: MediaQuery.of(context).size.height,
                           child: const FooterScreen(),
                         ),
@@ -101,7 +106,7 @@ class HomeDesktopScreen extends GetView<HomeController> {
         : 776.0;
     return Center(
       child: SizedBox(
-        key: HomeController.homeBarKey,
+        key: HomeController.homeKey,
         height: minHeight,
         width: double.infinity,
         child: Padding(
