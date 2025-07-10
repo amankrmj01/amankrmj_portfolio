@@ -1,0 +1,176 @@
+[
+  {
+    "name": "Aman Kumar",
+    "profession": "Aspiring Software Engineer",
+    "location": "New Delhi, India",
+    "interests": [
+      "Coding",
+      "Music",
+      "Traveling"
+    ],
+    "experience": "3 years",
+    "education": "B.Tech in Computer Science",
+    "email": "aman.kumar@email.com",
+    "summary": "Based in Varanasi, I completed my high school education locally and earned a B.Tech in Electronics and Computer Engineering from VIT Chennai in 2026. I am passionate about full stack Java development and have hands-on experience building applications and websites using Java and Flutter. During my academic journey, I actively participated in numerous cultural and technical events, and also served as the head of the organizing committee for a technical club in college.",
+    "technicalInterests": [
+      "Flutter",
+      "Dart",
+      "Firebase",
+      "REST APIs",
+      "Machine Learning",
+      "UI/UX Design",
+      "Open Source",
+      "Cloud Computing",
+      "DevOps"
+    ],
+    "tools": [
+      {
+        "name": "Css",
+        "image": "svg_icons/css-3-svgrepo-com.svg",
+        "url": "https://www.w3.org/Style/CSS/Overview.en.html",
+        "color": 2920248,
+        "width": 60
+      },
+      {
+        "name": "Javascript",
+        "image": "svg_icons/javascript-svgrepo-com.svg",
+        "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+        "color": 16273822,
+        "width": 170
+      },
+      {
+        "name": "Java",
+        "image": "svg_icons/java-svgrepo-com.svg",
+        "url": "https://www.java.com",
+        "color": 755890,
+        "width": 70
+      },
+      {
+        "name": "Kotlin",
+        "image": "svg_icons/kotlin-svgrepo-com.svg",
+        "url": "https://kotlinlang.org",
+        "color": 8357119,
+        "width": 100
+      },
+      {
+        "name": "Python",
+        "image": "svg_icons/python-svgrepo-com.svg",
+        "url": "https://www.python.org",
+        "color": 3633915,
+        "width": 110
+      },
+      {
+        "name": "Html",
+        "image": "svg_icons/html-5-svgrepo-com.svg",
+        "url": "https://html.spec.whatwg.org",
+        "color": 15849897,
+        "width": 60
+      },
+      {
+        "name": "Django",
+        "image": "svg_icons/django-svgrepo-com.svg",
+        "url": "https://www.djangoproject.com",
+        "color": 4511883,
+        "width": 80
+      },
+      {
+        "name": "Flutter",
+        "image": "svg_icons/flutter-svgrepo-com.svg",
+        "url": "https://flutter.dev",
+        "color": 4327933,
+        "width": 90
+      },
+      {
+        "name": "Spring",
+        "image": "svg_icons/spring-svgrepo-com.svg",
+        "url": "https://spring.io",
+        "color": 7197119,
+        "width": 70
+      },
+      {
+        "name": "Mongodb",
+        "image": "svg_icons/mongodb-svgrepo-com.svg",
+        "url": "https://www.mongodb.com",
+        "color": 4688712,
+        "width": 90
+      },
+      {
+        "name": "Pgsql",
+        "image": "svg_icons/pgsql-svgrepo-com.svg",
+        "url": "https://www.postgresql.org",
+        "color": 3367569,
+        "width": 70
+      },
+      {
+        "name": "Gitlab",
+        "image": "svg_icons/gitlab-svgrepo-com.svg",
+        "url": "https://gitlab.com",
+        "color": 16537062,
+        "width": 80
+      },
+      {
+        "name": "Git",
+        "image": "svg_icons/git-svgrepo-com.svg",
+        "url": "https://git-scm.com",
+        "color": 15637051,
+        "width": 50
+      },
+      {
+        "name": "Github",
+        "image": "svg_icons/github-color-svgrepo-com.svg",
+        "url": "https://github.com",
+        "color": 4098371,
+        "width": 70
+      },
+      {
+        "name": "Docker",
+        "image": "svg_icons/docker-svgrepo-com.svg",
+        "url": "https://www.docker.com",
+        "color": 15528532,
+        "width": 70
+      },
+      {
+        "name": "Android Studio",
+        "image": "svg_icons/icons8-android-studio.svg",
+        "url": "https://developer.android.com/studio",
+        "color": 4569990,
+        "width": 130
+      },
+      {
+        "name": "Intellij Idea",
+        "image": "svg_icons/icons8-intellij-idea.svg",
+        "url": "https://www.jetbrains.com/idea/",
+        "color": 11204796,
+        "width": 100
+      },
+      {
+        "name": "Spring Boot",
+        "image": "svg_icons/icons8-spring-boot.svg",
+        "url": "https://spring.io/projects/spring-boot",
+        "color": 7197119,
+        "width": 90
+      },
+      {
+        "name": "Postman",
+        "image": "svg_icons/postman-icon-svgrepo-com.svg",
+        "url": "https://www.postman.com",
+        "color": 8081787,
+        "width": 70
+      },
+      {
+        "name": "Pycharm",
+        "image": "svg_icons/pycharm-svgrepo-com.svg",
+        "url": "https://www.jetbrains.com/pycharm/",
+        "color": 13299553,
+        "width": 70
+      },
+      {
+        "name": "Vscode",
+        "image": "svg_icons/vscode-svgrepo-com.svg",
+        "url": "https://code.visualstudio.com",
+        "color": 2071792,
+        "width": 70
+      }
+    ]
+  }
+]
