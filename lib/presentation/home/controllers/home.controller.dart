@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
-import 'package:portfolio/infrastructure/dal/services/social_link_service.dart';
 import 'package:portfolio/domain/models/social_links.model.dart';
+import 'package:portfolio/infrastructure/dal/servicess/social.links.fetch.service.dart';
 
 import '../../../infrastructure/dal/services/ping.server.dart';
 
@@ -21,8 +21,8 @@ class HomeController extends GetxController {
   Timer? _scrollEndDebouncer;
 
   // Social links
-  final RxMap<String, String> socialLinks = <String, String>{}.obs;
-  final SocialLinkService _socialLinkService = Get.find<SocialLinkService>();
+  final Rxn<SocialLinksModel> socialLinks = Rxn<SocialLinksModel>();
+  final _socialLinkService = SocialLinksFetchService();
 
   // Selected tab index for navigation bar
   final RxInt selectedTabIndex = 0.obs;
@@ -73,14 +73,26 @@ class HomeController extends GetxController {
   // Fetch social links
   Future<void> fetchSocialLinks() async {
     try {
-      final SocialLinksModel links = await _socialLinkService.fetchAll();
-      if (isClosed) return; // Prevent update after dispose
-      socialLinks.value = links.toJson().map(
-        (key, value) => MapEntry(key, value.toString()),
-      );
-    } catch (e) {
+      final List<dynamic> links = await _socialLinkService.fetchData();
       if (isClosed) return;
-      socialLinks.clear();
+      socialLinks.value = links.first;
+    } catch (e) {
+      _logger.e('Error fetching social links', error: e);
+      if (isClosed) return;
+      socialLinks.value = SocialLinksModel(
+        github: '',
+        linkedIn: '',
+        twitter: '',
+        instagram: '',
+        facebook: '',
+        medium: '',
+        email: '',
+        resume: '',
+        discord: '',
+        phoneNumber: '',
+        hackerrank: '',
+        leetcode: '',
+      );
     }
   }
 
@@ -89,6 +101,7 @@ class HomeController extends GetxController {
     super.onInit();
     _pingOnce();
     fetchSocialLinks();
+
     scrollController.addListener(_onScroll);
     meshGradientController = AnimatedMeshGradientController()..start();
   }

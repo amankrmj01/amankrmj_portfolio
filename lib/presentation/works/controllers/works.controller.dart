@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:portfolio/domain/models/project.model.dart';
 import 'package:portfolio/infrastructure/dal/services/project_service.dart';
 import 'package:flutter/material.dart';
@@ -24,13 +26,8 @@ class WorksController extends GetxController {
       final data = await Get.find<ProjectService>().fetchAll();
       projects.assignAll(data);
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to load projects: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.redAccent,
-        colorText: Colors.white,
-      );
+      fetchProjects();
+      log('Error fetching projects: $e');
     } finally {
       isLoading.value = false;
     }

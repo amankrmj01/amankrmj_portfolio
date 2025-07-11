@@ -8,7 +8,6 @@ class AdminLoginService {
   static const String passwordUrl = '${assetGithubUrl}password.json';
 
   Future<bool> login(String username, String inputPassword) async {
-    // Fetch the password file only when a new instance is used, and do not persist it
     final response = await http.get(Uri.parse(passwordUrl));
     try {
       if (response.statusCode == 200) {
@@ -21,10 +20,6 @@ class AdminLoginService {
       } else {
         throw Exception('Failed to load password');
       }
-    } finally {
-      // Explicitly clear the response body and close the connection if possible
-      // (http.get does not keep a file or stream open, so nothing to destroy)
-      // If you were using a file or stream, you would close it here.
-    }
+    } finally {}
   }
 }

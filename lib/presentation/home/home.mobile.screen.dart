@@ -28,7 +28,7 @@ class HomeMobileScreen extends GetView<HomeController> {
               children: [
                 _mainSection(context),
                 const SizedBox(height: 10),
-                SliverHeaderSection(
+                HeaderSection(
                   context: context,
                   title: 'Recent Works',
                   sectionKey: HomeController.recentWorksKey,
@@ -37,7 +37,7 @@ class HomeMobileScreen extends GetView<HomeController> {
                 const WorksScreen(),
                 const SizedBox(height: 20),
 
-                SliverHeaderSection(
+                HeaderSection(
                   context: context,
                   title: 'Recent Certificates',
                   sectionKey: HomeController.recentCertificatesKey,
@@ -45,9 +45,12 @@ class HomeMobileScreen extends GetView<HomeController> {
                 const SizedBox(height: 10),
                 const CertificateScreen(),
                 const SizedBox(height: 20),
-
                 SizedBox(
                   key: HomeController.aboutMeKey,
+                  height: MediaQuery.of(context).size.height,
+                  child: const AboutMeScreen(),
+                ),
+                SizedBox(
                   height: MediaQuery.of(context).size.height,
                   child: FooterScreen(
                     isMobile: controller.currentDevice.value == Device.Mobile,

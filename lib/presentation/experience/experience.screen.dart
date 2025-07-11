@@ -176,7 +176,7 @@ class ExperienceScreen extends GetView<ExperienceController> {
 }
 
 class ExperienceCard extends StatefulWidget {
-  final Experience exp;
+  final ExperienceModel exp;
   final int index;
 
   const ExperienceCard({super.key, required this.exp, required this.index});

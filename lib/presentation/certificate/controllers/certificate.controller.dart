@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'dart:developer';
 import '../../../domain/models/certificate.model.dart';
 import '../../../infrastructure/dal/services/certificate_service.dart';
 
@@ -20,13 +19,8 @@ class CertificateController extends GetxController {
       final data = await Get.find<CertificateService>().fetchAll();
       certificates.assignAll(data);
     } catch (e) {
-      Get.snackbar(
-        'Error',
-        'Failed to load projects: $e',
-        snackPosition: SnackPosition.BOTTOM,
-        backgroundColor: Colors.redAccent,
-        colorText: Colors.white,
-      );
+      fetchCertificates();
+      log('Error fetching projects: $e');
     } finally {
       isLoading.value = false;
     }

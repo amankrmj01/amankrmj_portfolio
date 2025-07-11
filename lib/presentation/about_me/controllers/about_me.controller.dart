@@ -1,23 +1,46 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
+import 'package:portfolio/domain/models/about.me.info.model.dart';
+
+import '../../../infrastructure/dal/servicess/about.me.info.fetch.service.dart';
 
 class AboutMeController extends GetxController {
-  final RxList<double> toolNameWidths = <double>[].obs;
+  final Rxn<AboutMeInfoModel> aboutMeInfo = Rxn<AboutMeInfoModel>();
+  final isLoading = true.obs;
 
-  void calculateToolNameWidths(List tools, TextStyle style) {
-    toolNameWidths.clear();
-    for (final tool in tools) {
-      final width = _calculateTextWidth(tool.name, style);
-      toolNameWidths.add(width);
+  final Logger _logger = Logger();
+
+  Future<void> fetchAboutMeInfo() async {
+    try {
+      final service = AboutMeInfoFetchService();
+      final List<dynamic> links = await service.fetchData();
+      if (isClosed) return;
+      aboutMeInfo.value = (links.isNotEmpty && links.first != null)
+          ? links.first
+          : AboutMeInfoModel(
+              name: '',
+              profession: '',
+              location: '',
+              interests: [],
+              experience: '',
+              education: '',
+              email: '',
+              summary: '',
+              technicalInterests: [],
+              tools: [],
+            );
+      isLoading.value = false;
+    } catch (e) {
+      isLoading.value = true;
+      _logger.e('Error fetching social links', error: e);
+      if (isClosed) return;
+      aboutMeInfo.value = null;
     }
   }
 
-  double _calculateTextWidth(String text, TextStyle style) {
-    final TextPainter textPainter = TextPainter(
-      text: TextSpan(text: text, style: style),
-      maxLines: 1,
-      textDirection: TextDirection.ltr,
-    )..layout();
-    return textPainter.size.width;
+  @override
+  void onInit() {
+    super.onInit();
+    fetchAboutMeInfo();
   }
 }

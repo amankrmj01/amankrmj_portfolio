@@ -58,14 +58,14 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     child: Column(
                       children: [
                         _mainSection(context),
-                        SliverHeaderSection(
+                        HeaderSection(
                           context: context,
                           title: 'Recent Works',
                           view: const AllWorksView(),
                           sectionKey: HomeController.recentWorksKey,
                         ),
                         const WorksScreen(),
-                        SliverHeaderSection(
+                        HeaderSection(
                           context: context,
                           title: 'Recent Certificates',
                           view: const AllCertificatesView(),

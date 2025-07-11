@@ -43,7 +43,7 @@ Widget verticalDivider() {
 
 /// Social Links Row
 Widget socialLinksRow(HomeController controller) {
-  final links = controller.socialLinks;
+  final links = controller.socialLinks.value;
   final isMobile = controller.currentDevice.value == Device.Mobile;
   return SizedBox(
     height: 50,
@@ -55,28 +55,28 @@ Widget socialLinksRow(HomeController controller) {
           outline: 'assets/icons/github_outline_white.svg',
           color: 'assets/icons/github_color.svg',
           label: isMobile ? "" : "Github",
-          url: links['github'] ?? '',
+          url: links?.github ?? '',
         ),
         verticalDivider(),
         animatedIcon(
           outline: 'assets/icons/linkedin_outline_white.svg',
           color: 'assets/icons/linkedin_color.svg',
           label: isMobile ? "" : "LinkedIn",
-          url: links['linkedIn'] ?? '',
+          url: links?.linkedIn ?? '',
         ),
         verticalDivider(),
         animatedIcon(
           outline: 'assets/icons/instagram_outline_white.svg',
           color: 'assets/icons/instagram_color.svg',
           label: isMobile ? "" : "Instagram",
-          url: links['instagram'] ?? '',
+          url: links?.instagram ?? '',
         ),
         verticalDivider(),
         animatedIcon(
           outline: 'assets/icons/discord_outline_white.svg',
           color: 'assets/icons/discord_color.svg',
           label: isMobile ? "" : "Discord",
-          url: links['discord'] ?? '',
+          url: links?.discord ?? '',
         ),
       ],
     ),
@@ -151,14 +151,14 @@ Widget navigateButtonAndSocialLinks(HomeController controller) {
   );
 }
 
-class SliverHeaderSection extends StatelessWidget {
+class HeaderSection extends StatelessWidget {
   final String title;
   final Widget? view;
   final GlobalKey sectionKey;
   final BuildContext context;
   final double? height;
 
-  const SliverHeaderSection({
+  const HeaderSection({
     super.key,
     required this.title,
     this.view,

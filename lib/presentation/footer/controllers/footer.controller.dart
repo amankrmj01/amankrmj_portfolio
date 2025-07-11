@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
+import 'package:portfolio/infrastructure/dal/servicess/quotes.fetch.service.dart';
 
 import '../../../domain/models/quote.model.dart';
-import '../../../infrastructure/dal/services/quote_service.dart';
 
 class FooterController extends GetxController {
   final quotes = <QuoteModel>[].obs;
@@ -16,8 +16,8 @@ class FooterController extends GetxController {
   Future<void> fetchQuotes() async {
     isLoading.value = true;
     try {
-      final service = Get.find<QuoteService>();
-      final data = await service.fetchAll();
+      final service = QuotesFetchService();
+      final data = await service.fetchData();
       quotes.assignAll(data);
     } catch (e) {
       quotes.clear();

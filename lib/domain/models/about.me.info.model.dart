@@ -1,4 +1,4 @@
-class AboutMe {
+class AboutMeInfoModel {
   final String name;
   final String profession;
   final String location;
@@ -8,9 +8,9 @@ class AboutMe {
   final String email;
   final String summary;
   final List<String> technicalInterests;
-  final List<Tool> tools;
+  final List<ToolModel> tools;
 
-  AboutMe({
+  AboutMeInfoModel({
     required this.name,
     required this.profession,
     required this.location,
@@ -23,8 +23,8 @@ class AboutMe {
     required this.tools,
   });
 
-  factory AboutMe.fromJson(Map<String, dynamic> json) {
-    return AboutMe(
+  factory AboutMeInfoModel.fromJson(Map<String, dynamic> json) {
+    return AboutMeInfoModel(
       name: json['name'] as String,
       profession: json['profession'] as String,
       location: json['location'] as String,
@@ -35,7 +35,7 @@ class AboutMe {
       summary: json['summary'] as String,
       technicalInterests: List<String>.from(json['technicalInterests'] as List),
       tools: (json['tools'] as List)
-          .map((tool) => Tool.fromJson(tool as Map<String, dynamic>))
+          .map((tool) => ToolModel.fromJson(tool as Map<String, dynamic>))
           .toList(),
     );
   }
@@ -56,14 +56,14 @@ class AboutMe {
   }
 }
 
-class Tool {
+class ToolModel {
   final String name;
   final String image;
   final String url;
-  final int color;
+  final String color;
   final double width;
 
-  Tool({
+  ToolModel({
     required this.name,
     required this.image,
     required this.url,
@@ -71,12 +71,12 @@ class Tool {
     required this.width,
   });
 
-  factory Tool.fromJson(Map<String, dynamic> json) {
-    return Tool(
+  factory ToolModel.fromJson(Map<String, dynamic> json) {
+    return ToolModel(
       name: json['name'] as String,
       image: json['image'] as String,
       url: json['url'] as String,
-      color: json['color'] as int,
+      color: json['color'] as String,
       width: json['width'] as double,
     );
   }

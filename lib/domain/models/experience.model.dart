@@ -1,4 +1,4 @@
-class Experience {
+class ExperienceModel {
   final String title;
   final String company;
   final String startDate;
@@ -8,7 +8,7 @@ class Experience {
   final List<String> technologies;
   final bool current;
 
-  Experience({
+  ExperienceModel({
     required this.title,
     required this.company,
     required this.startDate,
@@ -19,16 +19,29 @@ class Experience {
     required this.current,
   });
 
-  factory Experience.fromMap(Map<String, dynamic> map) {
-    return Experience(
-      title: map['title'] ?? '',
-      company: map['company'] ?? '',
-      startDate: map['startDate'] ?? '',
-      endDate: map['endDate'] ?? '',
-      description: map['description'] ?? '',
-      location: map['location'] ?? '',
-      technologies: List<String>.from(map['technologies'] ?? []),
-      current: map['current'] ?? false,
+  factory ExperienceModel.fromJson(Map<String, dynamic> json) {
+    return ExperienceModel(
+      title: json['title'] as String,
+      company: json['company'] as String,
+      startDate: json['startDate'] as String,
+      endDate: json['endDate'] as String,
+      description: json['description'] as String,
+      location: json['location'] as String,
+      technologies: List<String>.from(json['technologies'] as List<String>),
+      current: json['current'] as bool,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'title': title,
+      'company': company,
+      'startDate': startDate,
+      'endDate': endDate,
+      'description': description,
+      'location': location,
+      'technologies': technologies,
+      'current': current,
+    };
   }
 }

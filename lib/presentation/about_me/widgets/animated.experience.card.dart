@@ -4,16 +4,17 @@ import 'dart:math';
 import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
 import '../../../domain/models/experience.model.dart';
-import '../../experience/experience.screen.dart';
 
 class AnimatedExperienceCard extends StatefulWidget {
-  final List<Experience> experiences;
+  final List<ExperienceModel> experiences;
   final Duration duration;
+  final double width;
 
   const AnimatedExperienceCard({
     super.key,
     required this.experiences,
     this.duration = const Duration(seconds: 5),
+    required this.width,
   });
 
   @override
@@ -90,7 +91,7 @@ class _AnimatedExperienceCardState extends State<AnimatedExperienceCard>
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 550,
+      width: widget.width < 650 ? widget.width : 650,
       height: 250,
       child: Row(
         children: [
@@ -103,6 +104,7 @@ class _AnimatedExperienceCardState extends State<AnimatedExperienceCard>
                   child: Opacity(
                     opacity: _opacityAnim.value,
                     child: ExperienceCard(
+                      width: widget.width,
                       exp: widget.experiences[_currentIndex],
                     ),
                   ),
@@ -117,73 +119,8 @@ class _AnimatedExperienceCardState extends State<AnimatedExperienceCard>
                   child: Opacity(
                     opacity: 1 - _controller.value,
                     child: ExperienceCard(
+                      width: widget.width,
                       exp: widget.experiences[_currentIndex],
-                    ),
-                  ),
-                );
-              }
-            },
-          ),
-          AnimatedBuilder(
-            animation: _controller,
-            builder: (context, child) {
-              if (!_showNext) {
-                return Align(
-                  alignment: _alignmentAnim.value,
-                  child: SizedBox(
-                    width: 50,
-                    height: 200,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: 80,
-                          width: 8,
-                          child: ColoredBox(color: Colors.blue),
-                        ),
-                        AnimatedWaveDotIndicator(
-                          animate: true,
-                          color: Colors.blue,
-                          secondaryColor: Colors.blue,
-                        ),
-                        SizedBox(
-                          height: 80,
-                          width: 8,
-                          child: ColoredBox(color: Colors.blue),
-                        ),
-                      ],
-                    ),
-                  ),
-                );
-              } else {
-                return Align(
-                  alignment: Alignment.lerp(
-                    Alignment(0, 1),
-                    Alignment.center,
-                    1 - _controller.value,
-                  )!,
-                  child: SizedBox(
-                    width: 50,
-                    height: 200,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        SizedBox(
-                          height: 80,
-                          width: 8,
-                          child: ColoredBox(color: Colors.blue),
-                        ),
-                        AnimatedWaveDotIndicator(
-                          animate: true,
-                          color: Colors.blue,
-                          secondaryColor: Colors.blue,
-                        ),
-                        SizedBox(
-                          height: 80,
-                          width: 8,
-                          child: ColoredBox(color: Colors.blue),
-                        ),
-                      ],
                     ),
                   ),
                 );
@@ -197,9 +134,10 @@ class _AnimatedExperienceCardState extends State<AnimatedExperienceCard>
 }
 
 class ExperienceCard extends StatefulWidget {
-  final Experience exp;
+  final ExperienceModel exp;
+  final double width;
 
-  const ExperienceCard({super.key, required this.exp});
+  const ExperienceCard({super.key, required this.exp, required this.width});
 
   @override
   State<ExperienceCard> createState() => _ExperienceCardState();
@@ -258,8 +196,9 @@ class _ExperienceCardState extends State<ExperienceCard> {
     final exp = widget.exp;
     return Container(
       clipBehavior: Clip.hardEdge,
-      width: 450,
+      width: widget.width < 600 ? widget.width : 600,
       height: 200,
+
       decoration: BoxDecoration(
         color: Colors.transparent,
         borderRadius: BorderRadius.circular(16),
@@ -317,7 +256,11 @@ class _ExperienceCardState extends State<ExperienceCard> {
                     style: Theme.of(context).textTheme.bodySmall,
                   ),
                   const SizedBox(height: 8),
-                  Text(exp.description, maxLines: 1),
+                  Text(
+                    exp.description,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                   if (exp.technologies.isNotEmpty) ...[
                     const SizedBox(height: 8),
                     Wrap(

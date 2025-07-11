@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/configs/constant_strings.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
-import '../../../domain/models/about_me.model.dart';
+import '../../../domain/models/about.me.info.model.dart';
 
 class AnimatedToolsWidget extends StatefulWidget {
-  final List<Tool> tools;
+  final List<ToolModel> tools;
   final Duration duration;
 
   const AnimatedToolsWidget({
@@ -39,7 +39,7 @@ class _AnimatedToolsWidgetState extends State<AnimatedToolsWidget>
     );
     _alignmentAnim = Tween<Alignment>(
       begin: Alignment.center,
-      end: Alignment(0, -7),
+      end: Alignment(0, -4),
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
     _opacityAnim = Tween<double>(
       begin: 1.0,
@@ -80,10 +80,11 @@ class _AnimatedToolsWidgetState extends State<AnimatedToolsWidget>
   @override
   Widget build(BuildContext context) {
     final tool = widget.tools[_currentIndex];
+    final color = Color(int.parse(tool.color));
     TextStyle textStyle = TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.bold,
-      color: Color.lerp(Color(tool.color), Colors.white, 0.3),
+      color: Color.lerp(color, Colors.white, 0.3),
     );
     final textWidth = _calculateTextWidth(tool.name, textStyle);
     return Stack(
@@ -99,7 +100,7 @@ class _AnimatedToolsWidgetState extends State<AnimatedToolsWidget>
             margin: EdgeInsets.only(left: 36),
             padding: EdgeInsets.only(left: 40, right: 10),
             decoration: BoxDecoration(
-              color: Color.lerp(Color(tool.color), Colors.transparent, 0.3),
+              color: Color.lerp(color, Colors.transparent, 0.3),
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(
@@ -159,7 +160,7 @@ class _AnimatedToolsWidgetState extends State<AnimatedToolsWidget>
           padding: EdgeInsets.all(10),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-            color: Color.lerp(Color(tool.color), Colors.transparent, 0.3),
+            color: Color.lerp(color, Colors.transparent, 0.3),
             shape: BoxShape.circle,
           ),
           child: AnimatedBuilder(

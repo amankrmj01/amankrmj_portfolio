@@ -122,7 +122,7 @@ class FooterScreen extends GetView<FooterController> {
                       borderRadius: 16,
                       label: "View Resume",
                       onTap: () => launchUrlExternal(
-                        homeController.socialLinks['resume'] ?? '',
+                        homeController.socialLinks.value?.resume ?? '',
                       ),
                       icon: SvgPicture.asset(
                         'assets/icons/resume.svg',
@@ -176,7 +176,7 @@ class FooterScreen extends GetView<FooterController> {
                   borderRadius: 16,
                   label: "View Resume",
                   onTap: () => launchUrlExternal(
-                    homeController.socialLinks['resume'] ?? '',
+                    homeController.socialLinks.value?.resume ?? '',
                   ),
                   icon: SvgPicture.asset(
                     'assets/icons/resume.svg',

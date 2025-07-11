@@ -1,7 +1,7 @@
 import 'package:portfolio/domain/models/experience.model.dart';
 
-final List<Experience> experiences = [
-  Experience(
+final List<ExperienceModel> experiences = [
+  ExperienceModel(
     title: 'Software Engineer',
     company: 'Tech Solutions Inc.',
     startDate: '2021-06-01',
@@ -12,7 +12,7 @@ final List<Experience> experiences = [
     technologies: ['Flutter', 'Dart', 'Firebase'],
     current: false,
   ),
-  Experience(
+  ExperienceModel(
     title: 'Frontend Developer',
     company: 'Webify',
     startDate: '2019-01-15',
@@ -23,7 +23,7 @@ final List<Experience> experiences = [
     technologies: ['React', 'JavaScript', 'CSS'],
     current: false,
   ),
-  Experience(
+  ExperienceModel(
     title: 'Intern',
     company: 'Startup Hub',
     startDate: '2018-06-01',
@@ -33,7 +33,7 @@ final List<Experience> experiences = [
     technologies: ['Python', 'Django'],
     current: false,
   ),
-  Experience(
+  ExperienceModel(
     title: 'Mobile App Developer',
     company: 'AppVantage',
     startDate: '2021-06-01',
@@ -44,7 +44,7 @@ final List<Experience> experiences = [
     technologies: ['Flutter', 'Dart', 'Firebase'],
     current: false,
   ),
-  Experience(
+  ExperienceModel(
     title: 'Backend Engineer',
     company: 'DataCore',
     startDate: '2020-03-01',
@@ -55,7 +55,7 @@ final List<Experience> experiences = [
     technologies: ['Node.js', 'Express', 'MongoDB'],
     current: false,
   ),
-  Experience(
+  ExperienceModel(
     title: 'Full Stack Developer',
     company: 'TechBridge',
     startDate: '2017-01-01',
@@ -66,7 +66,7 @@ final List<Experience> experiences = [
     technologies: ['Angular', 'Java', 'Spring Boot'],
     current: false,
   ),
-  Experience(
+  ExperienceModel(
     title: 'UI/UX Designer',
     company: 'Designify',
     startDate: '2016-06-01',
@@ -77,7 +77,7 @@ final List<Experience> experiences = [
     technologies: ['Figma', 'Adobe XD', 'Sketch'],
     current: false,
   ),
-  Experience(
+  ExperienceModel(
     title: 'Junior Web Developer',
     company: 'BrightWeb',
     startDate: '2015-09-01',
