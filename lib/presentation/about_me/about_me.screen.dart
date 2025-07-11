@@ -13,7 +13,6 @@ import 'package:get/get.dart';
 import '../../configs/experience.dart';
 import '../../utils/k.navigate.dart';
 import '../experience/controllers/experience.controller.dart';
-import '../home/controllers/home.controller.dart';
 import 'controllers/about_me.controller.dart';
 
 class AboutMeScreen extends GetView<AboutMeController> {
