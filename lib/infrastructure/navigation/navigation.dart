@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:portfolio/presentation/admin/views/contact_screen_view.dart';
 
 import '../../config.dart';
 import '../../presentation/admin/admin.screen.dart';
+import '../../presentation/certificate/views/all_certificates_view.dart';
 import '../../presentation/home/home.screen.dart';
 import '../../presentation/screens.dart';
+import '../../presentation/works/views/all_wroks_view.dart';
 import 'bindings/controllers/controllers_bindings.dart';
 import 'routes.dart';
 
@@ -54,6 +57,17 @@ class Nav {
       name: Routes.EXPERIENCE,
       page: () => const ExperienceScreen(),
       binding: ExperienceControllerBinding(),
+      transition: Transition.rightToLeftWithFade,
+      transitionDuration: const Duration(milliseconds: 500),
+      preventDuplicates: true,
+    ),
+    GetPage(
+      name: Routes.CONTACT,
+      page: () => ContactScreenView(string: Get.arguments as String),
+      binding: AdminControllerBinding(),
+      transition: Transition.topLevel,
+      transitionDuration: const Duration(milliseconds: 500),
+      preventDuplicates: true,
     ),
     GetPage(
       name: Routes.ADMIN,
@@ -64,6 +78,22 @@ class Nav {
       name: Routes.ABOUT_ME,
       page: () => const AboutMeScreen(),
       binding: AboutMeControllerBinding(),
+    ),
+    GetPage(
+      name: Routes.ALL_PROJECTS,
+      page: () => const AllWorksView(),
+      binding: WorksControllerBinding(),
+      transition: Transition.rightToLeftWithFade,
+      transitionDuration: const Duration(milliseconds: 500),
+      preventDuplicates: true,
+    ),
+    GetPage(
+      name: Routes.ALL_CERTIFICATES,
+      page: () => const AllCertificatesView(),
+      binding: CertificateControllerBinding(),
+      transition: Transition.rightToLeftWithFade,
+      transitionDuration: const Duration(milliseconds: 500),
+      preventDuplicates: true,
     ),
   ];
 }

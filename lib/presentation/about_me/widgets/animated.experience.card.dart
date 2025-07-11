@@ -197,7 +197,6 @@ class _ExperienceCardState extends State<ExperienceCard> {
     return Container(
       clipBehavior: Clip.hardEdge,
       width: widget.width < 600 ? widget.width : 600,
-      height: 200,
 
       decoration: BoxDecoration(
         color: Colors.transparent,
@@ -218,62 +217,60 @@ class _ExperienceCardState extends State<ExperienceCard> {
             duration: const Duration(milliseconds: 600),
             curve: Curves.easeInOut,
             padding: const EdgeInsets.all(24.0),
-            child: SingleChildScrollView(
-              physics: const ClampingScrollPhysics(),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    exp.title,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  exp.title,
+                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
+                ),
+                Wrap(
+                  spacing: 36,
+                  alignment: WrapAlignment.spaceBetween,
+                  crossAxisAlignment: WrapCrossAlignment.start,
+                  runAlignment: WrapAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      exp.company,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(
+                        context,
+                      ).textTheme.bodyLarge?.copyWith(color: Colors.blueGrey),
+                    ),
+                    if (exp.location.isNotEmpty)
                       Text(
-                        exp.company,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(
-                          context,
-                        ).textTheme.bodyLarge?.copyWith(color: Colors.blueGrey),
-                      ),
-                      const Spacer(),
-                      if (exp.location.isNotEmpty)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 4.0),
-                          child: Text(
-                            exp.location,
-                            style: Theme.of(context).textTheme.bodyMedium
-                                ?.copyWith(color: Colors.blueGrey),
-                          ),
+                        exp.location,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: Colors.blueGrey,
                         ),
-                    ],
-                  ),
-                  Text(
-                    '${exp.startDate} - ${exp.endDate}',
-                    style: Theme.of(context).textTheme.bodySmall,
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    exp.description,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                  if (exp.technologies.isNotEmpty) ...[
-                    const SizedBox(height: 8),
-                    Wrap(
-                      spacing: 6,
-                      children: exp.technologies
-                          .map((tech) => Chip(label: Text(tech)))
-                          .toList(),
-                    ),
+                      ),
                   ],
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  '${exp.startDate} - ${exp.endDate}',
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+                const SizedBox(height: 8),
+                Text(
+                  exp.description,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                if (exp.technologies.isNotEmpty) ...[
+                  const SizedBox(height: 8),
+                  Wrap(
+                    spacing: 6,
+                    children: exp.technologies
+                        .map((tech) => Chip(label: Text(tech)))
+                        .toList(),
+                  ),
                 ],
-              ),
+              ],
             ),
           ),
         ),

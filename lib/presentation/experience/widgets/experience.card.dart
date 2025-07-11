@@ -2,8 +2,10 @@ import 'dart:math';
 
 import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../domain/models/experience.model.dart';
+import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../../infrastructure/theme/colors.dart';
 
 class ExperienceCard extends StatefulWidget {
@@ -29,6 +31,9 @@ class _ExperienceCardState extends State<ExperienceCard>
   final Random _random = Random();
 
   List<AuraSpot> randomizeAuraSpots() {
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
+    final isMobile = infoFetchController.currentDevice.value == Device.Mobile;
     // Minimum values
     const minRadius = 50.0;
     const maxRadius = 180.0;
@@ -45,7 +50,7 @@ class _ExperienceCardState extends State<ExperienceCard>
       Alignment.topCenter,
       Alignment.bottomCenter,
     ];
-    final colors = widget.showAll
+    final colors = (widget.showAll || isMobile)
         ? [
             Color(0xFF7F53AC), // Soft Purple
             Color(0xFF647DEE),

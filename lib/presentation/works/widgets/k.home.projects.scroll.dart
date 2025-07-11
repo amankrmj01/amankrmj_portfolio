@@ -6,8 +6,8 @@ import 'package:portfolio/domain/models/project.model.dart';
 import 'package:portfolio/presentation/works/widgets/k.project.card.dart';
 
 import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
-import '../../../utils/k.navigate.dart';
-import '../views/all_wroks_view.dart';
+
+import '../../../infrastructure/navigation/routes.dart';
 
 class KProjectsScrollList extends StatelessWidget {
   final List<ProjectModel> items;
@@ -74,8 +74,7 @@ class KProjectsScrollList extends StatelessWidget {
               ),
               child: InkWell(
                 borderRadius: BorderRadius.circular(16),
-                onTap: () =>
-                    navigateWithSlideTransition(context, const AllWorksView()),
+                onTap: () => Get.toNamed(Routes.ALL_PROJECTS),
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,

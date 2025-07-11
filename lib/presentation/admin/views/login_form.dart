@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../../infrastructure/dal/services/admin.login.dart';
+import '../../../infrastructure/navigation/routes.dart';
 import '../../../infrastructure/theme/colors.dart';
-import '../../../utils/k.navigate.dart';
-import 'contact_screen_view.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -67,11 +66,9 @@ class _LoginFormState extends State<LoginForm> {
         );
         Future.delayed(const Duration(seconds: 1), () {
           if (mounted) {
-            navigateWithSlideTransition(
-              context,
-              ContactScreenView(
-                string: usernameController.text + passwordController.text,
-              ),
+            Get.toNamed(
+              Routes.CONTACT,
+              arguments: usernameController.text + passwordController.text,
             );
           }
         });

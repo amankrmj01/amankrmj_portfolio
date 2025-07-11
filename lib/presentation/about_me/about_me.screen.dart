@@ -2,14 +2,13 @@ import 'dart:ui';
 
 import 'package:portfolio/domain/models/about.me.info.model.dart';
 import 'package:portfolio/domain/models/experience.model.dart';
+import 'package:portfolio/infrastructure/navigation/routes.dart';
 import 'package:portfolio/presentation/about_me/widgets/animated.experience.card.dart';
 import 'package:portfolio/presentation/about_me/widgets/animated.tools.widget.dart';
-import 'package:portfolio/presentation/experience/experience.screen.dart';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../utils/k.navigate.dart';
 import '../experience/controllers/experience.controller.dart';
 import 'controllers/about_me.controller.dart';
 
@@ -109,6 +108,7 @@ class AboutMeScreen extends GetView<AboutMeController> {
                         controller.handlePointerDown(pointerEvent);
                       },
                       child: SingleChildScrollView(
+                        physics: ClampingScrollPhysics(),
                         controller: controller.scrollController,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -328,7 +328,7 @@ class AboutMeToolsColumn extends StatelessWidget {
             if (!Get.isRegistered<ExperienceController>()) {
               Get.put(ExperienceController());
             }
-            navigateWithSlideTransition(context, const ExperienceScreen());
+            Get.toNamed(Routes.EXPERIENCE);
           },
           child: LayoutBuilder(
             builder: (context, constraints) => AnimatedExperienceCard(

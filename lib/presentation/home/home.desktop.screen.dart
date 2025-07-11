@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/infrastructure/navigation/routes.dart';
 import 'package:portfolio/presentation/about_me/about_me.screen.dart';
 import 'package:portfolio/presentation/home/views/home_bar_view.dart';
 import 'package:portfolio/presentation/home/widgets/code.block.dart';
@@ -10,9 +11,7 @@ import 'package:portfolio/presentation/home/widgets/widgets.dart';
 import '../../widgets/k.pretty.animated.dart';
 import '../../widgets/mesh.background.dart';
 import '../certificate/certificate.screen.dart';
-import '../certificate/views/all_certificates_view.dart';
 import '../footer/footer.screen.dart';
-import '../works/views/all_wroks_view.dart';
 import '../works/works.screen.dart';
 import 'controllers/home.controller.dart';
 
@@ -60,14 +59,14 @@ class HomeDesktopScreen extends GetView<HomeController> {
                           HeaderSection(
                             context: context,
                             title: 'Recent Works',
-                            view: const AllWorksView(),
+                            route: Routes.ALL_PROJECTS,
                             sectionKey: HomeController.recentWorksKey,
                           ),
                           const WorksScreen(),
                           HeaderSection(
                             context: context,
                             title: 'Recent Certificates',
-                            view: const AllCertificatesView(),
+                            route: Routes.ALL_CERTIFICATES,
                             sectionKey: HomeController.recentCertificatesKey,
                           ),
                           const CertificateScreen(),

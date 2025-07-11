@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
-
 import '../../../configs/constant_strings.dart';
-import '../../../utils/k.navigate.dart';
 import '../../../widgets/animated.navigate.button.dart';
 import '../controllers/home.controller.dart';
 import 'animated.rotate.icon.dart';
@@ -155,16 +153,16 @@ Widget navigateButtonAndSocialLinks(HomeController controller) {
 
 class HeaderSection extends StatelessWidget {
   final String title;
-  final Widget? view;
   final GlobalKey sectionKey;
   final BuildContext context;
+  final String? route;
   final double? height;
 
   const HeaderSection({
     super.key,
     required this.title,
-    this.view,
     required this.sectionKey,
+    this.route,
     required this.context,
     this.height = 124,
   });
@@ -210,9 +208,7 @@ class HeaderSection extends StatelessWidget {
                       label: "Browse All",
                       icon: const Icon(Icons.arrow_forward),
                       borderRadius: 12,
-                      onTap: () => isMobile
-                          ? {}
-                          : navigateWithSlideTransition(this.context, view!),
+                      onTap: () => isMobile ? {} : Get.toNamed(route!),
                       width: 190,
                     ),
                   ),

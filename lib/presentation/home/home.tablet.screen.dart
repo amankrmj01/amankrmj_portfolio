@@ -3,11 +3,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/presentation/home/widgets/widgets.dart';
+import '../../infrastructure/navigation/routes.dart';
 import '../../widgets/k.pretty.animated.dart';
 import '../../widgets/mesh.background.dart';
 import 'controllers/home.controller.dart';
-import '../certificate/views/all_certificates_view.dart';
-import '../works/views/all_wroks_view.dart';
 import '../home/views/home_bar_view.dart';
 import '../screens.dart';
 import 'widgets/code.block.dart';
@@ -69,14 +68,14 @@ class HomeTabletScreen extends GetView<HomeController> {
                             HeaderSection(
                               context: context,
                               title: 'Recent Works',
-                              view: const AllWorksView(),
+                              route: Routes.ALL_PROJECTS,
                               sectionKey: HomeController.recentWorksKey,
                             ),
                             const WorksScreen(),
                             HeaderSection(
                               context: context,
                               title: 'Recent Certificates',
-                              view: const AllCertificatesView(),
+                              route: Routes.ALL_CERTIFICATES,
                               sectionKey: HomeController.recentCertificatesKey,
                             ),
                             const CertificateScreen(),

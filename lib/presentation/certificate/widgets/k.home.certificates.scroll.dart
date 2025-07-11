@@ -3,11 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/domain/models/certificate.model.dart';
-import 'package:portfolio/presentation/certificate/views/all_certificates_view.dart';
 import 'package:portfolio/presentation/certificate/widgets/k.certificate.card.dart';
 
 import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
-import '../../../utils/k.navigate.dart';
+import '../../../infrastructure/navigation/routes.dart';
 
 class KCertificateScrollList extends StatefulWidget {
   final List<CertificateModel> items;
@@ -76,10 +75,8 @@ class _KCertificateScrollListState extends State<KCertificateScrollList> {
               ),
               child: InkWell(
                 borderRadius: BorderRadius.circular(16),
-                onTap: () => navigateWithSlideTransition(
-                  context,
-                  const AllCertificatesView(),
-                ),
+                onTap: () => Get.toNamed(Routes.ALL_CERTIFICATES),
+
                 child: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
