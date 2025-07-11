@@ -118,11 +118,7 @@ class FooterScreen extends GetView<FooterController> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              viewResumeButton(),
-              const SizedBox(height: 40),
-              contactButton(),
-            ],
+            children: [viewResumeButton(), contactButton()],
           );
   }
 

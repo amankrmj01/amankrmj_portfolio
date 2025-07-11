@@ -56,7 +56,7 @@ class AboutMeScreen extends GetView<AboutMeController> {
           child: Obx(
             () => (controller.isLoading.value || controller.isExpLoading.value)
                 ? const Center(child: CircularProgressIndicator())
-                : width > 1000
+                : width > 1100
                 ? Row(
                     children: [
                       Flexible(

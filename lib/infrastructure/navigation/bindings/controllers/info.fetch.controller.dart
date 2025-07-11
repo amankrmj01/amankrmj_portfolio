@@ -88,6 +88,7 @@ class InfoFetchController extends GetxController {
       final service = ExperienceInfoFetchService();
       final data = await service.fetchData();
       experiences.assignAll(data);
+      isExperienceLoading.value = false;
       log(
         'Successfully fetched experiences: \\${data.toString()}',
         name: 'ExperienceInfoFetchService',

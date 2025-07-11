@@ -173,7 +173,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
     ];
     final colors = [
       Color(0xFF7F53AC), // Soft Purple
-      Color(0xFFF7971E), // Warm Gold Accent
+      Color(0xFF647DEE),
     ];
     return List.generate(colors.length, (i) {
       final double radius =
@@ -235,6 +235,8 @@ class _ExperienceCardState extends State<ExperienceCard> {
                     children: [
                       Text(
                         exp.company,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: Theme.of(
                           context,
                         ).textTheme.bodyLarge?.copyWith(color: Colors.blueGrey),
@@ -258,7 +260,7 @@ class _ExperienceCardState extends State<ExperienceCard> {
                   const SizedBox(height: 8),
                   Text(
                     exp.description,
-                    maxLines: 1,
+                    maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
                   if (exp.technologies.isNotEmpty) ...[
