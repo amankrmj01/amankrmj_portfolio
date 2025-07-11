@@ -5,17 +5,17 @@
     "startDate": "September 2022",
     "endDate": "May 2026",
     "description": "Completed my graduation in B.Tech in Electronics and Computer Engineering. Actively participated in technical clubs and learned a lot.",
-    "location": "Chennai, India",
+    "location": "Chennai",
     "technologies": [],
     "current": false
   },
   {
     "title": "Software Intern",
-    "company": "Hindalco Industries Ltd. (Aditya Birla Group)",
+    "company": "Hindalco Industries Ltd.",
     "startDate": "May 2024",
     "endDate": "June 2024",
     "description": "Worked as a software intern.",
-    "location": "Sonebhadra, India",
+    "location": "Sonebhadra",
     "technologies": [
       "Flutter",
       "Firebase"
