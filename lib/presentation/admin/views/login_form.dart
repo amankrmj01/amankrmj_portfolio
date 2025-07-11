@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:oktoast/oktoast.dart';
+import 'package:get/get.dart';
 import '../../../infrastructure/dal/services/admin.login.dart';
 import '../../../infrastructure/theme/colors.dart';
 import '../../../utils/k.navigate.dart';
@@ -53,11 +53,17 @@ class _LoginFormState extends State<LoginForm> {
       );
       if (!mounted) return;
       if (isValid) {
-        showToast(
+        Get.closeAllSnackbars();
+        Get.snackbar(
+          'Success',
           'Login Successful',
-          backgroundColor: Colors.green,
-          textStyle: TextStyle(color: Colors.white),
-          position: ToastPosition.bottom,
+          snackPosition: SnackPosition.BOTTOM,
+          icon: const Icon(Icons.check_circle, color: Colors.green, size: 28),
+          backgroundColor: Colors.green.shade50,
+          colorText: Colors.black,
+          barBlur: 0.7,
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          borderRadius: 12,
         );
         Future.delayed(const Duration(seconds: 1), () {
           if (mounted) {
@@ -70,7 +76,17 @@ class _LoginFormState extends State<LoginForm> {
           }
         });
       } else {
-        showToast('Invalid credentials', position: ToastPosition.bottom);
+        Get.snackbar(
+          'Error',
+          'Invalid credentials',
+          snackPosition: SnackPosition.BOTTOM,
+          icon: const Icon(Icons.error_outline, color: Colors.red, size: 28),
+          backgroundColor: Colors.red.shade100,
+          colorText: Colors.black,
+          barBlur: 0.7,
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          borderRadius: 12,
+        );
       }
     }
   }

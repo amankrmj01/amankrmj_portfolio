@@ -14,6 +14,8 @@ import '../../../dal/servicess/experiences.info.fetch.service.dart';
 import '../../../dal/servicess/quotes.fetch.service.dart';
 import '../../../dal/servicess/social.links.fetch.service.dart';
 
+import 'package:portfolio/configs/about.me.info.dart' as config;
+
 // ignore: constant_identifier_names
 enum Device { Desktop, Tablet, Mobile }
 
@@ -55,30 +57,15 @@ class InfoFetchController extends GetxController {
       final service = AboutMeInfoFetchService();
       final List<dynamic> links = await service.fetchData();
       if (isClosed) return;
-
       aboutMeInfo.value = links.first;
-      isAboutMeInfoLoading.value = false;
-      log(
-        'Successfully fetched about me info: \\${aboutMeInfo.value?.toJson()}',
-        name: 'AboutMeInfoFetchService',
-      );
     } catch (e) {
       log(
-        'Error fetching about me info: \${e.toString()}',
+        'Error fetching about me info: ${e.toString()}',
         name: 'AboutMeInfoFetchService',
       );
-      aboutMeInfo.value = AboutMeInfoModel(
-        name: '',
-        profession: '',
-        location: '',
-        interests: [],
-        experience: '',
-        education: '',
-        email: '',
-        summary: '',
-        technicalInterests: [],
-        tools: [],
-      );
+      aboutMeInfo.value = config.aboutMeInfo;
+    } finally {
+      isAboutMeInfoLoading.value = false;
     }
   }
 
@@ -87,12 +74,8 @@ class InfoFetchController extends GetxController {
     try {
       final service = ExperienceInfoFetchService();
       final data = await service.fetchData();
+      if (isClosed) return;
       experiences.assignAll(data);
-      isExperienceLoading.value = false;
-      log(
-        'Successfully fetched experiences: \\${data.toString()}',
-        name: 'ExperienceInfoFetchService',
-      );
     } catch (e) {
       log(
         'Error fetching experiences: \\${e.toString()}',

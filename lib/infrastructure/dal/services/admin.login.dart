@@ -18,7 +18,7 @@ class AdminLoginService {
             .toString();
         return inputHash == storedHash;
       } else {
-        throw Exception('Failed to load password');
+        return false;
       }
     } finally {}
   }

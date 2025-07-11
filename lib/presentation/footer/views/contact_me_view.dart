@@ -6,10 +6,10 @@ import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:portfolio/domain/models/contact_form.model.dart';
 import 'package:portfolio/infrastructure/dal/services/add.contact.service.dart';
+import 'package:get/get.dart';
 
 import '../../../infrastructure/dal/services/ping.server.dart';
 import '../../../infrastructure/theme/colors.dart';
-import '../../../utils/show_decorated_toast.dart';
 
 // Moved to utils/show_decorated_toast.dart
 // Please import and use showDecoratedToast from utils.
@@ -98,12 +98,34 @@ class _ContactMeViewState extends State<ContactMeView> {
     final response = await addContactService.addContact(contactForm);
     _logger.i('Response from server: ${jsonEncode(contactForm.toJson())}');
     if (response == 'true') {
-      showDecoratedToast('Message sent successfully');
+      Get.closeAllSnackbars();
+      Get.snackbar(
+        'Success',
+        'Message sent successfully',
+        snackPosition: SnackPosition.BOTTOM,
+        icon: const Icon(Icons.check_circle, color: Colors.green, size: 28),
+        backgroundColor: Colors.green.shade50,
+        colorText: Colors.black,
+        barBlur: 0.7,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        borderRadius: 12,
+      );
       if (context.mounted) {
         Navigator.of(context).maybePop();
       }
     } else {
-      showDecoratedToast('Failed to send message: \n$response');
+      Get.closeAllSnackbars();
+      Get.snackbar(
+        'Error',
+        'Failed to send message: \n$response',
+        snackPosition: SnackPosition.BOTTOM,
+        icon: const Icon(Icons.error_outline, color: Colors.red, size: 28),
+        backgroundColor: Colors.red.shade100,
+        colorText: Colors.black,
+        barBlur: 0.7,
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        borderRadius: 12,
+      );
       _logger.e('Failed to send message: $response');
     }
   }

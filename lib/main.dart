@@ -2,9 +2,7 @@ import 'package:portfolio/infrastructure/theme/dark_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:oktoast/oktoast.dart';
 
-import 'infrastructure/dal/services/services.di.dart';
 import 'infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import 'infrastructure/navigation/navigation.dart';
 import 'infrastructure/navigation/routes.dart';
@@ -12,11 +10,9 @@ import 'infrastructure/navigation/routes.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
-    ServiceC.setupServiceLocator();
-    Get.put(InfoFetchController());
+    Get.putAsync(() async => InfoFetchController());
     var initialRoute = await Routes.initialRoute;
-    debugPrint('Initial route: $initialRoute');
-    runApp(OKToast(child: Main(initialRoute)));
+    runApp(Main(initialRoute));
   } catch (e, stack) {
     runApp(ErrorApp(error: e.toString(), stack: stack.toString()));
   }

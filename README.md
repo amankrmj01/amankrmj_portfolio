@@ -1,16 +1,82 @@
-# portfolio
+# Portfolio
 
-my portfolio
+A personal portfolio built using Flutter, with GitHub as a database, Spring Boot for backend, and
+deployed on Render using Docker.
+
+## Features
+
+- Responsive design for web and mobile
+- Dynamic data fetched from GitHub
+- Admin panel for content management
+- About Me, Experience, Certificates, Projects, and Contact sections
+- Custom animations and transitions
+- Dark and light theme support
+
+## Tech Stack
+
+- **Frontend:** Flutter
+- **Backend:** Spring Boot
+- **Database:** GitHub (JSON files)
+- **Deployment:** Docker on Render
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+### Prerequisites
 
-A few resources to get you started if this is your first Flutter project:
+- [Flutter](https://flutter.dev/docs/get-started/install)
+- [Dart](https://dart.dev/get-dart)
+- [Spring Boot](https://spring.io/projects/spring-boot) (for backend)
+- [Docker](https://www.docker.com/get-started)
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### Installation
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repo-url>
+   cd portfolio
+   ```
+2. **Install dependencies:**
+   ```bash
+   flutter pub get
+   ```
+3. **Run the app:**
+   ```bash
+   flutter run -d chrome
+   ```
+   Or for mobile:
+   ```bash
+   flutter run
+   ```
+
+### Backend Setup
+
+1. Configure Spring Boot backend to serve data from GitHub.
+2. Build and run the backend using Docker:
+   ```bash
+   docker build -t portfolio-backend .
+   docker run -p 8080:8080 portfolio-backend
+   ```
+
+### Deployment
+
+- Frontend is deployed on GitHub Pages using GitHub Actions.
+- Backend is deployed on [Render](https://render.com/) using Docker.
+
+## Folder Structure
+
+```
+lib/
+  configs/         # App-wide configuration and constants
+  domain/          # Core models and domain logic
+  infrastructure/  # Data access and services
+  presentation/    # UI screens and widgets
+  utils/           # Utility functions and extensions
+  widgets/         # Reusable widgets
+assets/
+  fonts/           # Custom fonts (Poppins, NotoSans, etc.)
+  images/          # Images and icons
+```
+
+## License
+
+[GPLv3.0](LICENSE)

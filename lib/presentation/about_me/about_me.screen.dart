@@ -178,112 +178,118 @@ class AboutMeDetailsColumn extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          summary,
-          textAlign: TextAlign.justify,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-        ),
+        if (summary.trim().isNotEmpty)
+          Text(
+            summary,
+            textAlign: TextAlign.justify,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          ),
         const SizedBox(height: 24),
-        Wrap(
-          spacing: 2,
-          runSpacing: 6,
-          children: [
-            const Icon(Icons.work_outline, size: 20),
-            const SizedBox(width: 8),
-            Text('Profession: ', style: const TextStyle(fontSize: 16)),
-            Text(profession, style: const TextStyle(fontSize: 16)),
-          ],
-        ),
+        if (profession.trim().isNotEmpty)
+          Wrap(
+            spacing: 2,
+            runSpacing: 6,
+            children: [
+              const Icon(Icons.work_outline, size: 20),
+              const SizedBox(width: 8),
+              Text('Profession: ', style: const TextStyle(fontSize: 16)),
+              Text(profession, style: const TextStyle(fontSize: 16)),
+            ],
+          ),
         const SizedBox(height: 12),
-        Wrap(
-          spacing: 2,
-          runSpacing: 6,
-          children: [
-            const Icon(Icons.school_outlined, size: 20),
-            const SizedBox(width: 8),
-            Text('Education: ', style: const TextStyle(fontSize: 16)),
-            Text(education, style: const TextStyle(fontSize: 16)),
-          ],
-        ),
+        if (education.trim().isNotEmpty)
+          Wrap(
+            spacing: 2,
+            runSpacing: 6,
+            children: [
+              const Icon(Icons.school_outlined, size: 20),
+              const SizedBox(width: 8),
+              Text('Education: ', style: const TextStyle(fontSize: 16)),
+              Text(education, style: const TextStyle(fontSize: 16)),
+            ],
+          ),
         const SizedBox(height: 12),
-        Row(
-          children: [
-            const Icon(Icons.timeline, size: 20),
-            const SizedBox(width: 8),
-            Text(
-              'Experience: $experience',
-              style: const TextStyle(fontSize: 16),
-            ),
-          ],
-        ),
+        if (experience.trim().isNotEmpty)
+          Row(
+            children: [
+              const Icon(Icons.timeline, size: 20),
+              const SizedBox(width: 8),
+              Text(
+                'Experience: $experience',
+                style: const TextStyle(fontSize: 16),
+              ),
+            ],
+          ),
         const SizedBox(height: 12),
-        Row(
-          children: [
-            const Icon(Icons.email_outlined, size: 20),
-            const SizedBox(width: 8),
-            Text('Email: $email', style: const TextStyle(fontSize: 16)),
-          ],
-        ),
+        if (email.trim().isNotEmpty)
+          Row(
+            children: [
+              const Icon(Icons.email_outlined, size: 20),
+              const SizedBox(width: 8),
+              Text('Email: $email', style: const TextStyle(fontSize: 16)),
+            ],
+          ),
         const SizedBox(height: 16),
-        const Text(
-          'Interests:',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: 8),
-
-        Wrap(
-          spacing: 8,
-          children: interests
-              .map(
-                (interest) => Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
+        if (interests.isNotEmpty)
+          const Text(
+            'Interests:',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+        if (interests.isNotEmpty) const SizedBox(height: 8),
+        if (interests.isNotEmpty)
+          Wrap(
+            spacing: 8,
+            children: interests
+                .map(
+                  (interest) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color.lerp(Colors.black, Colors.transparent, 0.85),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.white60),
+                    ),
+                    child: Text(
+                      interest.toString(),
+                      style: const TextStyle(color: Colors.blue),
+                    ),
                   ),
-                  decoration: BoxDecoration(
-                    color: Color.lerp(Colors.black, Colors.transparent, 0.85),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.white60),
+                )
+                .toList(),
+          ),
+        if (technicalInterests.isNotEmpty) const SizedBox(height: 16),
+        if (technicalInterests.isNotEmpty)
+          const Text(
+            'Technical Interest:',
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+        if (technicalInterests.isNotEmpty) const SizedBox(height: 8),
+        if (technicalInterests.isNotEmpty)
+          Wrap(
+            spacing: 8,
+            runSpacing: 4,
+            children: technicalInterests
+                .map(
+                  (technicalInterest) => Container(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color.lerp(Colors.black, Colors.transparent, 0.85),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.white60),
+                    ),
+                    child: Text(
+                      technicalInterest.toString(),
+                      style: const TextStyle(color: Colors.blue),
+                    ),
                   ),
-                  child: Text(
-                    interest.toString(),
-                    style: const TextStyle(color: Colors.blue),
-                  ),
-                ),
-              )
-              .toList(),
-        ),
-
-        const SizedBox(height: 16),
-        const Text(
-          'Technical Interest:',
-          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-        ),
-        const SizedBox(height: 8),
-
-        Wrap(
-          spacing: 8,
-          runSpacing: 4,
-          children: technicalInterests
-              .map(
-                (technicalInterest) => Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Color.lerp(Colors.black, Colors.transparent, 0.85),
-                    borderRadius: BorderRadius.circular(20),
-                    border: Border.all(color: Colors.white60),
-                  ),
-                  child: Text(
-                    technicalInterest.toString(),
-                    style: const TextStyle(color: Colors.blue),
-                  ),
-                ),
-              )
-              .toList(),
-        ),
+                )
+                .toList(),
+          ),
       ],
     );
   }
