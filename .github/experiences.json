@@ -1,40 +1,40 @@
 [
-{
-"title": "B.Tech in Electronics and Computer Engineering",
-"company": "Vellore Institute of Technology, Chennai",
-"startDate": "September 2022",
-"endDate": "May 2026",
-"description": "Completed my graduation in B.Tech in Electronics and Computer Engineering. Actively participated in technical clubs and learned a lot.",
-"location": "Chennai, India",
-"technologies": [],
-"current": false
-},
-{
-"title": "Software Intern",
-"company": "Hindalco Industries Ltd. (Aditya Birla Group)",
-"startDate": "May 2024",
-"endDate": "June 2024",
-"description": "Worked as a software intern.",
-"location": "Sonebhadra",
-"technologies": [
-"Flutter",
-"Firebase"
-],
-"current": false
-},
-{
-"title": "Software Intern",
-"company": "Bluestock Fintech",
-"startDate": "May 2025",
-"endDate": "June 2025",
-"description": "Worked as a software intern.",
-"location": "Remote",
-"technologies": [
-"Python",
-"Django",
-"Twilio",
-"SendGrid"
-],
-"current": false
-}
+  {
+    "title": "B.Tech in Electronics and Computer Engineering",
+    "company": "Vellore Institute of Technology, Chennai",
+    "startDate": "September 2022",
+    "endDate": "May 2026",
+    "description": "Completed my graduation in B.Tech in Electronics and Computer Engineering. Actively participated in technical clubs and learned a lot.",
+    "location": "Chennai, India",
+    "technologies": [],
+    "current": false
+  },
+  {
+    "title": "Software Intern",
+    "company": "Hindalco Industries Ltd. (Aditya Birla Group)",
+    "startDate": "May 2024",
+    "endDate": "June 2024",
+    "description": "Worked as a software intern.",
+    "location": "Sonebhadra, India",
+    "technologies": [
+      "Flutter",
+      "Firebase"
+    ],
+    "current": false
+  },
+  {
+    "title": "Software Intern",
+    "company": "Bluestock Fintech",
+    "startDate": "May 2025",
+    "endDate": "June 2025",
+    "description": "Worked as a software intern.",
+    "location": "Remote",
+    "technologies": [
+      "Python",
+      "Django",
+      "Twilio",
+      "SendGrid"
+    ],
+    "current": false
+  }
 ]
