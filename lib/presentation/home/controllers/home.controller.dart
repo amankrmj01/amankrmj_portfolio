@@ -1,30 +1,23 @@
-// ignore_for_file: constant_identifier_names
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
 import 'package:portfolio/domain/models/social_links.model.dart';
-import 'package:portfolio/infrastructure/dal/servicess/social.links.fetch.service.dart';
+import 'package:portfolio/infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 
 import '../../../infrastructure/dal/services/ping.server.dart';
-
-enum Device { Desktop, Tablet, Mobile }
 
 class HomeController extends GetxController {
   late final AnimatedMeshGradientController meshGradientController;
 
-  // Scroll controller and scroll state
   final ScrollController scrollController = ScrollController();
   final isScrolling = false.obs;
   Timer? _scrollEndDebouncer;
 
-  // Social links
-  final Rxn<SocialLinksModel> socialLinks = Rxn<SocialLinksModel>();
-  final _socialLinkService = SocialLinksFetchService();
-
-  // Selected tab index for navigation bar
+  late var socialLinks = Rxn<SocialLinksModel>();
+  final InfoFetchController infoFetchController =
+      Get.find<InfoFetchController>();
   final RxInt selectedTabIndex = 0.obs;
 
   // Section keys for navigation
@@ -57,50 +50,18 @@ class HomeController extends GetxController {
     },
   );
 
-  // Device type management
-  final Rx<Device> currentDevice = Device.Desktop.obs;
-
-  void updateDevice(double width) {
-    if (width < 900) {
-      currentDevice.value = Device.Mobile;
-    } else if (width < 1300) {
-      currentDevice.value = Device.Tablet;
-    } else {
-      currentDevice.value = Device.Desktop;
-    }
-  }
-
-  // Fetch social links
-  Future<void> fetchSocialLinks() async {
-    try {
-      final List<dynamic> links = await _socialLinkService.fetchData();
-      if (isClosed) return;
-      socialLinks.value = links.first;
-    } catch (e) {
-      _logger.e('Error fetching social links', error: e);
-      if (isClosed) return;
-      socialLinks.value = SocialLinksModel(
-        github: '',
-        linkedIn: '',
-        twitter: '',
-        instagram: '',
-        facebook: '',
-        medium: '',
-        email: '',
-        resume: '',
-        discord: '',
-        phoneNumber: '',
-        hackerrank: '',
-        leetcode: '',
-      );
-    }
-  }
-
   @override
   void onInit() {
     super.onInit();
     _pingOnce();
-    fetchSocialLinks();
+    // isLoading.value = infoFetchController.isProjectsLoading.value;
+    socialLinks.value = infoFetchController.socialLinks.value;
+    // ever(infoFetchController.isSocialLinksLoading, (val) {
+    //   isLoading.value = val;
+    // });
+    ever(infoFetchController.socialLinks, (val) {
+      socialLinks.value = val;
+    });
 
     scrollController.addListener(_onScroll);
     meshGradientController = AnimatedMeshGradientController()..start();
@@ -127,11 +88,9 @@ class HomeController extends GetxController {
   }
 
   void _onScroll() {
-    // Set isScrolling to true when scrolling starts
     if (!isScrolling.value) {
       isScrolling.value = true;
     }
-    // Debounce to set isScrolling to false after scrolling ends
     _scrollEndDebouncer?.cancel();
     _scrollEndDebouncer = Timer(const Duration(milliseconds: 400), () {
       isScrolling.value = false;

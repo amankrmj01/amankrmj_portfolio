@@ -1,28 +1,23 @@
 import 'package:get/get.dart';
-import 'dart:developer';
 import '../../../domain/models/certificate.model.dart';
-import '../../../infrastructure/dal/services/certificate_service.dart';
+import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 
 class CertificateController extends GetxController {
-  final certificates = <CertificateModel>[].obs;
-  final isLoading = false.obs;
+  final InfoFetchController infoFetchController =
+      Get.find<InfoFetchController>();
+  late var isLoading = false.obs;
+  late var certificates = <CertificateModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    fetchCertificates();
-  }
-
-  Future<void> fetchCertificates() async {
-    isLoading.value = true;
-    try {
-      final data = await Get.find<CertificateService>().fetchAll();
-      certificates.assignAll(data);
-    } catch (e) {
-      fetchCertificates();
-      log('Error fetching projects: $e');
-    } finally {
-      isLoading.value = false;
-    }
+    isLoading.value = infoFetchController.isCertificatesLoading.value;
+    certificates.value = infoFetchController.certificates;
+    ever(infoFetchController.isCertificatesLoading, (val) {
+      isLoading.value = val;
+    });
+    ever(infoFetchController.certificates, (val) {
+      certificates.value = val;
+    });
   }
 }

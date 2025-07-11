@@ -27,7 +27,7 @@ class ExperienceModel {
       endDate: json['endDate'] as String,
       description: json['description'] as String,
       location: json['location'] as String,
-      technologies: List<String>.from(json['technologies'] as List<String>),
+      technologies: List<String>.from(json['technologies'] as List),
       current: json['current'] as bool,
     );
   }

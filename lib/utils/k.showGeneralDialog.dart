@@ -14,9 +14,16 @@ dynamic showBlurredGeneralDialog({
     barrierLabel: barrierLabel,
     barrierColor: barrierColor,
     pageBuilder: (context, anim1, anim2) {
-      return Container(
-        color: Colors.black.withAlpha((255 * 0.5).toInt()),
-        child: builder(context),
+      return GestureDetector(
+        behavior: HitTestBehavior.opaque,
+        onTap: () => Navigator.of(context).pop(),
+        child: Container(
+          color: Colors.black.withAlpha((255 * 0.5).toInt()),
+          child: GestureDetector(
+            onTap: () {}, // Prevents pop when tapping the child
+            child: builder(context),
+          ),
+        ),
       );
     },
     transitionBuilder: (context, anim1, anim2, child) {

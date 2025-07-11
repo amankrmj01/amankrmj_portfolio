@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/presentation/works/views/work_mobile_view.dart';
 import 'package:portfolio/presentation/works/widgets/k.project.card.dart';
+import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../../infrastructure/theme/colors.dart';
 import '../../certificate/views/all_certificates_view.dart';
-import '../../home/controllers/home.controller.dart';
 import 'work_view.dart';
 import '../controllers/works.controller.dart';
 
@@ -13,8 +13,9 @@ class AllWorksView extends GetView<WorksController> {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find<HomeController>();
-    final isMobile = homeController.currentDevice.value == Device.Mobile;
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
+    final isMobile = infoFetchController.currentDevice.value == Device.Mobile;
     return Obx(
       () => AllItemsView(
         title: "ALL Projects",

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:portfolio/infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 
 import '../../../configs/constant_strings.dart';
 import '../../../utils/k.navigate.dart';
@@ -42,9 +43,10 @@ Widget verticalDivider() {
 }
 
 /// Social Links Row
-Widget socialLinksRow(HomeController controller) {
-  final links = controller.socialLinks.value;
-  final isMobile = controller.currentDevice.value == Device.Mobile;
+Widget socialLinksRow() {
+  final InfoFetchController infoController = Get.find<InfoFetchController>();
+  final links = infoController.socialLinks.value;
+  final isMobile = infoController.currentDevice.value == Device.Mobile;
   return SizedBox(
     height: 50,
     child: Row(
@@ -145,7 +147,7 @@ Widget navigateButtonAndSocialLinks(HomeController controller) {
             width: 210,
           ),
         ),
-        Obx(() => socialLinksRow(controller)),
+        socialLinksRow(),
       ],
     ),
   );
@@ -169,7 +171,7 @@ class HeaderSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController controller = Get.find<HomeController>();
+    final InfoFetchController controller = Get.find<InfoFetchController>();
     final bool isTablet = controller.currentDevice.value == Device.Tablet;
     final bool isMobile = controller.currentDevice.value == Device.Mobile;
 

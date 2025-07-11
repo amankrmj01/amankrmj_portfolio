@@ -1,51 +1,39 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:portfolio/domain/models/about.me.info.model.dart';
-
-import '../../../infrastructure/dal/servicess/about.me.info.fetch.service.dart';
+import 'package:portfolio/domain/models/experience.model.dart';
+import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../home/controllers/home.controller.dart';
 
 class AboutMeController extends GetxController {
-  final Rxn<AboutMeInfoModel> aboutMeInfo = Rxn<AboutMeInfoModel>();
-  final isLoading = true.obs;
-
-  final Logger _logger = Logger();
+  late var aboutMeInfo = Rxn<AboutMeInfoModel>();
+  late var isLoading = true.obs;
+  late var isExpLoading = true.obs;
+  final InfoFetchController infoFetchController =
+      Get.find<InfoFetchController>();
   final ScrollController scrollController = ScrollController();
-
-  Future<void> fetchAboutMeInfo() async {
-    try {
-      final service = AboutMeInfoFetchService();
-      final List<dynamic> links = await service.fetchData();
-      if (isClosed) return;
-      aboutMeInfo.value = (links.isNotEmpty && links.first != null)
-          ? links.first
-          : AboutMeInfoModel(
-              name: '',
-              profession: '',
-              location: '',
-              interests: [],
-              experience: '',
-              education: '',
-              email: '',
-              summary: '',
-              technicalInterests: [],
-              tools: [],
-            );
-      isLoading.value = false;
-    } catch (e) {
-      isLoading.value = true;
-      _logger.e('Error fetching social links', error: e);
-      if (isClosed) return;
-      aboutMeInfo.value = null;
-    }
-  }
+  late var experiences = <ExperienceModel>[].obs;
 
   @override
   void onInit() {
     super.onInit();
-    fetchAboutMeInfo();
+    isLoading.value = infoFetchController.isAboutMeInfoLoading.value;
+    aboutMeInfo.value = infoFetchController.aboutMeInfo.value;
+    experiences.value = infoFetchController.experiences;
+
+    ever(infoFetchController.isAboutMeInfoLoading, (val) {
+      isLoading.value = val;
+    });
+    ever(infoFetchController.isExperienceLoading, (val) {
+      isExpLoading.value = val;
+    });
+    ever(infoFetchController.experiences, (val) {
+      experiences.value = val;
+    });
+    ever(infoFetchController.aboutMeInfo, (val) {
+      aboutMeInfo.value = val;
+    });
     scrollController.addListener(_handleScrollEdge);
   }
 

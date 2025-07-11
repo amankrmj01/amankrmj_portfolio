@@ -3,10 +3,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:get/get.dart';
-import 'package:portfolio/configs/certificates.dart';
 import 'package:portfolio/presentation/certificate/widgets/k.certificate.card.dart';
-import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 import 'package:portfolio/utils/axis.count.dart';
+import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../../infrastructure/theme/colors.dart';
 import '../../../utils/k.showGeneralDialog.dart';
 import 'certificate_mobile_view.dart';
@@ -18,13 +17,14 @@ class AllCertificatesView extends GetView<CertificateController> {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find<HomeController>();
-    final isMobile = homeController.currentDevice.value == Device.Mobile;
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
+    final isMobile = infoFetchController.currentDevice.value == Device.Mobile;
     return Obx(
       () => AllItemsView(
         title: "ALL Certificates",
         isLoading: controller.isLoading.value,
-        items: certificates,
+        items: controller.certificates,
         titleColor: KColor.primarySecondColor,
         isMobile: isMobile,
         buildDialog: (certificate) => isMobile

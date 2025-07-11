@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 import 'package:pretty_animated_text/pretty_animated_text.dart';
 import '../../infrastructure/theme/colors.dart';
+import '../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 
 class KPrettyAnimated extends StatefulWidget {
   const KPrettyAnimated({super.key});
@@ -57,11 +57,12 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find<HomeController>();
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
     final double fontSize;
-    if (homeController.currentDevice.value == Device.Mobile) {
+    if (infoFetchController.currentDevice.value == Device.Mobile) {
       fontSize = 40;
-    } else if (homeController.currentDevice.value == Device.Tablet) {
+    } else if (infoFetchController.currentDevice.value == Device.Tablet) {
       fontSize = 60;
     } else {
       fontSize = 50;

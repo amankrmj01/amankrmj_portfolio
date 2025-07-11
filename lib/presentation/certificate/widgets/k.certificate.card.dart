@@ -4,8 +4,8 @@ import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/domain/models/certificate.model.dart';
-import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 
+import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../../widgets/k.image.dart';
 
 class KCertificateCard extends StatefulWidget {
@@ -84,8 +84,9 @@ class _KCertificateCard extends State<KCertificateCard> {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find<HomeController>();
-    final bool isMobile = homeController.currentDevice.value == Device.Mobile;
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
+    final isMobile = infoFetchController.currentDevice.value == Device.Mobile;
     final bool expandToContent = widget.expandToContentHeight;
     return MouseRegion(
       cursor: isHover ? SystemMouseCursors.click : SystemMouseCursors.basic,

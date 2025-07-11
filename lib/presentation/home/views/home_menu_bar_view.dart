@@ -31,6 +31,7 @@ class HomeMenuBarView extends StatelessWidget {
     // Always return Drawer
     return Drawer(
       backgroundColor: const Color(0xFF1A1A2E),
+      width: MediaQuery.of(context).size.width * 0.8,
       child: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -99,11 +100,11 @@ class HomeMenuBarView extends StatelessWidget {
               children: [
                 Container(
                   alignment: Alignment.centerLeft,
-                  width: 200,
+                  width: 250,
                   child: Builder(
                     builder: (context) => AnimatedNavigateButton(
                       borderRadius: 16,
-                      label: "Contact Me",
+                      label: "Send Me a Message",
                       onTap: () async {
                         await Future.delayed(const Duration(milliseconds: 300));
                         if (context.mounted) {
@@ -119,7 +120,7 @@ class HomeMenuBarView extends StatelessWidget {
                         height: 28,
                         fit: BoxFit.fitHeight,
                       ),
-                      width: 200,
+                      width: 250,
                     ),
                   ),
                 ),

@@ -15,7 +15,6 @@ import '../footer/footer.screen.dart';
 import '../works/views/all_wroks_view.dart';
 import '../works/works.screen.dart';
 import 'controllers/home.controller.dart';
-// Import the common widgets
 
 class HomeDesktopScreen extends GetView<HomeController> {
   const HomeDesktopScreen({super.key});
@@ -32,7 +31,6 @@ class HomeDesktopScreen extends GetView<HomeController> {
     );
 
     return Scaffold(
-      backgroundColor: const Color(0xFF1A1A2E),
       body: SafeArea(
         child: Stack(
           alignment: Alignment.center,

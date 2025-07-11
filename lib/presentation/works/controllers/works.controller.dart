@@ -1,40 +1,23 @@
-import 'dart:developer';
-
 import 'package:portfolio/domain/models/project.model.dart';
-import 'package:portfolio/infrastructure/dal/services/project_service.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-// ignore: unused_import
-import '../widgets/infinte.tilted.strip.dart';
+import 'package:portfolio/infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 
 class WorksController extends GetxController {
-  final ScrollController scrollController = ScrollController();
-
-  final projects = <ProjectModel>[].obs;
-  final isLoading = false.obs;
+  late var projects = <ProjectModel>[].obs;
+  late var isLoading = false.obs;
+  final InfoFetchController infoFetchController =
+      Get.find<InfoFetchController>();
 
   @override
   void onInit() {
     super.onInit();
-    fetchProjects();
-  }
-
-  Future<void> fetchProjects() async {
-    isLoading.value = true;
-    try {
-      final data = await Get.find<ProjectService>().fetchAll();
-      projects.assignAll(data);
-    } catch (e) {
-      fetchProjects();
-      log('Error fetching projects: $e');
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
-  @override
-  void onClose() {
-    scrollController.dispose();
+    isLoading.value = infoFetchController.isProjectsLoading.value;
+    projects.value = infoFetchController.projects;
+    ever(infoFetchController.isProjectsLoading, (val) {
+      isLoading.value = val;
+    });
+    ever(infoFetchController.projects, (val) {
+      projects.value = val;
+    });
   }
 }

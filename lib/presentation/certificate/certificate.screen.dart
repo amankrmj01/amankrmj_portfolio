@@ -1,11 +1,10 @@
-import 'package:portfolio/configs/certificates.dart';
+import 'package:portfolio/infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import 'package:portfolio/presentation/certificate/views/certificate_mobile_view.dart';
 import 'package:portfolio/presentation/certificate/views/certificate_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:portfolio/presentation/certificate/widgets/k.home.certificates.scroll.dart';
-import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 
 import '../../utils/k.showGeneralDialog.dart';
 import 'controllers/certificate.controller.dart';
@@ -15,8 +14,9 @@ class CertificateScreen extends GetView<CertificateController> {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find<HomeController>();
-    final isMobile = homeController.currentDevice.value == Device.Mobile;
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
+    final isMobile = infoFetchController.currentDevice.value == Device.Mobile;
     return Obx(() {
       if (controller.isLoading.value) {
         return const Center(child: CircularProgressIndicator());
@@ -24,7 +24,7 @@ class CertificateScreen extends GetView<CertificateController> {
       return SizedBox(
         height: isMobile ? MediaQuery.of(context).size.height * 0.85 : 656,
         child: KCertificateScrollList(
-          items: certificates,
+          items: controller.certificates,
           onCardTap: (cert, context) {
             showBlurredGeneralDialog(
               context: context,

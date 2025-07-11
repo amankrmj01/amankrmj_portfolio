@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:flutter/gestures.dart';
 import 'package:portfolio/domain/models/about.me.info.model.dart';
 import 'package:portfolio/domain/models/experience.model.dart';
 import 'package:portfolio/presentation/about_me/widgets/animated.experience.card.dart';
@@ -10,7 +9,6 @@ import 'package:portfolio/presentation/experience/experience.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../configs/experience.dart';
 import '../../utils/k.navigate.dart';
 import '../experience/controllers/experience.controller.dart';
 import 'controllers/about_me.controller.dart';
@@ -56,7 +54,7 @@ class AboutMeScreen extends GetView<AboutMeController> {
             ),
           ),
           child: Obx(
-            () => controller.isLoading.value
+            () => (controller.isLoading.value || controller.isExpLoading.value)
                 ? const Center(child: CircularProgressIndicator())
                 : width > 1000
                 ? Row(
@@ -64,20 +62,30 @@ class AboutMeScreen extends GetView<AboutMeController> {
                       Flexible(
                         flex: 4,
                         child: AboutMeDetailsColumn(
-                          summary: controller.aboutMeInfo.value?.summary,
-                          profession: controller.aboutMeInfo.value?.profession,
-                          education: controller.aboutMeInfo.value?.education,
-                          experience: controller.aboutMeInfo.value?.experience,
-                          email: controller.aboutMeInfo.value?.email,
-                          interests: controller.aboutMeInfo.value?.interests,
+                          summary: controller.aboutMeInfo.value?.summary ?? '',
+                          profession:
+                              controller.aboutMeInfo.value?.profession ?? '',
+                          education:
+                              controller.aboutMeInfo.value?.education ?? '',
+                          experience:
+                              controller.aboutMeInfo.value?.experience ?? '',
+                          email: controller.aboutMeInfo.value?.email ?? '',
+                          interests:
+                              controller.aboutMeInfo.value?.interests ?? [],
+                          technicalInterests:
+                              controller
+                                  .aboutMeInfo
+                                  .value
+                                  ?.technicalInterests ??
+                              [],
                         ),
                       ),
                       const SizedBox(width: 60),
                       Flexible(
                         flex: 3,
                         child: AboutMeToolsColumn(
-                          tools: controller.aboutMeInfo.value!.tools,
-                          experiences: experiences,
+                          tools: controller.aboutMeInfo.value?.tools ?? [],
+                          experiences: controller.experiences,
                         ),
                       ),
                     ],
@@ -107,21 +115,30 @@ class AboutMeScreen extends GetView<AboutMeController> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             AboutMeDetailsColumn(
-                              summary: controller.aboutMeInfo.value?.summary,
+                              summary:
+                                  controller.aboutMeInfo.value?.summary ?? '',
                               profession:
-                                  controller.aboutMeInfo.value?.profession,
+                                  controller.aboutMeInfo.value?.profession ??
+                                  '',
                               education:
-                                  controller.aboutMeInfo.value?.education,
+                                  controller.aboutMeInfo.value?.education ?? '',
                               experience:
-                                  controller.aboutMeInfo.value?.experience,
-                              email: controller.aboutMeInfo.value?.email,
+                                  controller.aboutMeInfo.value?.experience ??
+                                  '',
+                              email: controller.aboutMeInfo.value?.email ?? '',
                               interests:
-                                  controller.aboutMeInfo.value?.interests,
+                                  controller.aboutMeInfo.value?.interests ?? [],
+                              technicalInterests:
+                                  controller
+                                      .aboutMeInfo
+                                      .value
+                                      ?.technicalInterests ??
+                                  [],
                             ),
                             const SizedBox(height: 24),
                             AboutMeToolsColumn(
-                              tools: controller.aboutMeInfo.value!.tools,
-                              experiences: experiences,
+                              tools: controller.aboutMeInfo.value?.tools ?? [],
+                              experiences: controller.experiences,
                             ),
                           ],
                         ),
@@ -136,21 +153,23 @@ class AboutMeScreen extends GetView<AboutMeController> {
 }
 
 class AboutMeDetailsColumn extends StatelessWidget {
-  final String? summary;
-  final String? profession;
-  final String? education;
-  final String? experience;
-  final String? email;
-  final List<String>? interests;
+  final String summary;
+  final String profession;
+  final String education;
+  final String experience;
+  final String email;
+  final List<String> interests;
+  final List<String> technicalInterests;
 
   const AboutMeDetailsColumn({
     super.key,
-    this.summary,
-    this.profession,
-    this.education,
-    this.experience,
-    this.email,
-    this.interests,
+    required this.summary,
+    required this.profession,
+    required this.education,
+    required this.experience,
+    required this.email,
+    required this.interests,
+    required this.technicalInterests,
   });
 
   @override
@@ -160,27 +179,30 @@ class AboutMeDetailsColumn extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          summary ?? '',
+          summary,
           textAlign: TextAlign.justify,
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 24),
-        Row(
+        Wrap(
+          spacing: 2,
+          runSpacing: 6,
           children: [
             const Icon(Icons.work_outline, size: 20),
             const SizedBox(width: 8),
-            Text(
-              'Profession: $profession',
-              style: const TextStyle(fontSize: 16),
-            ),
+            Text('Profession: ', style: const TextStyle(fontSize: 16)),
+            Text(profession, style: const TextStyle(fontSize: 16)),
           ],
         ),
         const SizedBox(height: 12),
-        Row(
+        Wrap(
+          spacing: 2,
+          runSpacing: 6,
           children: [
             const Icon(Icons.school_outlined, size: 20),
             const SizedBox(width: 8),
-            Text('Education: $education', style: const TextStyle(fontSize: 16)),
+            Text('Education: ', style: const TextStyle(fontSize: 16)),
+            Text(education, style: const TextStyle(fontSize: 16)),
           ],
         ),
         const SizedBox(height: 12),
@@ -208,19 +230,60 @@ class AboutMeDetailsColumn extends StatelessWidget {
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
         ),
         const SizedBox(height: 8),
-        if (interests != null)
-          Wrap(
-            spacing: 8,
-            children: interests!
-                .map(
-                  (interest) => Chip(
-                    label: Text(interest.toString()),
-                    backgroundColor: Colors.blue.shade50,
-                    labelStyle: const TextStyle(color: Colors.blue),
+
+        Wrap(
+          spacing: 8,
+          children: interests
+              .map(
+                (interest) => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
                   ),
-                )
-                .toList(),
-          ),
+                  decoration: BoxDecoration(
+                    color: Color.lerp(Colors.black, Colors.transparent, 0.85),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white60),
+                  ),
+                  child: Text(
+                    interest.toString(),
+                    style: const TextStyle(color: Colors.blue),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
+
+        const SizedBox(height: 16),
+        const Text(
+          'Technical Interest:',
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
+        const SizedBox(height: 8),
+
+        Wrap(
+          spacing: 8,
+          runSpacing: 4,
+          children: technicalInterests
+              .map(
+                (technicalInterest) => Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Color.lerp(Colors.black, Colors.transparent, 0.85),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(color: Colors.white60),
+                  ),
+                  child: Text(
+                    technicalInterest.toString(),
+                    style: const TextStyle(color: Colors.blue),
+                  ),
+                ),
+              )
+              .toList(),
+        ),
       ],
     );
   }

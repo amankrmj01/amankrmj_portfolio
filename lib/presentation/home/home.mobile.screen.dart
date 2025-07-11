@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/presentation/home/views/home_menu_bar_view.dart';
 import 'package:portfolio/presentation/home/widgets/widgets.dart';
+import '../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../widgets/k.pretty.animated.dart';
 import '../../widgets/mesh.background.dart';
 import 'controllers/home.controller.dart';
@@ -13,6 +14,10 @@ class HomeMobileScreen extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
+    // ignore: unused_local_variable
+    final isMobile = infoFetchController.currentDevice.value == Device.Mobile;
     return Scaffold(
       appBar: AppBar(backgroundColor: const Color(0xFF1A1A2E)),
 
@@ -59,10 +64,7 @@ class HomeMobileScreen extends GetView<HomeController> {
                     ),
                     SizedBox(
                       height: MediaQuery.of(context).size.height,
-                      child: FooterScreen(
-                        isMobile:
-                            controller.currentDevice.value == Device.Mobile,
-                      ),
+                      child: FooterScreen(),
                     ),
                   ],
                 ),
@@ -107,7 +109,7 @@ class HomeMobileScreen extends GetView<HomeController> {
                 alignment: Alignment.center,
                 child: CodeBlock(),
               ),
-              socialLinksRow(controller),
+              socialLinksRow(),
             ],
           ),
         ),

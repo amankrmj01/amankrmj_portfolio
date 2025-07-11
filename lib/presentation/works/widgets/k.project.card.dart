@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/domain/models/project.model.dart';
 
+import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../../widgets/k.image.dart';
-import '../../home/controllers/home.controller.dart';
 
 class KProjectCard extends StatefulWidget {
   final ProjectModel project;
@@ -84,8 +84,9 @@ class _KProjectCard extends State<KProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find<HomeController>();
-    final bool isMobile = homeController.currentDevice.value == Device.Mobile;
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
+    final isMobile = infoFetchController.currentDevice.value == Device.Mobile;
     final bool expandToContent = widget.expandToContentHeight;
     return MouseRegion(
       cursor: isHover ? SystemMouseCursors.click : SystemMouseCursors.basic,

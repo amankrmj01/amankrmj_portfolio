@@ -1,4 +1,5 @@
 import 'package:flutter_svg/svg.dart';
+import 'package:portfolio/infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import 'package:portfolio/presentation/footer/views/contact_me_view.dart';
 import 'package:portfolio/widgets/animated.navigate.button.dart';
 import 'package:flutter/material.dart';
@@ -12,9 +13,7 @@ import 'controllers/footer.controller.dart';
 import '../home/controllers/home.controller.dart';
 
 class FooterScreen extends GetView<FooterController> {
-  final bool? isMobile;
-
-  const FooterScreen({this.isMobile = false, super.key});
+  const FooterScreen({super.key});
 
   final Color _footerForegroundColor = const Color(0xFFC7D3B6);
 
@@ -107,112 +106,70 @@ class FooterScreen extends GetView<FooterController> {
   }
 
   Widget _footerSocial({required bool swap}) {
-    final homeController = Get.find<HomeController>();
     return swap
         ? Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Flexible(
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    width: 200,
-                    child: AnimatedNavigateButton(
-                      borderRadius: 16,
-                      label: "View Resume",
-                      onTap: () => launchUrlExternal(
-                        homeController.socialLinks.value?.resume ?? '',
-                      ),
-                      icon: SvgPicture.asset(
-                        'assets/icons/resume.svg',
-                        width: 28,
-                        height: 28,
-                      ),
-                      width: 200,
-                    ),
-                  ),
-                ),
-              ),
-              Flexible(
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    width: 200,
-                    child: Builder(
-                      builder: (context) => AnimatedNavigateButton(
-                        borderRadius: 16,
-                        label: "Contact Me",
-                        onTap: () {
-                          showBlurredGeneralDialog(
-                            context: context,
-                            builder: (context) => ContactMeView(),
-                          );
-                        },
-                        icon: Image.asset(
-                          'assets/icons/contact_me.png',
-                          width: 28,
-                          height: 28,
-                          fit: BoxFit.fitHeight,
-                        ),
-                        width: 200,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
+              Flexible(child: viewResumeButton()),
+              Flexible(child: contactButton()),
             ],
           )
         : Column(
             mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Container(
-                alignment: Alignment.centerLeft,
-                width: 200,
-                child: AnimatedNavigateButton(
-                  borderRadius: 16,
-                  label: "View Resume",
-                  onTap: () => launchUrlExternal(
-                    homeController.socialLinks.value?.resume ?? '',
-                  ),
-                  icon: SvgPicture.asset(
-                    'assets/icons/resume.svg',
-                    width: 28,
-                    height: 28,
-                  ),
-                  width: 200,
-                ),
-              ),
+              viewResumeButton(),
               const SizedBox(height: 40),
-              Container(
-                alignment: Alignment.centerLeft,
-                width: 200,
-                child: Builder(
-                  builder: (context) => AnimatedNavigateButton(
-                    borderRadius: 16,
-                    label: "Contact Me",
-                    onTap: () {
-                      showBlurredGeneralDialog(
-                        context: context,
-                        builder: (context) => ContactMeView(),
-                      );
-                    },
-                    icon: Image.asset(
-                      'assets/icons/contact_me.png',
-                      width: 28,
-                      height: 28,
-                      fit: BoxFit.fitHeight,
-                    ),
-                    width: 200,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 14),
+              contactButton(),
             ],
           );
+  }
+
+  Container viewResumeButton() {
+    final homeController = Get.find<HomeController>();
+    return Container(
+      alignment: Alignment.centerLeft,
+      width: 200,
+      child: AnimatedNavigateButton(
+        borderRadius: 16,
+        label: "View Resume",
+        onTap: () =>
+            launchUrlExternal(homeController.socialLinks.value?.resume ?? ''),
+        icon: SvgPicture.asset(
+          'assets/icons/resume.svg',
+          width: 28,
+          height: 28,
+        ),
+        width: 200,
+      ),
+    );
+  }
+
+  Container contactButton() {
+    return Container(
+      alignment: Alignment.centerLeft,
+      width: 250,
+      child: Builder(
+        builder: (context) => AnimatedNavigateButton(
+          borderRadius: 16,
+          label: "Send Me a Message",
+          onTap: () {
+            showBlurredGeneralDialog(
+              context: context,
+              builder: (context) => ContactMeView(),
+            );
+          },
+          icon: Image.asset(
+            'assets/icons/contact_me.png',
+            width: 28,
+            height: 28,
+            fit: BoxFit.fitHeight,
+          ),
+          width: 250,
+        ),
+      ),
+    );
   }
 
   Widget _madeWithFlutterLabel() {
@@ -243,6 +200,9 @@ class FooterScreen extends GetView<FooterController> {
 
   @override
   Widget build(BuildContext context) {
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
+    bool isMobile = infoFetchController.currentDevice.value == Device.Mobile;
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       width: double.infinity,
@@ -250,11 +210,11 @@ class FooterScreen extends GetView<FooterController> {
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: [
-          SizedBox(height: isMobile! ? kToolbarHeight : 124),
-          Expanded(flex: 6, child: _quoteSection(isMobile: isMobile!)),
-          isMobile!
+          SizedBox(height: isMobile ? kToolbarHeight : 124),
+          Expanded(flex: 6, child: _quoteSection(isMobile: isMobile)),
+          isMobile
               ? Expanded(
-                  flex: 4,
+                  flex: 3,
                   child: SizedBox(
                     width: double.infinity,
                     child: ColoredBox(
@@ -268,17 +228,18 @@ class FooterScreen extends GetView<FooterController> {
                                 ? Column(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
+                                    mainAxisSize: MainAxisSize.min,
                                     children: [
-                                      _footerWelcomePart(isMobile: isMobile!),
+                                      _footerWelcomePart(isMobile: isMobile),
                                       const SizedBox(height: 20, width: 20),
-                                      _footerSocial(swap: swap),
+                                      viewResumeButton(),
                                     ],
                                   )
                                 : Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceEvenly,
                                     children: [
-                                      _footerWelcomePart(isMobile: isMobile!),
+                                      _footerWelcomePart(isMobile: isMobile),
                                       const SizedBox(height: 20, width: 20),
                                       _footerSocial(swap: swap),
                                     ],

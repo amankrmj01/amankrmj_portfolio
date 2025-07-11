@@ -1,11 +1,11 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:portfolio/domain/models/project.model.dart';
 import 'package:portfolio/infrastructure/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../widgets/k.infinite.scroll.image.dart';
-import '../controllers/works.controller.dart';
 
 class WorkView extends StatefulWidget {
   final ProjectModel project;
@@ -18,15 +18,13 @@ class WorkView extends StatefulWidget {
 }
 
 class _WorkViewState extends State<WorkView> {
-  final controller = Get.find<WorksController>();
-
   @override
   Widget build(BuildContext context) {
     final isMobile = widget.project.type == 'mobile';
 
     return Center(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
         child: Material(
           color: Colors.transparent,
           child: Container(
@@ -51,8 +49,17 @@ class _WorkViewState extends State<WorkView> {
                               flex: 2,
                               child: Padding(
                                 padding: const EdgeInsets.all(24.0),
-                                child: SingleChildScrollView(
-                                  child: _buildContent(),
+                                child: ScrollConfiguration(
+                                  behavior: ScrollConfiguration.of(context)
+                                      .copyWith(
+                                        dragDevices: {
+                                          PointerDeviceKind.touch,
+                                          PointerDeviceKind.mouse,
+                                        },
+                                      ),
+                                  child: SingleChildScrollView(
+                                    child: _buildContent(),
+                                  ),
                                 ),
                               ),
                             ),
@@ -79,15 +86,23 @@ class _WorkViewState extends State<WorkView> {
                       _buildAppBar(context),
                       const Divider(height: 1),
                       Flexible(
-                        child: SingleChildScrollView(
-                          padding: const EdgeInsets.all(24.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              _buildImageSection(),
-                              const SizedBox(height: 24),
-                              _buildContent(),
-                            ],
+                        child: ScrollConfiguration(
+                          behavior: ScrollConfiguration.of(context).copyWith(
+                            dragDevices: {
+                              PointerDeviceKind.touch,
+                              PointerDeviceKind.mouse,
+                            },
+                          ),
+                          child: SingleChildScrollView(
+                            padding: const EdgeInsets.all(24.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _buildImageSection(),
+                                const SizedBox(height: 24),
+                                _buildContent(),
+                              ],
+                            ),
                           ),
                         ),
                       ),

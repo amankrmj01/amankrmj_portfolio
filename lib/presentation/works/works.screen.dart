@@ -1,10 +1,10 @@
-import 'package:portfolio/presentation/home/controllers/home.controller.dart';
 import 'package:portfolio/presentation/works/views/work_mobile_view.dart';
 import 'package:portfolio/presentation/works/views/work_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/presentation/works/widgets/k.home.projects.scroll.dart';
 
+import '../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../utils/k.showGeneralDialog.dart';
 import 'controllers/works.controller.dart';
 
@@ -13,8 +13,9 @@ class WorksScreen extends GetView<WorksController> {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find<HomeController>();
-    final isMobile = homeController.currentDevice.value == Device.Mobile;
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
+    final isMobile = infoFetchController.currentDevice.value == Device.Mobile;
     return Obx(() {
       if (controller.isLoading.value) {
         return const Center(child: CircularProgressIndicator());

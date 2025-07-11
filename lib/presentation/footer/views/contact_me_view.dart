@@ -51,17 +51,16 @@ class _ContactMeViewState extends State<ContactMeView> {
     _messageController.clear();
 
     final PingServerService pingServerService = PingServerService();
-    _pingUntilSuccess(pingServerService);
+    _ping(pingServerService);
   }
 
-  Future<void> _pingUntilSuccess(PingServerService pingServerService) async {
+  Future<void> _ping(PingServerService pingServerService) async {
     final Logger logger = Logger();
-    while (true) {
+    {
       try {
         final result = await pingServerService.ping();
         if (result == 'true') {
           logger.i('Server connected');
-          break;
         } else {
           logger.w('Server not connected, try again');
         }
@@ -116,7 +115,7 @@ class _ContactMeViewState extends State<ContactMeView> {
   }) {
     return InputDecoration(
       labelText: label,
-      labelStyle: const TextStyle(color: Colors.black),
+      labelStyle: const TextStyle(color: Colors.black54),
       floatingLabelBehavior: FloatingLabelBehavior.never,
       prefixIcon: Icon(icon, color: Colors.black),
       filled: true,
@@ -156,6 +155,7 @@ class _ContactMeViewState extends State<ContactMeView> {
       minLines: minLines,
       maxLines: maxLines,
       keyboardType: keyboardType,
+
       decoration: _inputDecoration(label: label, icon: icon, context: context),
       validator: validator,
       textInputAction: textInputAction,
@@ -242,7 +242,7 @@ class _ContactMeViewState extends State<ContactMeView> {
                               children: [
                                 _buildTextFormField(
                                   controller: _countryCodeController,
-                                  label: 'Country Code',
+                                  label: '+91',
                                   icon: Icons.flag_outlined,
                                   width: 100,
                                   keyboardType: TextInputType.phone,
