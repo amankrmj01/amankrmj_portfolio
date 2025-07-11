@@ -19,6 +19,7 @@ class AboutMeController extends GetxController {
   void onInit() {
     super.onInit();
     isLoading.value = infoFetchController.isAboutMeInfoLoading.value;
+    isExpLoading.value = infoFetchController.isExperienceLoading.value;
     aboutMeInfo.value = infoFetchController.aboutMeInfo.value;
     experiences.value = infoFetchController.experiences;
 
