@@ -34,7 +34,11 @@ class _WorkViewState extends State<WorkView> {
                     : 776) -
                 80,
             decoration: BoxDecoration(
-              color: Color.lerp(Color(0xFF23304A), Colors.transparent, 0.06)!,
+              color: Color.lerp(
+                Color.lerp(Colors.blue, Colors.black, 0.8),
+                Colors.transparent,
+                0.2,
+              )!,
               borderRadius: BorderRadius.circular(24),
             ),
             child: isMobile
