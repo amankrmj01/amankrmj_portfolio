@@ -174,6 +174,7 @@ class AboutMeDetailsColumn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,7 +183,10 @@ class AboutMeDetailsColumn extends StatelessWidget {
           Text(
             summary,
             textAlign: TextAlign.justify,
-            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            style: TextStyle(
+              fontSize: isMobile ? 12 : 18,
+              fontWeight: FontWeight.w600,
+            ),
           ),
         const SizedBox(height: 24),
         if (profession.trim().isNotEmpty)
