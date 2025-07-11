@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:portfolio/presentation/home/widgets/widgets.dart';
@@ -41,42 +42,56 @@ class HomeTabletScreen extends GetView<HomeController> {
                     PointerDeviceKind.mouse,
                   },
                 ),
-                child: Scrollbar(
-                  controller: controller.scrollController,
-
-                  thumbVisibility: true,
-                  thickness: 8,
-                  radius: const Radius.circular(8),
-                  interactive: true,
-                  child: SingleChildScrollView(
-                    controller: controller.scrollController,
-                    child: Column(
-                      children: [
-                        _mainSection(context),
-                        HeaderSection(
-                          context: context,
-                          title: 'Recent Works',
-                          view: const AllWorksView(),
-                          sectionKey: HomeController.recentWorksKey,
+                child: Listener(
+                  onPointerSignal: (pointerSignal) {
+                    if (pointerSignal is PointerScrollEvent) {
+                      if (controller.isScrolling.value) {
+                        // Forward scroll event to homeController's scrollController
+                        controller.scrollController.position.moveTo(
+                          controller.scrollController.offset +
+                              pointerSignal.scrollDelta.dy,
+                        );
+                      }
+                    }
+                  },
+                  child: Obx(
+                    () => Scrollbar(
+                      controller: controller.scrollController,
+                      thumbVisibility: controller.isScrolling.value,
+                      thickness: 8,
+                      radius: const Radius.circular(8),
+                      interactive: true,
+                      child: SingleChildScrollView(
+                        controller: controller.scrollController,
+                        child: Column(
+                          children: [
+                            _mainSection(context),
+                            HeaderSection(
+                              context: context,
+                              title: 'Recent Works',
+                              view: const AllWorksView(),
+                              sectionKey: HomeController.recentWorksKey,
+                            ),
+                            const WorksScreen(),
+                            HeaderSection(
+                              context: context,
+                              title: 'Recent Certificates',
+                              view: const AllCertificatesView(),
+                              sectionKey: HomeController.recentCertificatesKey,
+                            ),
+                            const CertificateScreen(),
+                            SizedBox(
+                              key: HomeController.aboutMeKey,
+                              height: MediaQuery.of(context).size.height,
+                              child: const AboutMeScreen(),
+                            ),
+                            SizedBox(
+                              height: MediaQuery.of(context).size.height,
+                              child: const FooterScreen(),
+                            ),
+                          ],
                         ),
-                        const WorksScreen(),
-                        HeaderSection(
-                          context: context,
-                          title: 'Recent Certificates',
-                          view: const AllCertificatesView(),
-                          sectionKey: HomeController.recentCertificatesKey,
-                        ),
-                        const CertificateScreen(),
-                        SizedBox(
-                          key: HomeController.aboutMeKey,
-                          height: MediaQuery.of(context).size.height,
-                          child: const AboutMeScreen(),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          child: const FooterScreen(),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),

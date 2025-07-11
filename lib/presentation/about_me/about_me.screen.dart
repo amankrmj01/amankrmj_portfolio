@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/gestures.dart';
 import 'package:portfolio/domain/models/about.me.info.model.dart';
 import 'package:portfolio/domain/models/experience.model.dart';
 import 'package:portfolio/presentation/about_me/widgets/animated.experience.card.dart';
@@ -12,6 +13,7 @@ import 'package:get/get.dart';
 import '../../configs/experience.dart';
 import '../../utils/k.navigate.dart';
 import '../experience/controllers/experience.controller.dart';
+import '../home/controllers/home.controller.dart';
 import 'controllers/about_me.controller.dart';
 
 class AboutMeScreen extends GetView<AboutMeController> {
@@ -89,27 +91,41 @@ class AboutMeScreen extends GetView<AboutMeController> {
                         PointerDeviceKind.mouse,
                       },
                     ),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          AboutMeDetailsColumn(
-                            summary: controller.aboutMeInfo.value?.summary,
-                            profession:
-                                controller.aboutMeInfo.value?.profession,
-                            education: controller.aboutMeInfo.value?.education,
-                            experience:
-                                controller.aboutMeInfo.value?.experience,
-                            email: controller.aboutMeInfo.value?.email,
-                            interests: controller.aboutMeInfo.value?.interests,
-                          ),
-                          const SizedBox(height: 24),
-                          AboutMeToolsColumn(
-                            tools: controller.aboutMeInfo.value!.tools,
-                            experiences: experiences,
-                          ),
-                        ],
+                    child: Listener(
+                      onPointerSignal: (pointerSignal) {
+                        controller.handlePointerSignal(pointerSignal);
+                      },
+                      onPointerMove: (pointerEvent) {
+                        controller.handlePointerMove(pointerEvent);
+                      },
+                      onPointerDown: (pointerEvent) {
+                        controller.handlePointerDown(pointerEvent);
+                      },
+                      child: SingleChildScrollView(
+                        controller: controller.scrollController,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            AboutMeDetailsColumn(
+                              summary: controller.aboutMeInfo.value?.summary,
+                              profession:
+                                  controller.aboutMeInfo.value?.profession,
+                              education:
+                                  controller.aboutMeInfo.value?.education,
+                              experience:
+                                  controller.aboutMeInfo.value?.experience,
+                              email: controller.aboutMeInfo.value?.email,
+                              interests:
+                                  controller.aboutMeInfo.value?.interests,
+                            ),
+                            const SizedBox(height: 24),
+                            AboutMeToolsColumn(
+                              tools: controller.aboutMeInfo.value!.tools,
+                              experiences: experiences,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

@@ -24,39 +24,49 @@ class HomeMobileScreen extends GetView<HomeController> {
           Positioned.fill(child: SharedMeshBackground()),
           SingleChildScrollView(
             controller: controller.scrollController,
-            child: Column(
-              children: [
-                _mainSection(context),
-                const SizedBox(height: 10),
-                HeaderSection(
-                  context: context,
-                  title: 'Recent Works',
-                  sectionKey: HomeController.recentWorksKey,
-                ),
-                const SizedBox(height: 10),
-                const WorksScreen(),
-                const SizedBox(height: 20),
+            child: Obx(
+              () => Scrollbar(
+                controller: controller.scrollController,
+                thumbVisibility: controller.isScrolling.value,
+                thickness: 8,
+                radius: const Radius.circular(8),
+                interactive: true,
+                child: Column(
+                  children: [
+                    _mainSection(context),
+                    const SizedBox(height: 10),
+                    HeaderSection(
+                      context: context,
+                      title: 'Recent Works',
+                      sectionKey: HomeController.recentWorksKey,
+                    ),
+                    const SizedBox(height: 10),
+                    const WorksScreen(),
+                    const SizedBox(height: 20),
 
-                HeaderSection(
-                  context: context,
-                  title: 'Recent Certificates',
-                  sectionKey: HomeController.recentCertificatesKey,
+                    HeaderSection(
+                      context: context,
+                      title: 'Recent Certificates',
+                      sectionKey: HomeController.recentCertificatesKey,
+                    ),
+                    const SizedBox(height: 10),
+                    const CertificateScreen(),
+                    const SizedBox(height: 20),
+                    SizedBox(
+                      key: HomeController.aboutMeKey,
+                      height: MediaQuery.of(context).size.height,
+                      child: const AboutMeScreen(),
+                    ),
+                    SizedBox(
+                      height: MediaQuery.of(context).size.height,
+                      child: FooterScreen(
+                        isMobile:
+                            controller.currentDevice.value == Device.Mobile,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10),
-                const CertificateScreen(),
-                const SizedBox(height: 20),
-                SizedBox(
-                  key: HomeController.aboutMeKey,
-                  height: MediaQuery.of(context).size.height,
-                  child: const AboutMeScreen(),
-                ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height,
-                  child: FooterScreen(
-                    isMobile: controller.currentDevice.value == Device.Mobile,
-                  ),
-                ),
-              ],
+              ),
             ),
           ),
         ],

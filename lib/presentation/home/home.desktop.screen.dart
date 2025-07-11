@@ -47,41 +47,43 @@ class HomeDesktopScreen extends GetView<HomeController> {
                     PointerDeviceKind.mouse,
                   },
                 ),
-                child: Scrollbar(
-                  controller: controller.scrollController,
-                  thumbVisibility: true,
-                  thickness: 8,
-                  radius: const Radius.circular(8),
-                  interactive: true,
-                  child: SingleChildScrollView(
+                child: Obx(
+                  () => Scrollbar(
                     controller: controller.scrollController,
-                    child: Column(
-                      children: [
-                        _mainSection(context),
-                        HeaderSection(
-                          context: context,
-                          title: 'Recent Works',
-                          view: const AllWorksView(),
-                          sectionKey: HomeController.recentWorksKey,
-                        ),
-                        const WorksScreen(),
-                        HeaderSection(
-                          context: context,
-                          title: 'Recent Certificates',
-                          view: const AllCertificatesView(),
-                          sectionKey: HomeController.recentCertificatesKey,
-                        ),
-                        const CertificateScreen(),
-                        SizedBox(
-                          key: HomeController.aboutMeKey,
-                          height: MediaQuery.of(context).size.height,
-                          child: const AboutMeScreen(),
-                        ),
-                        SizedBox(
-                          height: MediaQuery.of(context).size.height,
-                          child: const FooterScreen(),
-                        ),
-                      ],
+                    thumbVisibility: controller.isScrolling.value,
+                    thickness: 8,
+                    radius: const Radius.circular(8),
+                    interactive: true,
+                    child: SingleChildScrollView(
+                      controller: controller.scrollController,
+                      child: Column(
+                        children: [
+                          _mainSection(context),
+                          HeaderSection(
+                            context: context,
+                            title: 'Recent Works',
+                            view: const AllWorksView(),
+                            sectionKey: HomeController.recentWorksKey,
+                          ),
+                          const WorksScreen(),
+                          HeaderSection(
+                            context: context,
+                            title: 'Recent Certificates',
+                            view: const AllCertificatesView(),
+                            sectionKey: HomeController.recentCertificatesKey,
+                          ),
+                          const CertificateScreen(),
+                          SizedBox(
+                            key: HomeController.aboutMeKey,
+                            height: MediaQuery.of(context).size.height,
+                            child: const AboutMeScreen(),
+                          ),
+                          SizedBox(
+                            height: MediaQuery.of(context).size.height,
+                            child: const FooterScreen(),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

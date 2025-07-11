@@ -22,14 +22,13 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
   ];
 
   int _currentIndex = 0;
-  bool _mounted = false;
 
   @override
   void initState() {
     super.initState();
 
     Future.delayed(const Duration(seconds: 5), () {
-      _mounted = true;
+      if (!mounted) return;
       setState(() {
         _currentIndex = 0;
       });
@@ -38,9 +37,9 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
   }
 
   void _runAnimationLoop() async {
-    while (_mounted) {
+    while (mounted) {
       await Future.delayed(const Duration(seconds: 6));
-      if (!_mounted) break;
+      if (!mounted) break;
       setState(() {
         if (_currentIndex < _words.length - 1) {
           _currentIndex += 1;
@@ -53,7 +52,6 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
 
   @override
   void dispose() {
-    _mounted = false;
     super.dispose();
   }
 
@@ -69,7 +67,7 @@ class _KPrettyAnimatedState extends State<KPrettyAnimated> {
       fontSize = 50;
     }
 
-    if (!_mounted) {
+    if (!mounted) {
       return const SizedBox.shrink();
     }
     return KeyedSubtree(
