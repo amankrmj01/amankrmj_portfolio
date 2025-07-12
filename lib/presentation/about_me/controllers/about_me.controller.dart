@@ -1,9 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portfolio/domain/models/experience.model.dart';
 import 'package:portfolio/domain/models/tools_model/tools.model.dart';
 import '../../../domain/models/about_me_info_model/about.me.info.model.dart';
+import '../../../domain/models/experience_model/experience.model.dart';
 import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../home/controllers/home.controller.dart';
 

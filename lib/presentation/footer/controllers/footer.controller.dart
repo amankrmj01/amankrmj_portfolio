@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 import 'package:portfolio/infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 
-import '../../../domain/models/quote.model.dart';
+import '../../../domain/models/quote_model/quote.model.dart';
 
 class FooterController extends GetxController {
   late var quotes = <QuoteModel>[].obs;

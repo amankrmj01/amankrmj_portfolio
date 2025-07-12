@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:portfolio/domain/models/experience.model.dart';
 import 'package:portfolio/infrastructure/navigation/routes.dart';
 import 'package:portfolio/presentation/about_me/widgets/animated.experience.card.dart';
 import 'package:portfolio/presentation/about_me/widgets/animated.tools.widget.dart';
@@ -8,6 +7,7 @@ import 'package:portfolio/presentation/about_me/widgets/animated.tools.widget.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../domain/models/experience_model/experience.model.dart';
 import '../../domain/models/tools_model/tools.model.dart';
 import '../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../experience/controllers/experience.controller.dart';

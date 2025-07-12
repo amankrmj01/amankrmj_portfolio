@@ -1,13 +1,13 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'package:portfolio/domain/models/contact_form.model.dart';
+import 'package:portfolio/domain/models/contact_details_model/contact.details.model.dart';
 
 import '../../../configs/constant_strings.dart';
 
 class AddContactService {
   static const String _addContactUrl = "${api}add/contact";
 
-  Future<String> addContact(ContactFormModel contact) async {
+  Future<String> addContact(ContactDetailsModel contact) async {
     try {
       final response = await http.post(
         Uri.parse(_addContactUrl),

@@ -6,7 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'package:portfolio/widgets/k.image.dart';
 
-import '../../../domain/models/certificate.model.dart';
+import '../../../domain/models/certificate_model/certificate.model.dart';
 
 class CertificateView extends StatelessWidget {
   final CertificateModel certificate;

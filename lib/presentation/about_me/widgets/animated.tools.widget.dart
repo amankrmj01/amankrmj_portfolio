@@ -218,7 +218,7 @@ class _AnimatedToolsWidgetState extends State<AnimatedToolsWidget>
 class _LeftCircleClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
-    final double radius = 36; // slightly larger than the avatar
+    final double radius = 35.9; // slightly larger than the avatar
     final path = Path();
     path.moveTo(radius, 0);
     path.lineTo(size.width, 0);

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
-import 'package:portfolio/domain/models/social_links.model.dart';
 import 'package:portfolio/infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 
+import '../../../domain/models/social_links_model/social.links.model.dart';
 import '../../../infrastructure/dal/services/ping.server.dart';
 
 class HomeController extends GetxController {

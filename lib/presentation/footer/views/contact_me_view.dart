@@ -4,7 +4,7 @@ import 'package:atlas_icons/atlas_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
-import 'package:portfolio/domain/models/contact_form.model.dart';
+import 'package:portfolio/domain/models/contact_details_model/contact.details.model.dart';
 import 'package:portfolio/infrastructure/dal/services/add.contact.service.dart';
 import 'package:get/get.dart';
 
@@ -85,7 +85,7 @@ class _ContactMeViewState extends State<ContactMeView> {
     final now = DateTime.now();
     final date = DateFormat('MMMM d, yyyy').format(now);
     final time = DateFormat('hh:mm a').format(now);
-    final contactForm = ContactFormModel(
+    final contactForm = ContactDetailsModel(
       name: name,
       countryCode: countryCode,
       phoneNumber: phone,

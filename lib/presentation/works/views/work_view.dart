@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:portfolio/domain/models/project.model.dart';
 import 'package:portfolio/infrastructure/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../../domain/models/project_model/project.model.dart';
 import '../../../widgets/k.infinite.scroll.image.dart';
 
 class WorkView extends StatefulWidget {

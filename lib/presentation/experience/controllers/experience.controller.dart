@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 import 'package:mesh_gradient/mesh_gradient.dart';
 import 'package:portfolio/infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 
-import '../../../domain/models/experience.model.dart';
+import '../../../domain/models/experience_model/experience.model.dart';
 
 class ExperienceController extends GetxController
     with GetSingleTickerProviderStateMixin {

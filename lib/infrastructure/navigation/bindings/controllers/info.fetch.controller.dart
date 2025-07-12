@@ -1,20 +1,22 @@
-import 'package:get/get.dart';
-import 'package:portfolio/domain/models/certificate.model.dart';
-import 'package:portfolio/domain/models/project.model.dart';
-import 'package:portfolio/domain/models/quote.model.dart';
-import 'package:portfolio/domain/models/tools_model/tools.model.dart';
-import 'package:portfolio/infrastructure/dal/servicess/certificates.fetch.service.dart';
-import 'package:portfolio/infrastructure/dal/servicess/projects.fetch.service.dart';
 import 'dart:developer';
+import 'package:get/get.dart';
 
 import '../../../../domain/models/about_me_info_model/about.me.info.model.dart';
-import '../../../../domain/models/experience.model.dart';
-import '../../../../domain/models/social_links.model.dart';
-import '../../../dal/servicess/about.me.info.fetch.service.dart';
-import '../../../dal/servicess/experiences.info.fetch.service.dart';
-import '../../../dal/servicess/quotes.fetch.service.dart';
-import '../../../dal/servicess/social.links.fetch.service.dart';
-import '../../../dal/servicess/tools.fetch.service.dart';
+
+import '../../../../domain/models/certificate_model/certificate.model.dart';
+import '../../../../domain/models/experience_model/experience.model.dart';
+import '../../../../domain/models/project_model/project.model.dart';
+import '../../../../domain/models/quote_model/quote.model.dart';
+import '../../../../domain/models/social_links_model/social.links.model.dart';
+import '../../../../domain/models/tools_model/tools.model.dart';
+
+import '../../../dal/services/about.me.info.fetch.service.dart';
+import '../../../dal/services/certificates.fetch.service.dart';
+import '../../../dal/services/experiences.info.fetch.service.dart';
+import '../../../dal/services/projects.fetch.service.dart';
+import '../../../dal/services/quotes.fetch.service.dart';
+import '../../../dal/services/social.links.fetch.service.dart';
+import '../../../dal/services/tools.fetch.service.dart';
 
 // ignore: constant_identifier_names
 enum Device { Desktop, Tablet, Mobile }

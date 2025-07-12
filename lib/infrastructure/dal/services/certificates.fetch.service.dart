@@ -1,6 +1,6 @@
-import 'package:portfolio/infrastructure/dal/servicess/abstract.fetch.service.dart';
+import 'package:portfolio/infrastructure/dal/services/abstract.fetch.service.dart';
 
-import '../../../domain/models/certificate.model.dart';
+import '../../../domain/models/certificate_model/certificate.model.dart';
 
 class CertificatesFetchService extends FetchService<CertificateModel> {
   CertificatesFetchService()

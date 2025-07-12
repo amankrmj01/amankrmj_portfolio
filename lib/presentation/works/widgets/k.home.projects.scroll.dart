@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portfolio/domain/models/project.model.dart';
 import 'package:portfolio/presentation/works/widgets/k.project.card.dart';
 
+import '../../../domain/models/project_model/project.model.dart';
 import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 
 import '../../../infrastructure/navigation/routes.dart';

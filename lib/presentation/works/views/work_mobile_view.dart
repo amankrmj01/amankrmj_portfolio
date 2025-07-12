@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:portfolio/domain/models/project.model.dart';
 import 'package:portfolio/infrastructure/theme/colors.dart';
 import 'package:portfolio/widgets/k.image.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../../../domain/models/project_model/project.model.dart';
 
 class WorkMobileView extends StatelessWidget {
   final ProjectModel project;

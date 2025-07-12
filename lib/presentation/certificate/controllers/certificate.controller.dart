@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../../../domain/models/certificate.model.dart';
+import '../../../domain/models/certificate_model/certificate.model.dart';
 import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 
 class CertificateController extends GetxController {

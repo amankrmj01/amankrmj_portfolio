@@ -3,8 +3,8 @@ import 'dart:math';
 import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portfolio/domain/models/project.model.dart';
 
+import '../../../domain/models/project_model/project.model.dart';
 import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../../widgets/k.image.dart';
 

@@ -3,12 +3,11 @@ import 'dart:math';
 import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:portfolio/domain/models/contact_details_model/contact.details.model.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-import '../../../domain/models/contact_form.model.dart';
-
 class FileCard extends StatefulWidget {
-  final ContactFormModel file;
+  final ContactDetailsModel file;
 
   const FileCard({super.key, required this.file});
 
@@ -65,7 +64,7 @@ class _FileCardState extends State<FileCard> with TickerProviderStateMixin {
     launchUrl(Uri.parse(whatsappUrl));
   }
 
-  Widget _buildContactDetails(ContactFormModel file) {
+  Widget _buildContactDetails(ContactDetailsModel file) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

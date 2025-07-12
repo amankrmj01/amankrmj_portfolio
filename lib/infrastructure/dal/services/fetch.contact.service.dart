@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:crypto/crypto.dart';
 import 'package:http/http.dart' as http;
-import 'package:portfolio/domain/models/contact_form.model.dart';
+import 'package:portfolio/domain/models/contact_details_model/contact.details.model.dart';
 
 import '../../../configs/constant_strings.dart';
 
@@ -36,7 +36,9 @@ class FetchContactService {
     };
   }
 
-  Future<List<ContactFormModel>> fetchContacts({required String string}) async {
+  Future<List<ContactDetailsModel>> fetchContacts({
+    required String string,
+  }) async {
     log('Fetching contacts from $_baseUrl', name: 'FetchContactService');
     try {
       final headers = await getAuthHeadersWithPassword(string);
@@ -60,7 +62,7 @@ class FetchContactService {
           'Successfully fetched ${data.length} contacts',
           name: 'FetchContactService',
         );
-        return data.map((json) => ContactFormModel.fromJson(json)).toList();
+        return data.map((json) => ContactDetailsModel.fromJson(json)).toList();
       } else {
         log(
           'Failed to load contacts: ${response.statusCode}',

@@ -4,7 +4,7 @@ import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../domain/models/experience.model.dart';
+import '../../../domain/models/experience_model/experience.model.dart';
 import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../../infrastructure/theme/colors.dart';
 

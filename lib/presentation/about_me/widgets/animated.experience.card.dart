@@ -3,7 +3,8 @@ import 'dart:math';
 
 import 'package:aura_box/aura_box.dart';
 import 'package:flutter/material.dart';
-import '../../../domain/models/experience.model.dart';
+
+import '../../../domain/models/experience_model/experience.model.dart';
 
 class AnimatedExperienceCard extends StatefulWidget {
   final List<ExperienceModel> experiences;

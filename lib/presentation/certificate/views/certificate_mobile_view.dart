@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:portfolio/infrastructure/theme/colors.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:portfolio/widgets/k.image.dart';
-import '../../../domain/models/certificate.model.dart';
+
+import '../../../domain/models/certificate_model/certificate.model.dart';
 
 class CertificateMobileView extends StatelessWidget {
   final CertificateModel certificate;

@@ -1,6 +1,6 @@
 import 'package:atlas_icons/atlas_icons.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio/domain/models/contact_form.model.dart';
+import 'package:portfolio/domain/models/contact_details_model/contact.details.model.dart';
 import 'package:portfolio/infrastructure/dal/services/fetch.contact.service.dart';
 
 import 'package:velocity_x/velocity_x.dart';
@@ -18,9 +18,9 @@ class ContactScreenView extends StatefulWidget {
 }
 
 class _ContactScreenViewState extends State<ContactScreenView> {
-  static List<ContactFormModel>? _cachedFiles;
+  static List<ContactDetailsModel>? _cachedFiles;
   bool _isLoading = true;
-  late List<ContactFormModel> files = [];
+  late List<ContactDetailsModel> files = [];
 
   @override
   void initState() {

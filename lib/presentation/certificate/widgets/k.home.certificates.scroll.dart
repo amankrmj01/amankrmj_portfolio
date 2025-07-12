@@ -2,9 +2,9 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portfolio/domain/models/certificate.model.dart';
 import 'package:portfolio/presentation/certificate/widgets/k.certificate.card.dart';
 
+import '../../../domain/models/certificate_model/certificate.model.dart';
 import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../../infrastructure/navigation/routes.dart';
 
