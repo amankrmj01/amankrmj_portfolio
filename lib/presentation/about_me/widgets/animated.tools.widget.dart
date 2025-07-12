@@ -1,12 +1,13 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:portfolio/configs/constant_strings.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
-import '../../../domain/models/about.me.info.model.dart';
+import '../../../domain/models/tools_model/tools.model.dart';
 
 class AnimatedToolsWidget extends StatefulWidget {
-  final List<ToolModel> tools;
+  final List<ToolsModel> tools;
   final Duration duration;
 
   const AnimatedToolsWidget({
@@ -171,12 +172,12 @@ class _AnimatedToolsWidgetState extends State<AnimatedToolsWidget>
                   alignment: _alignmentAnim.value,
                   child: Opacity(
                     opacity: _opacityAnim.value,
-                    child: CachedNetworkImage(
-                      imageUrl: assetGithubUrl + tool.image,
+                    child: SvgPicture.network(
+                      assetGithubUrl + tool.image,
                       width: 48,
                       height: 48,
-                      placeholder: (context, url) => const SizedBox.shrink(),
-                      errorWidget: (context, url, error) =>
+                      placeholderBuilder: (context) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) =>
                           const Icon(Icons.error),
                     ),
                   ),
@@ -190,13 +191,18 @@ class _AnimatedToolsWidgetState extends State<AnimatedToolsWidget>
                   )!,
                   child: Opacity(
                     opacity: 1 - _controller.value,
-                    child: CachedNetworkImage(
-                      imageUrl: assetGithubUrl + tool.image,
+                    child: SvgPicture.network(
+                      assetGithubUrl + tool.image,
                       width: 48,
                       height: 48,
-                      placeholder: (context, url) => const SizedBox.shrink(),
-                      errorWidget: (context, url, error) =>
-                          const Icon(Icons.error),
+                      placeholderBuilder: (context) => const SizedBox.shrink(),
+                      errorBuilder: (context, error, stackTrace) {
+                        Get.snackbar(
+                          'Error',
+                          'Error loading tool image: ${tool.image}\n$error',
+                        );
+                        return const Icon(Icons.error);
+                      },
                     ),
                   ),
                 );

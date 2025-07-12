@@ -32,7 +32,7 @@ deployed on Render using Docker.
 
 1. **Clone the repository:**
    ```bash
-   git clone <your-repo-url>
+   git clone https://github.com/amankrmj01/portfolio
    cd portfolio
    ```
 2. **Install dependencies:**
@@ -43,24 +43,41 @@ deployed on Render using Docker.
    ```bash
    flutter run -d chrome
    ```
-   Or for mobile:
-   ```bash
-   flutter run
-   ```
 
 ### Backend Setup
 
 1. Configure Spring Boot backend to serve data from GitHub.
-2. Build and run the backend using Docker:
+2. Build the Docker image (replace `<username on docker hub>` with your Docker Hub username):
    ```bash
-   docker build -t portfolio-backend .
-   docker run -p 8080:8080 portfolio-backend
+   docker build -t <username on docker hub>/java-application .
+   ```
+3. Run the backend in a container:
+   ```bash
+   docker run -p 8080:8080 -d <username on docker hub>/java-application
+   ```
+4. To check if the backend is working, access `http://localhost:8080` in your browser or use
+   curl/postman.
+5. Push the image to Docker Hub:
+   ```bash
+   docker push <username on docker hub>/java-application
    ```
 
 ### Deployment
 
 - Frontend is deployed on GitHub Pages using GitHub Actions.
 - Backend is deployed on [Render](https://render.com/) using Docker.
+
+## Live Demo
+
+[Portfolio Website](https://amankrmj01.github.io/portfolio/)
+
+## Backend Repository
+
+[portfolio_backend](https://github.com/amankrmj01/portfolio_backend)
+
+## Frontend Repository
+
+[portfolio](https://github.com/amankrmj01/portfolio)
 
 ## Folder Structure
 

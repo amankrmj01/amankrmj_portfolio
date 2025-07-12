@@ -2,19 +2,19 @@ import 'package:get/get.dart';
 import 'package:portfolio/domain/models/certificate.model.dart';
 import 'package:portfolio/domain/models/project.model.dart';
 import 'package:portfolio/domain/models/quote.model.dart';
+import 'package:portfolio/domain/models/tools_model/tools.model.dart';
 import 'package:portfolio/infrastructure/dal/servicess/certificates.fetch.service.dart';
 import 'package:portfolio/infrastructure/dal/servicess/projects.fetch.service.dart';
 import 'dart:developer';
 
-import '../../../../domain/models/about.me.info.model.dart';
+import '../../../../domain/models/about_me_info_model/about.me.info.model.dart';
 import '../../../../domain/models/experience.model.dart';
 import '../../../../domain/models/social_links.model.dart';
 import '../../../dal/servicess/about.me.info.fetch.service.dart';
 import '../../../dal/servicess/experiences.info.fetch.service.dart';
 import '../../../dal/servicess/quotes.fetch.service.dart';
 import '../../../dal/servicess/social.links.fetch.service.dart';
-
-import 'package:portfolio/configs/about.me.info.dart' as config;
+import '../../../dal/servicess/tools.fetch.service.dart';
 
 // ignore: constant_identifier_names
 enum Device { Desktop, Tablet, Mobile }
@@ -26,6 +26,7 @@ class InfoFetchController extends GetxController {
   final isSocialLinksLoading = true.obs;
   final isCertificatesLoading = true.obs;
   final isProjectsLoading = true.obs;
+  final isToolsLoading = true.obs;
 
   final quotes = <QuoteModel>[].obs;
   final aboutMeInfo = Rxn<AboutMeInfoModel>();
@@ -33,6 +34,7 @@ class InfoFetchController extends GetxController {
   final socialLinks = Rxn<SocialLinksModel>();
   final certificates = <CertificateModel>[].obs;
   final projects = <ProjectModel>[].obs;
+  final tools = <ToolsModel>[].obs;
 
   Future<void> fetchQuotes() async {
     isQuotesLoading.value = true;
@@ -51,19 +53,33 @@ class InfoFetchController extends GetxController {
     }
   }
 
+  Future<void> fetchTools() async {
+    isToolsLoading.value = true;
+    try {
+      final service = ToolsFetchService();
+      final data = await service.fetchData();
+      if (isClosed) return;
+      tools.assignAll(data);
+    } catch (e) {
+      log('Error fetching tools: \${e.toString()}', name: 'ToolsFetchService');
+      tools.clear();
+    } finally {
+      isToolsLoading.value = false;
+    }
+  }
+
   Future<void> fetchAboutMeInfo() async {
     isAboutMeInfoLoading.value = true;
     try {
       final service = AboutMeInfoFetchService();
-      final List<dynamic> links = await service.fetchData();
+      final links = await service.fetchData();
       if (isClosed) return;
-      aboutMeInfo.value = links.first;
+      aboutMeInfo.value = links.first as AboutMeInfoModel?;
     } catch (e) {
       log(
         'Error fetching about me info: ${e.toString()}',
         name: 'AboutMeInfoFetchService',
       );
-      aboutMeInfo.value = config.aboutMeInfo;
     } finally {
       isAboutMeInfoLoading.value = false;
     }
@@ -169,6 +185,7 @@ class InfoFetchController extends GetxController {
     super.onInit();
     fetchQuotes();
     fetchAboutMeInfo();
+    fetchTools();
     fetchExperiences();
     fetchSocialLinks();
     fetchCertificates();

@@ -1,27 +1,35 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:portfolio/domain/models/about.me.info.model.dart';
 import 'package:portfolio/domain/models/experience.model.dart';
+import 'package:portfolio/domain/models/tools_model/tools.model.dart';
+import '../../../domain/models/about_me_info_model/about.me.info.model.dart';
 import '../../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../../home/controllers/home.controller.dart';
 
 class AboutMeController extends GetxController {
-  late var aboutMeInfo = Rxn<AboutMeInfoModel>();
-  late var isLoading = true.obs;
-  late var isExpLoading = true.obs;
+  final ScrollController scrollController = ScrollController();
   final InfoFetchController infoFetchController =
       Get.find<InfoFetchController>();
-  final ScrollController scrollController = ScrollController();
+
+  late var aboutMeInfo = Rxn<AboutMeInfoModel>();
+  late var tools = <ToolsModel>[].obs;
   late var experiences = <ExperienceModel>[].obs;
+
+  late var isLoading = true.obs;
+  late var isExpLoading = true.obs;
+  late var isToolsLoading = true.obs;
 
   @override
   void onInit() {
     super.onInit();
     isLoading.value = infoFetchController.isAboutMeInfoLoading.value;
     isExpLoading.value = infoFetchController.isExperienceLoading.value;
+    isToolsLoading.value = infoFetchController.isToolsLoading.value;
+
     aboutMeInfo.value = infoFetchController.aboutMeInfo.value;
     experiences.value = infoFetchController.experiences;
+    tools.value = infoFetchController.tools;
 
     ever(infoFetchController.isAboutMeInfoLoading, (val) {
       isLoading.value = val;
@@ -29,12 +37,20 @@ class AboutMeController extends GetxController {
     ever(infoFetchController.isExperienceLoading, (val) {
       isExpLoading.value = val;
     });
+    ever(infoFetchController.isToolsLoading, (val) {
+      isToolsLoading.value = val;
+    });
+
     ever(infoFetchController.experiences, (val) {
       experiences.value = val;
     });
     ever(infoFetchController.aboutMeInfo, (val) {
       aboutMeInfo.value = val;
     });
+    ever(infoFetchController.tools, (val) {
+      tools.value = val;
+    });
+
     scrollController.addListener(_handleScrollEdge);
   }
 

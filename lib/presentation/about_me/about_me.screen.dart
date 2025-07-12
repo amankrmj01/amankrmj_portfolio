@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:portfolio/domain/models/about.me.info.model.dart';
 import 'package:portfolio/domain/models/experience.model.dart';
 import 'package:portfolio/infrastructure/navigation/routes.dart';
 import 'package:portfolio/presentation/about_me/widgets/animated.experience.card.dart';
@@ -9,6 +8,8 @@ import 'package:portfolio/presentation/about_me/widgets/animated.tools.widget.da
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../domain/models/tools_model/tools.model.dart';
+import '../../infrastructure/navigation/bindings/controllers/info.fetch.controller.dart';
 import '../experience/controllers/experience.controller.dart';
 import 'controllers/about_me.controller.dart';
 
@@ -19,9 +20,16 @@ class AboutMeScreen extends GetView<AboutMeController> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+    final InfoFetchController infoFetchController =
+        Get.find<InfoFetchController>();
+    final isMobile = infoFetchController.currentDevice.value == Device.Mobile;
     return SafeArea(
       child: SizedBox(
-        height: height * 0.70,
+        height: isMobile
+            ? height * 0.85
+            : height * 0.70 > 656
+            ? height * 0.70
+            : 656,
         width: double.infinity,
         child: Container(
           margin: const EdgeInsets.only(
@@ -83,7 +91,7 @@ class AboutMeScreen extends GetView<AboutMeController> {
                       Flexible(
                         flex: 3,
                         child: AboutMeToolsColumn(
-                          tools: controller.aboutMeInfo.value?.tools ?? [],
+                          tools: controller.tools,
                           experiences: controller.experiences,
                         ),
                       ),
@@ -137,7 +145,7 @@ class AboutMeScreen extends GetView<AboutMeController> {
                             ),
                             const SizedBox(height: 24),
                             AboutMeToolsColumn(
-                              tools: controller.aboutMeInfo.value?.tools ?? [],
+                              tools: controller.tools,
                               experiences: controller.experiences,
                             ),
                           ],
@@ -300,7 +308,7 @@ class AboutMeDetailsColumn extends StatelessWidget {
 }
 
 class AboutMeToolsColumn extends StatelessWidget {
-  final List<ToolModel> tools;
+  final List<ToolsModel> tools;
   final List<ExperienceModel> experiences;
 
   const AboutMeToolsColumn({

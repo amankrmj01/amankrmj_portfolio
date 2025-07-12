@@ -13,6 +13,6 @@ class HomeControllerBinding extends Bindings {
     Get.lazyPut<CertificateController>(() => CertificateController());
     Get.lazyPut<WorksController>(() => WorksController());
     Get.lazyPut<FooterController>(() => FooterController());
-    Get.put(AboutMeController());
+    Get.lazyPut<AboutMeController>(() => AboutMeController());
   }
 }

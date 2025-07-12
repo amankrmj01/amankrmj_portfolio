@@ -1,5 +1,5 @@
-import 'package:portfolio/domain/models/about.me.info.model.dart';
-import 'package:portfolio/infrastructure/dal/servicess/abstract.fetch.service.dart';
+import '../../../domain/models/about_me_info_model/about.me.info.model.dart';
+import 'abstract.fetch.service.dart';
 
 class AboutMeInfoFetchService extends FetchService<AboutMeInfoModel> {
   AboutMeInfoFetchService()
